@@ -12,6 +12,7 @@
 	<!--General Context	-->
 	<div id="settingForm" class="container">
 		<h1 class="headline">Comic Canvas</h1>
+		<input id="title" class="title" type="text" placeholder="Give your story a title..." maxlength="50">
 		<textarea class="textbox" maxlength="200" placeholder="Craft your own reality..." id="setting"></textarea>
 		<div class="dropdowns">
 			<select class="style-dropdown" id="style">
@@ -122,7 +123,7 @@
 
 
 	<script>
-		const selectElement = document.querySelector(".panel");
+		const selectElement = document.querySelector(".panels");
 		selectElement.addEventListener("change", (event) => {
 			const result = document.querySelector(".result");
 			result.textContent = `You like ${event.target.value}`;
@@ -148,7 +149,6 @@
 					console.error(error);
 				});
 		}
-
 
 		const form = document.getElementById("settingForm");
 
