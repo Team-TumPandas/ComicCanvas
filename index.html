@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<title>Comic Canvas</title>
 	<link rel="stylesheet" href="style.css">
+	<script src="script.js"></script>
 </head>
 
 <body>
@@ -39,7 +40,66 @@
 				<p>Titan 3000</p>
 			</div>
 		</div>
-	</div>
+		<!--Page layout	-->	
+		
+		</div> <!--end of containerflex-->
+			<title>Flexbox with two divs horizontally</title>
+			<style>
+				.container2 {
+					display: flex;
+					flex-direction: row;
+					justify-content: space-between;
+					align-items: center;
+					background-color: #f2f2f2;
+					padding: 20px;
+					box-sizing: border-box;
+					border: 1px solid #ccc;
+					margin: 0 auto;
+					width: 800px;
+					height: 200px;
+				}
+				.box1 {
+					background-color: #ccc;
+					padding: 10px;
+					box-sizing: border-box;
+					flex-basis: 45%;
+					height: 90%;
+				}
+				.box2 {
+					background-color: #aaa;
+					padding: 20px;
+					box-sizing: border-box;
+					flex-basis: 45%;
+					height: 90%;
+				}
+			</style>
+
+		<body>
+			<div class="container2">
+				<div class="box1">
+					<p>Layout.</p>
+				<div class="hiddenradio">
+				<title>Page</title>
+				<label>
+				  <input type="radio" name="test" value="small" checked>
+				  <img src="images/comic layout.png", width="80", height="80">
+				</label>
+				<label>
+				  <input type="radio" name="test" value="big">
+				  <img src="images/comic layout 2.png", width="80", height="80">
+				</label><label>
+				  <input type="radio" name="test" value="big">
+				  <img src="images/comic layout 3.png", width="80", height="80">
+				</label>
+				<div class="box2">
+					
+				</div>
+			</div>
+		</body>
+
+
+		
+		
 </body>
 
 </html>
