@@ -12,6 +12,7 @@
 	<!--General Context	-->
 	<div id="settingForm" class="container">
 		<h1 class="headline">Comic Canvas</h1>
+		<input id="title" class="title" type="text" placeholder="Give your story a title..." maxlength="50">
 		<textarea class="textbox" maxlength="200" placeholder="Craft your own reality..." id="setting"></textarea>
 		<div class="dropdowns">
 			<select class="style-dropdown" id="style">
@@ -37,11 +38,11 @@
 					<img src="images/Zara Nova.png">
 					<div class="input-sections">
 						<input class="name" type="text" placeholder="Name" id="character_1_name">
-						<div class="attributes">
+						<!-- <div class="attributes">
 							<input class="attribute" type="text" placeholder="Attribute 1" id="character_1_attr_1">
 							<input class="attribute" type="text" placeholder="Attribute 2" id="character_1_attr_2">
 							<input class="attribute" type="text" placeholder="Attribute 3" id="character_1_attr_3">
-						</div>
+						</div> -->
 						<textarea class="description" placeholder="Enter a brief description here..."
 							id="character_1_description"></textarea>
 					</div>
@@ -51,11 +52,11 @@
 					<img src="images/Orion Black.png">
 					<div class="input-sections">
 						<input class="name" type="text" placeholder="Name" id="character_2_name">
-						<div class="attributes">
+						<!-- <div class="attributes">
 							<input class="attribute" type="text" placeholder="Attribute 1" id="character_2_attr_1">
 							<input class="attribute" type="text" placeholder="Attribute 2" id="character_2_attr_2">
 							<input class="attribute" type="text" placeholder="Attribute 3" id="character_2_attr_3">
-						</div>
+						</div> -->
 						<textarea class="description" placeholder="Enter a brief description here..."
 							id="character_2_description"></textarea>
 					</div>
@@ -65,11 +66,11 @@
 					<img src="images/Titan 3000.png">
 					<div class="input-sections">
 						<input class="name" type="text" placeholder="Name" id="character_3_name">
-						<div class="attributes">
+						<!-- <div class="attributes">
 							<input class="attribute" type="text" placeholder="Attribute 1" id="character_3_attr_1">
 							<input class="attribute" type="text" placeholder="Attribute 2" id="character_3_attr_2">
 							<input class="attribute" type="text" placeholder="Attribute 3" id="character_3_attr_3">
-						</div>
+						</div> -->
 						<textarea class="description" placeholder="Enter a brief description here..."
 							id="character_3_description"></textarea>
 					</div>
@@ -77,11 +78,11 @@
 			</div>
 		</div>
 		<button onClick="sendSetting()" class="submit-button" id="submit-setting">Construct Universe</button>
-		<hr>
 	</div>
 
 	<!--Next page-->
 	<form id="pageForm" class="container">
+		<hr>
 		<h2>Page</h2>
 		<textarea class="textbox" maxlength="500" placeholder="What happens next?" id="page_description"></textarea>
 		<button class="submit-button">Let your storyline unfold...</button>
@@ -123,7 +124,11 @@
 			})
 				.then(response => {
 					// Handle the response from the server
-					console.log(response);
+					//console.log(response);
+					response.json().then(parsedValue => {
+						// code that can access both here
+						console.log(parsedValue)
+					})
 				})
 				.catch(error => {
 					// Handle any errors that occurred during the request
@@ -137,29 +142,36 @@
 		function sendSetting() {
 
 			const data = {
+				title: document.getElementById("title").value,
 				setting: document.getElementById("setting").value,
 				style: document.getElementById("style").value,
 				genre: document.getElementById("genre").value,
 				character_1_name: document.getElementById("character_1_name").value,
-				character_1_attr_1: document.getElementById("character_1_attr_1").value,
-				character_1_attr_2: document.getElementById("character_1_attr_2").value,
-				character_1_attr_3: document.getElementById("character_1_attr_3").value,
+				// character_1_attr_1: document.getElementById("character_1_attr_1").value,
+				// character_1_attr_2: document.getElementById("character_1_attr_2").value,
+				// character_1_attr_3: document.getElementById("character_1_attr_3").value,
 				character_1_description: document.getElementById("character_1_description").value,
 				character_2_name: document.getElementById("character_2_name").value,
-				character_2_attr_1: document.getElementById("character_2_attr_1").value,
-				character_2_attr_2: document.getElementById("character_2_attr_2").value,
-				character_2_attr_3: document.getElementById("character_2_attr_3").value,
+				// character_2_attr_1: document.getElementById("character_2_attr_1").value,
+				// character_2_attr_2: document.getElementById("character_2_attr_2").value,
+				// character_2_attr_3: document.getElementById("character_2_attr_3").value,
 				character_2_description: document.getElementById("character_2_description").value,
 				character_3_name: document.getElementById("character_3_name").value,
-				character_3_attr_1: document.getElementById("character_3_attr_1").value,
-				character_3_attr_2: document.getElementById("character_3_attr_2").value,
-				character_3_attr_3: document.getElementById("character_3_attr_3").value,
+				// character_3_attr_1: document.getElementById("character_3_attr_1").value,
+				// character_3_attr_2: document.getElementById("character_3_attr_2").value,
+				// character_3_attr_3: document.getElementById("character_3_attr_3").value,
 				character_3_description: document.getElementById("character_3_description").value,
 			};
 
 			postJSON(data);
 
 		}
+
+		function processPageInput() {
+
+		}
+
+
 	</script>
 
 </body>

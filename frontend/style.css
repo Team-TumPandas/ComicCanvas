@@ -1,9 +1,9 @@
 /* Set the accent colors */
 :root {
-    --accent-color-1: #FF4081;
+    --accent-color-1: #d3386c;
     /* Pink */
-    --accent-color-2: #4caf4f;
-    --accent-color-3: #b3c9aa;
+    --accent-color-2: #67c0c8;
+    --accent-color-3: #67c0c86e;
     /* Green */
 }
 
@@ -12,22 +12,39 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+
 }
 
 /* Style the container */
 .container {
     max-width: 1000px;
     margin: 0 auto;
-    padding: 40px;
+    padding: 20px;
 }
 
 /* Style the headline */
 .headline {
-    font-size: 3rem;
+    font-size: 5rem;
     font-weight: bold;
     text-align: center;
     color: var(--accent-color-1);
+    margin-bottom: 40px;
+}
+
+.title {
+    font-size: 2rem;
+    width: 100%;
+    font-weight: bold;
+    text-align: left;
     margin-bottom: 20px;
+    border: rgb(0, 0, 0, 0);
+    background-color: var(--accent-color-3);
+    padding: 6px;
+}
+
+.title::placeholder {
+    color: rgba(0, 0, 0, 0.357);
+    font-weight: normal;
 }
 
 /* Style the textbox */
@@ -59,7 +76,7 @@
     border: 2px solid var(--accent-color-2);
     border-radius: 5px;
     background-color: #fff;
-    color: #FF4081;
+    color: var(--accent-color-1);
 }
 
 /* Style the dropdown options */
