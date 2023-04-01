@@ -80,38 +80,115 @@
 				</div>
 			</div>
 			<button onClick="sendSetting()" class="submit-button" id="submit-setting">Construct Universe</button>
+			<hr>
 		</div>
 
 		<!--Next page-->
 		<form id="pageForm" class="container">
-			<hr>
 			<h2>Page</h2>
 			<textarea class="textbox" maxlength="500" placeholder="What happens next?" id="page_description"></textarea>
 			<button class="submit-button">Let your storyline unfold...</button>
 		</form>
 
 		<!--Canvas-->
-		<div class="container">
+		<div class="containerflex">
 			<div class="box1">
-				<p>Layout.</p>
+				<h2>Layout</h2>
 				<div class="hiddenradio">
 					<title>Page</title>
 					<label>
-						<input type="radio" name="test" value="small" checked>
-						<img src="images/comic layout.png" , width="80" , height="80">
+						<input type="radio" , name="test" value="big" checked>
+						<img src="images/comic layout.png" ,alt="Layout1" , width="80" , height="80">
 					</label>
 					<label>
 						<input type="radio" name="test" value="big">
-						<img src="images/comic layout 2.png" , width="80" , height="80">
+						<img src="images/comic layout 2.png" ,alt="Layout2" width="80" , height="80">
 					</label><label>
 						<input type="radio" name="test" value="big">
-						<img src="images/comic layout 3.png" , width="80" , height="80">
+						<img src="images/comic layout 3.png" ,alt="Layout3" width="80" , height="80">
 					</label>
 				</div>
 			</div>
+			<!--choose panels-->
+			<div class="box2">
+				<select class="panels" name="panels">
+					<option value="images/comic layout.png">Panel 1</option>
+					<option value="images/comic layout.png">Panel 2</option>
+					<option value="images/comic layout.png">Panel 3</option>
+					<option value="images/comic layout 3.png">Panel 4</option>
+					<option value="images/comic layout 3.png">Panel 5</option>
+					<option value="images/comic layout.png">Panel 6</option>
+				</select>
+
+			</div>
+
+		</div>
+		<div class="container">
+			<style>
+				/* Set the width of the columns */
+				.column1 {
+					width: 30%;
+					float: left;
+				}
+
+				.column2 {
+					width: 70%;
+					float: left;
+				}
+			</style>
+			<div>
+				<div class="column1">
+					<form id="pageForm">
+						<h2>Description</h2>
+						<textarea class="textbox" maxlength="700" placeholder="Storyline"
+							id="page_description"></textarea>
+					</form>
+
+					<style>
+						/* Style for the dialogue boxes */
+						.dialogue {
+							display: inline-block;
+							padding: 10px;
+							background-color: #fff;
+							border: 2px solid #000;
+							border-radius: 5px;
+							margin: 10px;
+						}
+
+						/* Style for the character names */
+						.character-name {
+							font-weight: bold;
+							margin-right: 10px;
+						}
+					</style>
+					</head>
+
+					<body>
+						<!-- First character dialogue -->
+						<div class="dialogue">
+							<span class="character-name">Character 1:</span>
+							<span class="dialogue-text">[Insert dialogue here which is super long]</span>
+						</div>
+						<!-- Second character dialogue -->
+						<div class="dialogue">
+							<span class="character-name">Character 2:</span>
+							<span class="dialogue-text">[Insert dialogue here which is super long]</span>
+						</div>
+						<!-- Third character dialogue -->
+						<div class="dialogue">
+							<span class="character-name">Character 3:</span>
+							<span class="dialogue-text">[Insert dialogue here which is super long]</span>
+						</div>
+				</div>
+			</div>
+			<div class="column2">
+				<div class="panel">
+					<img class="result" src="images/comic layout 3.png" , width=120%,></img>
+				</div>
+			</div>
+
 		</div>
 	</div>
-
 	<div class="sidebar">
 		<select class="dropdown" id="chat">
 			<option value="">Writing Buddy</option>
@@ -127,8 +204,12 @@
 		<button class="send-button">Send!</button>
 		<!-- your additional content here -->
 	</div>
-
 	<script>
+		const selectElement = document.querySelector(".panels");
+		selectElement.addEventListener("change", (event) => {
+			const result = document.querySelector(".result");
+			result.src = event.target.value;
+		});
 
 		var prefix = 'http://192.168.2.2:6969'
 
@@ -143,11 +224,7 @@
 			})
 				.then(response => {
 					// Handle the response from the server
-					//console.log(response);
-					response.json().then(parsedValue => {
-						// code that can access both here
-						console.log(parsedValue)
-					})
+					console.log(response);
 				})
 				.catch(error => {
 					// Handle any errors that occurred during the request
@@ -155,42 +232,34 @@
 				});
 		}
 
-
 		const form = document.getElementById("settingForm");
 
 		function sendSetting() {
 
 			const data = {
-				title: document.getElementById("title").value,
 				setting: document.getElementById("setting").value,
 				style: document.getElementById("style").value,
 				genre: document.getElementById("genre").value,
 				character_1_name: document.getElementById("character_1_name").value,
-				// character_1_attr_1: document.getElementById("character_1_attr_1").value,
-				// character_1_attr_2: document.getElementById("character_1_attr_2").value,
-				// character_1_attr_3: document.getElementById("character_1_attr_3").value,
+				character_1_attr_1: document.getElementById("character_1_attr_1").value,
+				character_1_attr_2: document.getElementById("character_1_attr_2").value,
+				character_1_attr_3: document.getElementById("character_1_attr_3").value,
 				character_1_description: document.getElementById("character_1_description").value,
 				character_2_name: document.getElementById("character_2_name").value,
-				// character_2_attr_1: document.getElementById("character_2_attr_1").value,
-				// character_2_attr_2: document.getElementById("character_2_attr_2").value,
-				// character_2_attr_3: document.getElementById("character_2_attr_3").value,
+				character_2_attr_1: document.getElementById("character_2_attr_1").value,
+				character_2_attr_2: document.getElementById("character_2_attr_2").value,
+				character_2_attr_3: document.getElementById("character_2_attr_3").value,
 				character_2_description: document.getElementById("character_2_description").value,
 				character_3_name: document.getElementById("character_3_name").value,
-				// character_3_attr_1: document.getElementById("character_3_attr_1").value,
-				// character_3_attr_2: document.getElementById("character_3_attr_2").value,
-				// character_3_attr_3: document.getElementById("character_3_attr_3").value,
+				character_3_attr_1: document.getElementById("character_3_attr_1").value,
+				character_3_attr_2: document.getElementById("character_3_attr_2").value,
+				character_3_attr_3: document.getElementById("character_3_attr_3").value,
 				character_3_description: document.getElementById("character_3_description").value,
 			};
 
 			postJSON(data);
 
 		}
-
-		function processPageInput() {
-
-		}
-
-
 	</script>
 
 </body>

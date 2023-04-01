@@ -1,6 +1,6 @@
 /* Set the accent colors */
 :root {
-    --accent-color-1: #d3386c;
+    --accent-color-1: #E10075;
     --accent-color-4: #d3386c6e;
     /* Pink */
     --accent-color-2: #67c0c8;
@@ -131,6 +131,14 @@ h2 {
     border-radius: 5px;
 }
 
+.panel {
+    height: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
 .input-sections {
     position: relative;
     bottom: 0;
@@ -138,6 +146,17 @@ h2 {
     right: 0;
     padding: 10px;
     border-radius: 0 0 5px 5px;
+}
+
+.input-sections2 {
+    position: relative;
+    width: 60%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    border-radius: 0 0 5px 5px;
+    background-color: var(--accent-color-3);
 }
 
 .input-sections .name {
@@ -202,21 +221,58 @@ hr {
 }
 
 .containerflex {
-    display: flex;
-    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
     margin-bottom: 20px;
     width: 100%;
     margin-bottom: 5px;
     padding: 8px;
+    columns: 2;
+}
+
+.containerflex2 {
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 8px;
+    flex: 40 60%;
 }
 
 .box1 {
     background-color: #FFFFFF;
     padding: 5px;
-    box-sizing: border-box;
-    flex-basis: 45%;
-    height: 200px;
+    height: 150px;
     margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 100%;
+}
+
+.box2 {
+    margin: auto;
+    height: 200px;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    /* bottom */
+
+    display: flex;
+    padding: 10px;
+}
+
+.panels {
+    font-size: 30px;
+    /* adjust font size as desired */
+    padding: 10px;
+    /* adjust padding as desired */
+    width: 200px;
+    /* adjust width as desired */
+    height: 200px;
+    /* adjust height as desired */
 }
 
 .submit-button {
@@ -234,6 +290,7 @@ hr {
 .submit-button:hover {
     background-color: #5c6b7c;
 }
+
 
 .speech-bubble {
     flex: 1;
