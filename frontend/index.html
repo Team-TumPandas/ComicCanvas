@@ -29,7 +29,6 @@
 				<option value="Comedy">Comedy</option>
 			</select>
 		</div>
-		<hr>
 		<div class="characters">
 
 			<h2>Characters</h2>
@@ -78,10 +77,17 @@
 			</div>
 		</div>
 		<button class="submit-button">Construct Universe</button>
+		<hr>
 	</form>
 
+	<!--Next page-->
+	<form id="pageForm" class="container">
+		<h2>Page</h2>
+		<textarea class="textbox" maxlength="500" placeholder="What happens next?" id="page_description"></textarea>
+		<button class="submit-button">Let your storyline unfold...</button>
+	</form>
 
-	<!--Canvas selection-->
+	<!--Canvas-->
 	<div class="box1">
 		<p>Layout.</p>
 		<div class="hiddenradio">
@@ -102,7 +108,8 @@
 
 </body>
 
-<script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js">
 	const form = document.getElementById("settingForm");
 
 	form.addEventListener("submit", function (event) {
