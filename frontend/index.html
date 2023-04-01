@@ -76,81 +76,104 @@
 				</div>
 			</div>
 		</div>
-		<button class="submit-button">Construct Universe</button>
+		<button class="submit-button" id="submit-setting">Construct Universe</button>
 		<hr>
 	</form>
 
 	<!--Next page-->
 	<form id="pageForm" class="container">
-		<h2>Page</h2>
+		<h1>Page</h1>
 		<textarea class="textbox" maxlength="500" placeholder="What happens next?" id="page_description"></textarea>
 		<button class="submit-button">Let your storyline unfold...</button>
 	</form>
 
 	<!--Canvas-->
-	<div class="box1">
-		<p>Layout.</p>
-		<div class="hiddenradio">
-			<title>Page</title>
-			<label>
-				<input type="radio" name="test" value="small" checked>
-				<img src="images/comic layout.png" , width="80" , height="80">
-			</label>
-			<label>
-				<input type="radio" name="test" value="big">
-				<img src="images/comic layout 2.png" , width="80" , height="80">
-			</label><label>
-				<input type="radio" name="test" value="big">
-				<img src="images/comic layout 3.png" , width="80" , height="80">
-			</label>
+	<div class="container">
+		<div class="box1">
+			<p>Layout.</p>
+			<div class="hiddenradio">
+				<title>Page</title>
+				<label>
+					<input type="radio" name="test" value="small" checked>
+					<img src="images/comic layout.png" , width="80" , height="80">
+				</label>
+				<label>
+					<input type="radio" name="test" value="big">
+					<img src="images/comic layout 2.png" , width="80" , height="80">
+				</label><label>
+					<input type="radio" name="test" value="big">
+					<img src="images/comic layout 3.png" , width="80" , height="80">
+				</label>
+			</div>
 		</div>
 	</div>
+
+	<button onClick="sendTest()">CLICK ME</button>
+
+	<script>
+
+
+		function sendTest() {
+			fetch("/test", {
+				method: "POST",
+				body: JSON.stringify({
+					testData: "MEOW"
+				}),
+				headers: {
+					"Content-type": "application/json; charset=UTF-8"
+				}
+			});
+
+		}
+
+
+
+		const form = document.getElementById("settingForm");
+
+		form.addEventListener("submit-setting", function (event) {
+			event.preventDefault(); // Prevent default form submission behavior
+
+			var data = {
+				setting: $('#setting').val(),
+				style: $('#style').val(),
+				genre: $('#genre').val(),
+				character_1_name: $('#character_1_name').val(),
+				character_1_attr_1: $('#character_1_attr_1').val(),
+				character_1_attr_2: $('#character_1_attr_2').val(),
+				character_1_attr_3: $('#character_1_attr_3').val(),
+				character_1_description: $('#character_1_description').val(),
+				character_2_name: $('#character_2_name').val(),
+				character_2_attr_1: $('#character_2_attr_1').val(),
+				character_2_attr_2: $('#character_2_attr_2').val(),
+				character_2_attr_3: $('#character_2_attr_3').val(),
+				character_2_description: $('#character_2_description').val(),
+				character_3_name: $('#character_3_name').val(),
+				character_3_attr_1: $('#character_3_attr_1').val(),
+				character_3_attr_2: $('#character_3_attr_2').val(),
+				character_3_attr_3: $('#character_3_attr_3').val(),
+				character_3_description: $('#character_3_description').val()
+
+			};
+
+			$.ajax({
+				url: '/global',
+				type: 'POST',
+				data: JSON.stringify(data),
+				contentType: 'application/json',
+				success: function (response) {
+					console.log(response);
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					console.log(textStatus, errorThrown);
+				}
+			});
+
+		});
+	</script>
 
 </body>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js">
-	const form = document.getElementById("settingForm");
 
-	form.addEventListener("submit", function (event) {
-		event.preventDefault(); // Prevent default form submission behavior
-
-		var data = {
-			setting: $('#setting').val(),
-			style: $('#style').val(),
-			genre: $('#genre').val(),
-			character_1_name: $('#character_1_name').val(),
-			character_1_attr_1: $('#character_1_attr_1').val(),
-			character_1_attr_2: $('#character_1_attr_2').val(),
-			character_1_attr_3: $('#character_1_attr_3').val(),
-			character_1_description: $('#character_1_description').val(),
-			character_2_name: $('#character_2_name').val(),
-			character_2_attr_1: $('#character_2_attr_1').val(),
-			character_2_attr_2: $('#character_2_attr_2').val(),
-			character_2_attr_3: $('#character_2_attr_3').val(),
-			character_2_description: $('#character_2_description').val(),
-			character_3_name: $('#character_3_name').val(),
-			character_3_attr_1: $('#character_3_attr_1').val(),
-			character_3_attr_2: $('#character_3_attr_2').val(),
-			character_3_attr_3: $('#character_3_attr_3').val(),
-			character_3_description: $('#character_3_description').val()
-
-		};
-
-		$.ajax({
-			url: '/global',
-			type: 'POST',
-			data: JSON.stringify(data),
-			contentType: 'application/json',
-			success: function (response) {
-				console.log(response);
-			},
-			error: function (jqXHR, textStatus, errorThrown) {
-				console.log(textStatus, errorThrown);
-			}
-		});
-
-	});
-</script>
 
 </html>
