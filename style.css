@@ -3,6 +3,7 @@
     --accent-color-1: #FF4081;
     /* Pink */
     --accent-color-2: #4caf4f;
+    --accent-color-3: #b3c9aa;
     /* Green */
 }
 
@@ -83,7 +84,7 @@
 
 .image {
     position: relative;
-    background-color: var(--accent-color-2);
+    background-color: var(--accent-color-3);
     border-radius: 5px;
     width: 30%;
 }
@@ -107,33 +108,6 @@
 
 .input-sections .name {
     font-weight: bold;
-    text-align: center;
-}
-
-/* HIDE RADIO */
-.hiddenradio [type=radio] { 
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* IMAGE STYLES */
-.hiddenradio [type=radio] + img {
-
-  cursor: pointer;
-  margin: 10px;
-}
-
-/* CHECKED STYLES */
-.hiddenradio [type=radio]:checked + img {
-  outline: 2px solid #f00;
-}
-
-.containerflex {
-  display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
     width: 100%;
     margin-bottom: 5px;
     padding: 8px;
@@ -172,4 +146,41 @@ hr {
     /* border-style: inset;
     border-width: 1px; */
     color: rgb(220, 217, 217);
+}
+
+.hiddenradio [type=radio] { 
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+
+.hiddenradio [type=radio] + img {
+
+  cursor: pointer;
+  margin: 10px;
+}
+
+
+.hiddenradio [type=radio]:checked + img {
+  outline: 2px solid #f00;
+}
+
+.containerflex {
+  display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 8px;
+}
+
+.box1 {
+	background-color: #FFFFFF;
+	padding: 5px;
+	box-sizing: border-box;
+	flex-basis: 45%;
+	height: 200px;
+    margin-top: 10px;
 }
