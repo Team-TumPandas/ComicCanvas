@@ -110,23 +110,86 @@
 		<!--choose panels-->
 		<div class="box2">
 			<select class="panels" name="panels">
-				<option value="">Panel 1</option>
-				<option value="Panel 2">Panel 2</option>
-				<option value="Panel 3">Panel 3</option>
-				<option value="Panel 4">Panel 4</option>
-				<option value="Panel 5">Panel 5</option>
-				<option value="Panel 6">Panel 6</option>
+				<option value="images/comic layout.png">Panel 1</option>
+				<option value="images/comic layout.png">Panel 2</option>
+				<option value="images/comic layout.png">Panel 3</option>
+				<option value="images/comic layout 3.png">Panel 4</option>
+				<option value="images/comic layout 3.png">Panel 5</option>
+				<option value="images/comic layout.png">Panel 6</option>
 			</select>
-			<div class="result"></div>
+
 		</div>
+
 	</div>
+	<div class="container">
+		<style>
+			/* Set the width of the columns */
+			.column1 {
+				width: 30%;
+				float: left;
+			}
 
+			.column2 {
+				width: 70%;
+				float: left;
+			}
+		</style>
+		<div>
+			<div class="column1">
+				<form id="pageForm">
+					<h2>Description</h2>
+					<textarea class="textbox" maxlength="700" placeholder="Storyline" id="page_description"></textarea>
+				</form>
 
+				<style>
+					/* Style for the dialogue boxes */
+					.dialogue {
+						display: inline-block;
+						padding: 10px;
+						background-color: #fff;
+						border: 2px solid #000;
+						border-radius: 5px;
+						margin: 10px;
+					}
+
+					/* Style for the character names */
+					.character-name {
+						font-weight: bold;
+						margin-right: 10px;
+					}
+				</style>
+				</head>
+
+				<body>
+					<!-- First character dialogue -->
+					<div class="dialogue">
+						<span class="character-name">Character 1:</span>
+						<span class="dialogue-text">[Insert dialogue here which is super long]</span>
+					</div>
+					<!-- Second character dialogue -->
+					<div class="dialogue">
+						<span class="character-name">Character 2:</span>
+						<span class="dialogue-text">[Insert dialogue here which is super long]</span>
+					</div>
+					<!-- Third character dialogue -->
+					<div class="dialogue">
+						<span class="character-name">Character 3:</span>
+						<span class="dialogue-text">[Insert dialogue here which is super long]</span>
+					</div>
+			</div>
+		</div>
+		<div class="column2">
+			<div class="panel">
+				<img class="result" src="images/comic layout 3.png" , width=120%,></img>
+			</div>
+		</div>
+
+	</div>
 	<script>
 		const selectElement = document.querySelector(".panels");
 		selectElement.addEventListener("change", (event) => {
 			const result = document.querySelector(".result");
-			result.textContent = `You like ${event.target.value}`;
+			result.src = event.target.value;
 		});
 
 		var prefix = 'http://192.168.2.2:6969'
