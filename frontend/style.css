@@ -1,6 +1,7 @@
 /* Set the accent colors */
 :root {
     --accent-color-1: #d3386c;
+    --accent-color-4: #d3386c6e;
     /* Pink */
     --accent-color-2: #67c0c8;
     --accent-color-3: #67c0c86e;
@@ -15,12 +16,30 @@
 
 }
 
-/* Style the container */
-.container {
-    max-width: 1000px;
+body {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.main-content {
+    width: 80%;
+    float: left;
+}
+
+.sidebar {
+    width: 20%;
+    float: right;
+    background-color: var(--accent-color-4);
     margin: 0 auto;
     padding: 20px;
 }
+
+/* Style the container */
+.container {
+    margin: 0 auto;
+    padding: 20px;
+}
+
 
 /* Style the headline */
 .headline {
@@ -68,8 +87,7 @@
     margin-bottom: 20px;
 }
 
-.style-dropdown,
-.genre-dropdown {
+.dropdown {
     padding: 10px;
     font-size: 1rem;
     line-height: 1.5;
@@ -80,8 +98,7 @@
 }
 
 /* Style the dropdown options */
-.style-dropdown option,
-.genre-dropdown option {
+.dropdown option {
     font-size: 1rem;
     line-height: 1.5;
 }
@@ -216,4 +233,41 @@ hr {
 
 .submit-button:hover {
     background-color: #5c6b7c;
+}
+
+.speech-bubble {
+    flex: 1;
+    max-width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative;
+    background-color: #f2f2f2;
+    border-radius: 20px;
+    margin-top: 30px;
+}
+
+.speech-bubble:before {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-style: solid;
+    border-width: 20px 20px 0 0;
+    border-color: #f2f2f2 transparent transparent transparent;
+}
+
+.avatar {
+    padding: 30px 10px;
+    max-width: 90%;
+}
+
+.send-button {
+    background-color: white;
+    color: var(--accent-color-1);
+    border-radius: 15px;
+    border-color: transparent;
+    padding: 5px 10px;
+    /* position: relative; */
+    margin: 0 auto;
 }

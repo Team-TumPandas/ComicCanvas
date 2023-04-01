@@ -9,104 +9,123 @@
 </head>
 
 <body>
-	<!--General Context	-->
-	<div id="settingForm" class="container">
-		<h1 class="headline">Comic Canvas</h1>
-		<input id="title" class="title" type="text" placeholder="Give your story a title..." maxlength="50">
-		<textarea class="textbox" maxlength="200" placeholder="Craft your own reality..." id="setting"></textarea>
-		<div class="dropdowns">
-			<select class="style-dropdown" id="style">
-				<option value="">Select style</option>
-				<option value="Superhero">Superhero</option>
-				<option value="Manga">Manga</option>
-				<option value="Cyberpunk">Cyberpunk</option>
-				<option value="Realistic">Realistic</option>
-			</select>
-			<select class="genre-dropdown" id="genre">
-				<option value="">Select genre</option>
-				<option value="Science Fiction">Science Fiction</option>
-				<option value="Horror">Horror</option>
-				<option value="Fantasy">Fantasy</option>
-				<option value="Comedy">Comedy</option>
-			</select>
-		</div>
-		<div class="characters">
+	<h1 class="headline">Comic Canvas</h1>
+	<div class="main-content">
+		<!--General Context	-->
+		<div id="settingForm" class="container">
 
-			<h2>Characters</h2>
-			<div class="character-images">
-				<div class="image">
-					<img src="images/Zara Nova.png">
-					<div class="input-sections">
-						<input class="name" type="text" placeholder="Name" id="character_1_name">
-						<!-- <div class="attributes">
+			<input id="title" class="title" type="text" placeholder="Give your story a title..." maxlength="50">
+			<textarea class="textbox" maxlength="200" placeholder="Craft your own reality..." id="setting"></textarea>
+			<div class="dropdowns">
+				<select class="dropdown" id="style">
+					<option value="">Select style</option>
+					<option value="Superhero">Superhero</option>
+					<option value="Manga">Manga</option>
+					<option value="Cyberpunk">Cyberpunk</option>
+					<option value="Realistic">Realistic</option>
+				</select>
+				<select class="dropdown" id="genre">
+					<option value="">Select genre</option>
+					<option value="Science Fiction">Science Fiction</option>
+					<option value="Horror">Horror</option>
+					<option value="Fantasy">Fantasy</option>
+					<option value="Comedy">Comedy</option>
+				</select>
+			</div>
+			<div class="characters">
+
+				<h2>Characters</h2>
+				<div class="character-images">
+					<div class="image">
+						<img src="images/Zara Nova.png">
+						<div class="input-sections">
+							<input class="name" type="text" placeholder="Name" id="character_1_name">
+							<!-- <div class="attributes">
 							<input class="attribute" type="text" placeholder="Attribute 1" id="character_1_attr_1">
 							<input class="attribute" type="text" placeholder="Attribute 2" id="character_1_attr_2">
 							<input class="attribute" type="text" placeholder="Attribute 3" id="character_1_attr_3">
 						</div> -->
-						<textarea class="description" placeholder="Enter a brief description here..."
-							id="character_1_description"></textarea>
+							<textarea class="description" placeholder="Enter a brief description here..."
+								id="character_1_description"></textarea>
+						</div>
 					</div>
-				</div>
 
-				<div class="image">
-					<img src="images/Orion Black.png">
-					<div class="input-sections">
-						<input class="name" type="text" placeholder="Name" id="character_2_name">
-						<!-- <div class="attributes">
+					<div class="image">
+						<img src="images/Orion Black.png">
+						<div class="input-sections">
+							<input class="name" type="text" placeholder="Name" id="character_2_name">
+							<!-- <div class="attributes">
 							<input class="attribute" type="text" placeholder="Attribute 1" id="character_2_attr_1">
 							<input class="attribute" type="text" placeholder="Attribute 2" id="character_2_attr_2">
 							<input class="attribute" type="text" placeholder="Attribute 3" id="character_2_attr_3">
 						</div> -->
-						<textarea class="description" placeholder="Enter a brief description here..."
-							id="character_2_description"></textarea>
+							<textarea class="description" placeholder="Enter a brief description here..."
+								id="character_2_description"></textarea>
+						</div>
 					</div>
-				</div>
 
-				<div class="image">
-					<img src="images/Titan 3000.png">
-					<div class="input-sections">
-						<input class="name" type="text" placeholder="Name" id="character_3_name">
-						<!-- <div class="attributes">
+					<div class="image">
+						<img src="images/Titan 3000.png">
+						<div class="input-sections">
+							<input class="name" type="text" placeholder="Name" id="character_3_name">
+							<!-- <div class="attributes">
 							<input class="attribute" type="text" placeholder="Attribute 1" id="character_3_attr_1">
 							<input class="attribute" type="text" placeholder="Attribute 2" id="character_3_attr_2">
 							<input class="attribute" type="text" placeholder="Attribute 3" id="character_3_attr_3">
 						</div> -->
-						<textarea class="description" placeholder="Enter a brief description here..."
-							id="character_3_description"></textarea>
+							<textarea class="description" placeholder="Enter a brief description here..."
+								id="character_3_description"></textarea>
+						</div>
 					</div>
 				</div>
 			</div>
+			<button onClick="sendSetting()" class="submit-button" id="submit-setting">Construct Universe</button>
 		</div>
-		<button onClick="sendSetting()" class="submit-button" id="submit-setting">Construct Universe</button>
-	</div>
 
-	<!--Next page-->
-	<form id="pageForm" class="container">
-		<hr>
-		<h2>Page</h2>
-		<textarea class="textbox" maxlength="500" placeholder="What happens next?" id="page_description"></textarea>
-		<button class="submit-button">Let your storyline unfold...</button>
-	</form>
+		<!--Next page-->
+		<form id="pageForm" class="container">
+			<hr>
+			<h2>Page</h2>
+			<textarea class="textbox" maxlength="500" placeholder="What happens next?" id="page_description"></textarea>
+			<button class="submit-button">Let your storyline unfold...</button>
+		</form>
 
-	<!--Canvas-->
-	<div class="container">
-		<div class="box1">
-			<p>Layout.</p>
-			<div class="hiddenradio">
-				<title>Page</title>
-				<label>
-					<input type="radio" name="test" value="small" checked>
-					<img src="images/comic layout.png" , width="80" , height="80">
-				</label>
-				<label>
-					<input type="radio" name="test" value="big">
-					<img src="images/comic layout 2.png" , width="80" , height="80">
-				</label><label>
-					<input type="radio" name="test" value="big">
-					<img src="images/comic layout 3.png" , width="80" , height="80">
-				</label>
+		<!--Canvas-->
+		<div class="container">
+			<div class="box1">
+				<p>Layout.</p>
+				<div class="hiddenradio">
+					<title>Page</title>
+					<label>
+						<input type="radio" name="test" value="small" checked>
+						<img src="images/comic layout.png" , width="80" , height="80">
+					</label>
+					<label>
+						<input type="radio" name="test" value="big">
+						<img src="images/comic layout 2.png" , width="80" , height="80">
+					</label><label>
+						<input type="radio" name="test" value="big">
+						<img src="images/comic layout 3.png" , width="80" , height="80">
+					</label>
+				</div>
 			</div>
 		</div>
+	</div>
+
+	<div class="sidebar">
+		<select class="dropdown" id="chat">
+			<option value="">Writing Buddy</option>
+			<option value="Character 1">Character 1</option>
+			<option value="Character 2">Character 2</option>
+			<option value="Character 3">Character 3</option>
+		</select>
+		<div class="speech-bubble">
+			<p>This is a non-editable text field in the form of a speech bubble.</p>
+		</div>
+		<img src="images/panda.png" class="avatar">
+		<textarea class="textbox" placeholder="Ask me anything!"></textarea>
+		<button class="send-button">Send!</button>
+		<!-- your additional content here -->
 	</div>
 
 	<script>
