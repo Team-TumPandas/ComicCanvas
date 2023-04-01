@@ -88,27 +88,45 @@
 	</form>
 
 	<!--Canvas-->
-	<div class="container">
+	<div class="containerflex">
 		<div class="box1">
-			<p>Layout.</p>
+			<h2>Layout</h2>
 			<div class="hiddenradio">
 				<title>Page</title>
 				<label>
-					<input type="radio" name="test" value="small" checked>
-					<img src="images/comic layout.png" , width="80" , height="80">
+					<input type="radio" , name="test" value="big" checked>
+					<img src="images/comic layout.png" ,alt="Layout1" , width="80" , height="80">
 				</label>
 				<label>
 					<input type="radio" name="test" value="big">
-					<img src="images/comic layout 2.png" , width="80" , height="80">
+					<img src="images/comic layout 2.png" ,alt="Layout2" width="80" , height="80">
 				</label><label>
 					<input type="radio" name="test" value="big">
-					<img src="images/comic layout 3.png" , width="80" , height="80">
+					<img src="images/comic layout 3.png" ,alt="Layout3" width="80" , height="80">
 				</label>
 			</div>
 		</div>
+		<!--choose panels-->
+		<div class="box2">
+			<select class="panels" name="panels">
+				<option value="">Panel 1</option>
+				<option value="Panel 2">Panel 2</option>
+				<option value="Panel 3">Panel 3</option>
+				<option value="Panel 4">Panel 4</option>
+				<option value="Panel 5">Panel 5</option>
+				<option value="Panel 6">Panel 6</option>
+			</select>
+			<div class="result"></div>
+		</div>
 	</div>
 
+
 	<script>
+		const selectElement = document.querySelector(".panel");
+		selectElement.addEventListener("change", (event) => {
+			const result = document.querySelector(".result");
+			result.textContent = `You like ${event.target.value}`;
+		});
 
 		var prefix = 'http://192.168.2.2:6969'
 

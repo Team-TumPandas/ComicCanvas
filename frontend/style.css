@@ -1,8 +1,8 @@
 /* Set the accent colors */
 :root {
-    --accent-color-1: #FF4081;
+    --accent-color-1: #E10075;
     /* Pink */
-    --accent-color-2: #4caf4f;
+    --accent-color-2: #1eff8a;
     --accent-color-3: #b3c9aa;
     /* Green */
 }
@@ -168,21 +168,43 @@ hr {
 }
 
 .containerflex {
-    display: flex;
-    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
     margin-bottom: 20px;
     width: 100%;
     margin-bottom: 5px;
     padding: 8px;
+    columns: 2;
+   
 }
 
 .box1 {
     background-color: #FFFFFF;
     padding: 5px;
-    box-sizing: border-box;
-    flex-basis: 45%;
     height: 200px;
     margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 100%;
+}
+
+.box2 {
+    margin: auto;
+    height: 200px;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding: 10px;
+}
+
+.panels {
+  font-size: 30px; /* adjust font size as desired */
+  padding: 10px; /* adjust padding as desired */
+  width: 200px; /* adjust width as desired */
+  height: 200px; /* adjust height as desired */
 }
 
 .submit-button {
