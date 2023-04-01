@@ -10,7 +10,7 @@
 
 <body>
 	<!--General Context	-->
-	<form id="setting" class="container">
+	<form id="settingForm" class="container">
 		<h1 class="headline">Comic Canvas</h1>
 		<textarea class="textbox" maxlength="200" placeholder="Craft your own reality..." id="setting"></textarea>
 		<div class="dropdowns">
@@ -43,7 +43,8 @@
 							<input class="attribute" type="text" placeholder="Attribute 2" id="character_1_attr_2">
 							<input class="attribute" type="text" placeholder="Attribute 3" id="character_1_attr_3">
 						</div>
-						<textarea class="description" placeholder="Enter a brief description here..."></textarea>
+						<textarea class="description" placeholder="Enter a brief description here..."
+							id="character_1_description"></textarea>
 					</div>
 				</div>
 
@@ -56,20 +57,22 @@
 							<input class="attribute" type="text" placeholder="Attribute 2" id="character_2_attr_2">
 							<input class="attribute" type="text" placeholder="Attribute 3" id="character_2_attr_3">
 						</div>
-						<textarea class="description" placeholder="Enter a brief description here..."></textarea>
+						<textarea class="description" placeholder="Enter a brief description here..."
+							id="character_2_description"></textarea>
 					</div>
 				</div>
 
 				<div class="image">
 					<img src="images/Titan 3000.png">
 					<div class="input-sections">
-						<input class="name" type="text" placeholder="Name" id="character_3_name">>
+						<input class="name" type="text" placeholder="Name" id="character_3_name">
 						<div class="attributes">
 							<input class="attribute" type="text" placeholder="Attribute 1" id="character_3_attr_1">
 							<input class="attribute" type="text" placeholder="Attribute 2" id="character_3_attr_2">
 							<input class="attribute" type="text" placeholder="Attribute 3" id="character_3_attr_3">
 						</div>
-						<textarea class="description" placeholder="Enter a brief description here..."></textarea>
+						<textarea class="description" placeholder="Enter a brief description here..."
+							id="character_3_description"></textarea>
 					</div>
 				</div>
 			</div>
@@ -98,5 +101,49 @@
 	</div>
 
 </body>
+
+<script>
+	const form = document.getElementById("settingForm");
+
+	form.addEventListener("submit", function (event) {
+		event.preventDefault(); // Prevent default form submission behavior
+
+		var data = {
+			setting: $('#setting').val(),
+			style: $('#style').val(),
+			genre: $('#genre').val(),
+			character_1_name: $('#character_1_name').val(),
+			character_1_attr_1: $('#character_1_attr_1').val(),
+			character_1_attr_2: $('#character_1_attr_2').val(),
+			character_1_attr_3: $('#character_1_attr_3').val(),
+			character_1_description: $('#character_1_description').val(),
+			character_2_name: $('#character_2_name').val(),
+			character_2_attr_1: $('#character_2_attr_1').val(),
+			character_2_attr_2: $('#character_2_attr_2').val(),
+			character_2_attr_3: $('#character_2_attr_3').val(),
+			character_2_description: $('#character_2_description').val(),
+			character_3_name: $('#character_3_name').val(),
+			character_3_attr_1: $('#character_3_attr_1').val(),
+			character_3_attr_2: $('#character_3_attr_2').val(),
+			character_3_attr_3: $('#character_3_attr_3').val(),
+			character_3_description: $('#character_3_description').val()
+
+		};
+
+		$.ajax({
+			url: 'your-server-url',
+			type: 'POST',
+			data: JSON.stringify(data),
+			contentType: 'application/json',
+			success: function (response) {
+				console.log(response);
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				console.log(textStatus, errorThrown);
+			}
+		});
+
+	});
+</script>
 
 </html>
