@@ -2,6 +2,8 @@
 :root {
     --accent-color-1: #E10075;
     --accent-color-4: #d3386c6e;
+    --accent-color-5: #f1d3e3;
+
     /* Pink */
     --accent-color-2: #67c0c8;
     --accent-color-3: #67c0c86e;
@@ -32,6 +34,7 @@ body {
     background-color: var(--accent-color-4);
     margin: 0 auto;
     padding: 20px;
+    text-align: center;
 }
 
 /* Style the container */
@@ -320,11 +323,13 @@ hr {
 }
 
 .send-button {
-    background-color: white;
     color: var(--accent-color-1);
     border-radius: 15px;
     border-color: transparent;
-    padding: 5px 10px;
-    /* position: relative; */
-    margin: 0 auto;
+    background-color: #f2cfe1;
+    padding: 5px 20px;
+}
+
+.send-button:hover {
+    background-color: #ecc7da;
 }

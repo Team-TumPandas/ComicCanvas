@@ -40,13 +40,18 @@
 						<img src="images/Zara Nova.png">
 						<div class="input-sections">
 							<input class="name" type="text" placeholder="Name" id="character_1_name">
-							<!-- <div class="attributes">
-							<input class="attribute" type="text" placeholder="Attribute 1" id="character_1_attr_1">
-							<input class="attribute" type="text" placeholder="Attribute 2" id="character_1_attr_2">
-							<input class="attribute" type="text" placeholder="Attribute 3" id="character_1_attr_3">
-						</div> -->
-							<textarea class="description" placeholder="Enter a brief description here..."
-								id="character_1_description"></textarea>
+							<select class="gender-dropdown" id="character_1_gender">
+								<option value="">Select gender</option>
+								<option value="female">female</option>
+								<option value="male">male</option>
+								<option value="other">other</option>
+							</select>
+							<div class="mini-heading">look:</div>
+							<textarea class="description" placeholder="How do I look like?"
+								id="character_1_look"></textarea>
+							<div class="mini-heading">personality</div>
+							<textarea class="description" placeholder="Bring me to life!"
+								id="character_1_personality"></textarea>
 						</div>
 					</div>
 
@@ -54,13 +59,18 @@
 						<img src="images/Orion Black.png">
 						<div class="input-sections">
 							<input class="name" type="text" placeholder="Name" id="character_2_name">
-							<!-- <div class="attributes">
-							<input class="attribute" type="text" placeholder="Attribute 1" id="character_2_attr_1">
-							<input class="attribute" type="text" placeholder="Attribute 2" id="character_2_attr_2">
-							<input class="attribute" type="text" placeholder="Attribute 3" id="character_2_attr_3">
-						</div> -->
-							<textarea class="description" placeholder="Enter a brief description here..."
-								id="character_2_description"></textarea>
+							<select class="gender-dropdown" id="character_2_gender">
+								<option value="">Select gender</option>
+								<option value="female">female</option>
+								<option value="male">male</option>
+								<option value="other">other</option>
+							</select>
+							<div class="mini-heading">look:</div>
+							<textarea class="description" placeholder="How do I look like?"
+								id="character_2_look"></textarea>
+							<div class="mini-heading">personality</div>
+							<textarea class="description" placeholder="Bring me to life!"
+								id="character_2_personality"></textarea>
 						</div>
 					</div>
 
@@ -68,13 +78,18 @@
 						<img src="images/Titan 3000.png">
 						<div class="input-sections">
 							<input class="name" type="text" placeholder="Name" id="character_3_name">
-							<!-- <div class="attributes">
-							<input class="attribute" type="text" placeholder="Attribute 1" id="character_3_attr_1">
-							<input class="attribute" type="text" placeholder="Attribute 2" id="character_3_attr_2">
-							<input class="attribute" type="text" placeholder="Attribute 3" id="character_3_attr_3">
-						</div> -->
-							<textarea class="description" placeholder="Enter a brief description here..."
-								id="character_3_description"></textarea>
+							<select class="gender-dropdown" id="character_3_gender">
+								<option value="">Select gender</option>
+								<option value="female">female</option>
+								<option value="male">male</option>
+								<option value="other">other</option>
+							</select>
+							<div class="mini-heading">look:</div>
+							<textarea class="description" placeholder="How do I look like?"
+								id="character_3_look"></textarea>
+							<div class="mini-heading">personality</div>
+							<textarea class="description" placeholder="Bring me to life!"
+								id="character_3_personality"></textarea>
 						</div>
 					</div>
 				</div>
@@ -241,20 +256,17 @@
 				style: document.getElementById("style").value,
 				genre: document.getElementById("genre").value,
 				character_1_name: document.getElementById("character_1_name").value,
-				character_1_attr_1: document.getElementById("character_1_attr_1").value,
-				character_1_attr_2: document.getElementById("character_1_attr_2").value,
-				character_1_attr_3: document.getElementById("character_1_attr_3").value,
-				character_1_description: document.getElementById("character_1_description").value,
+				character_1_gender: document.getElementById("character_1_gender").value,
+				character_1_look: document.getElementById("character_1_look").value,
+				character_1_personality: document.getElementById("character_1_personality").value,
 				character_2_name: document.getElementById("character_2_name").value,
-				character_2_attr_1: document.getElementById("character_2_attr_1").value,
-				character_2_attr_2: document.getElementById("character_2_attr_2").value,
-				character_2_attr_3: document.getElementById("character_2_attr_3").value,
-				character_2_description: document.getElementById("character_2_description").value,
+				character_2_gender: document.getElementById("character_2_gender").value,
+				character_2_look: document.getElementById("character_2_look").value,
+				character_2_personality: document.getElementById("character_2_personality").value,
 				character_3_name: document.getElementById("character_3_name").value,
-				character_3_attr_1: document.getElementById("character_3_attr_1").value,
-				character_3_attr_2: document.getElementById("character_3_attr_2").value,
-				character_3_attr_3: document.getElementById("character_3_attr_3").value,
-				character_3_description: document.getElementById("character_3_description").value,
+				character_3_gender: document.getElementById("character_3_gender").value,
+				character_3_look: document.getElementById("character_3_look").value,
+				character_3_personality: document.getElementById("character_3_personality").value,
 			};
 
 			postJSON(data);
