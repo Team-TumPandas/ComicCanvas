@@ -9,21 +9,24 @@
 </head>
 
 <body>
-	<div class="container">
+	<!--General Context	-->
+	<form id="setting" class="container">
 		<h1 class="headline">Comic Canvas</h1>
-		<textarea class="textbox" maxlength="200" placeholder="Enter your setting here..."></textarea>
+		<textarea class="textbox" maxlength="200" placeholder="Craft your own reality..." id="setting"></textarea>
 		<div class="dropdowns">
-			<select class="style-dropdown">
+			<select class="style-dropdown" id="style">
 				<option value="">Select style</option>
-				<option value="1">Style 1</option>
-				<option value="2">Style 2</option>
-				<option value="3">Style 3</option>
+				<option value="Superhero">Superhero</option>
+				<option value="Manga">Manga</option>
+				<option value="Cyberpunk">Cyberpunk</option>
+				<option value="Realistic">Realistic</option>
 			</select>
-			<select class="genre-dropdown">
+			<select class="genre-dropdown" id="genre">
 				<option value="">Select genre</option>
-				<option value="1">Genre 1</option>
-				<option value="2">Genre 2</option>
-				<option value="3">Genre 3</option>
+				<option value="Science Fiction">Science Fiction</option>
+				<option value="Horror">Horror</option>
+				<option value="Fantasy">Fantasy</option>
+				<option value="Comedy">Comedy</option>
 			</select>
 		</div>
 		<hr>
@@ -34,11 +37,11 @@
 				<div class="image">
 					<img src="images/Zara Nova.png">
 					<div class="input-sections">
-						<input class="name" type="text" placeholder="Name">
+						<input class="name" type="text" placeholder="Name" id="character_1_name">
 						<div class="attributes">
-							<input class="attribute" type="text" placeholder="Attribute 1">
-							<input class="attribute" type="text" placeholder="Attribute 2">
-							<input class="attribute" type="text" placeholder="Attribute 3">
+							<input class="attribute" type="text" placeholder="Attribute 1" id="character_1_attr_1">
+							<input class="attribute" type="text" placeholder="Attribute 2" id="character_1_attr_2">
+							<input class="attribute" type="text" placeholder="Attribute 3" id="character_1_attr_3">
 						</div>
 						<textarea class="description" placeholder="Enter a brief description here..."></textarea>
 					</div>
@@ -47,11 +50,11 @@
 				<div class="image">
 					<img src="images/Orion Black.png">
 					<div class="input-sections">
-						<input class="name" type="text" placeholder="Name">
+						<input class="name" type="text" placeholder="Name" id="character_2_name">
 						<div class="attributes">
-							<input class="attribute" type="text" placeholder="Attribute 1">
-							<input class="attribute" type="text" placeholder="Attribute 2">
-							<input class="attribute" type="text" placeholder="Attribute 3">
+							<input class="attribute" type="text" placeholder="Attribute 1" id="character_2_attr_1">
+							<input class="attribute" type="text" placeholder="Attribute 2" id="character_2_attr_2">
+							<input class="attribute" type="text" placeholder="Attribute 3" id="character_2_attr_3">
 						</div>
 						<textarea class="description" placeholder="Enter a brief description here..."></textarea>
 					</div>
@@ -60,37 +63,40 @@
 				<div class="image">
 					<img src="images/Titan 3000.png">
 					<div class="input-sections">
-						<input class="name" type="text" placeholder="Name">
+						<input class="name" type="text" placeholder="Name" id="character_3_name">>
 						<div class="attributes">
-							<input class="attribute" type="text" placeholder="Attribute 1">
-							<input class="attribute" type="text" placeholder="Attribute 2">
-							<input class="attribute" type="text" placeholder="Attribute 3">
+							<input class="attribute" type="text" placeholder="Attribute 1" id="character_3_attr_1">
+							<input class="attribute" type="text" placeholder="Attribute 2" id="character_3_attr_2">
+							<input class="attribute" type="text" placeholder="Attribute 3" id="character_3_attr_3">
 						</div>
 						<textarea class="description" placeholder="Enter a brief description here..."></textarea>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!--Page layout	-->	
-		
-		<div class="box1">
-			<p>Layout.</p>
+		<button class="submit-button">Construct Universe</button>
+	</form>
+
+
+	<!--Canvas selection-->
+	<div class="box1">
+		<p>Layout.</p>
 		<div class="hiddenradio">
-		<title>Page</title>
-		<label>
-		  <input type="radio" name="test" value="small" checked>
-		  <img src="images/comic layout.png", width="80", height="80">
-		</label>
-		<label>
-		  <input type="radio" name="test" value="big">
-		  <img src="images/comic layout 2.png", width="80", height="80">
-		</label><label>
-		  <input type="radio" name="test" value="big">
-		  <img src="images/comic layout 3.png", width="80", height="80">
-		</label>
-			
-		
-		
+			<title>Page</title>
+			<label>
+				<input type="radio" name="test" value="small" checked>
+				<img src="images/comic layout.png" , width="80" , height="80">
+			</label>
+			<label>
+				<input type="radio" name="test" value="big">
+				<img src="images/comic layout 2.png" , width="80" , height="80">
+			</label><label>
+				<input type="radio" name="test" value="big">
+				<img src="images/comic layout 3.png" , width="80" , height="80">
+			</label>
+		</div>
+	</div>
+
 </body>
 
 </html>
