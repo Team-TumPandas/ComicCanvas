@@ -10,7 +10,7 @@
 
 <body>
 	<!--General Context	-->
-	<form id="settingForm" class="container">
+	<div id="settingForm" class="container">
 		<h1 class="headline">Comic Canvas</h1>
 		<textarea class="textbox" maxlength="200" placeholder="Craft your own reality..." id="setting"></textarea>
 		<div class="dropdowns">
@@ -76,13 +76,13 @@
 				</div>
 			</div>
 		</div>
-		<button class="submit-button" id="submit-setting">Construct Universe</button>
+		<button onClick="sendSetting()" class="submit-button" id="submit-setting">Construct Universe</button>
 		<hr>
-	</form>
+	</div>
 
 	<!--Next page-->
 	<form id="pageForm" class="container">
-		<h1>Page</h1>
+		<h2>Page</h2>
 		<textarea class="textbox" maxlength="500" placeholder="What happens next?" id="page_description"></textarea>
 		<button class="submit-button">Let your storyline unfold...</button>
 	</form>
@@ -108,67 +108,58 @@
 		</div>
 	</div>
 
-	<button onClick="sendTest()">CLICK ME</button>
-
 	<script>
 
+		var prefix = 'http://192.168.2.2:6969'
 
-		function sendTest() {
-			fetch("/test", {
-				method: "POST",
-				body: JSON.stringify({
-					testData: "MEOW"
-				}),
+		function postJSON(data) {
+			// Make a POST request to the server with the JSON data
+			fetch((prefix + '/global'), {
+				method: 'POST',
 				headers: {
-					"Content-type": "application/json; charset=UTF-8"
-				}
-			});
-
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+			})
+				.then(response => {
+					// Handle the response from the server
+					console.log(response);
+				})
+				.catch(error => {
+					// Handle any errors that occurred during the request
+					console.error(error);
+				});
 		}
-
 
 
 		const form = document.getElementById("settingForm");
 
-		form.addEventListener("submit-setting", function (event) {
-			event.preventDefault(); // Prevent default form submission behavior
+		function sendSetting() {
 
-			var data = {
-				setting: $('#setting').val(),
-				style: $('#style').val(),
-				genre: $('#genre').val(),
-				character_1_name: $('#character_1_name').val(),
-				character_1_attr_1: $('#character_1_attr_1').val(),
-				character_1_attr_2: $('#character_1_attr_2').val(),
-				character_1_attr_3: $('#character_1_attr_3').val(),
-				character_1_description: $('#character_1_description').val(),
-				character_2_name: $('#character_2_name').val(),
-				character_2_attr_1: $('#character_2_attr_1').val(),
-				character_2_attr_2: $('#character_2_attr_2').val(),
-				character_2_attr_3: $('#character_2_attr_3').val(),
-				character_2_description: $('#character_2_description').val(),
-				character_3_name: $('#character_3_name').val(),
-				character_3_attr_1: $('#character_3_attr_1').val(),
-				character_3_attr_2: $('#character_3_attr_2').val(),
-				character_3_attr_3: $('#character_3_attr_3').val(),
-				character_3_description: $('#character_3_description').val()
-
+			const data = {
+				setting: document.getElementById("setting").value,
+				style: document.getElementById("style").value,
+				genre: document.getElementById("genre").value,
+				character_1_name: document.getElementById("character_1_name").value,
+				character_1_attr_1: document.getElementById("character_1_attr_1").value,
+				character_1_attr_2: document.getElementById("character_1_attr_2").value,
+				character_1_attr_3: document.getElementById("character_1_attr_3").value,
+				character_1_description: document.getElementById("character_1_description").value,
+				character_2_name: document.getElementById("character_2_name").value,
+				character_2_attr_1: document.getElementById("character_2_attr_1").value,
+				character_2_attr_2: document.getElementById("character_2_attr_2").value,
+				character_2_attr_3: document.getElementById("character_2_attr_3").value,
+				character_2_description: document.getElementById("character_2_description").value,
+				character_3_name: document.getElementById("character_3_name").value,
+				character_3_attr_1: document.getElementById("character_3_attr_1").value,
+				character_3_attr_2: document.getElementById("character_3_attr_2").value,
+				character_3_attr_3: document.getElementById("character_3_attr_3").value,
+				character_3_description: document.getElementById("character_3_description").value,
 			};
 
-			$.ajax({
-				url: '/global',
-				type: 'POST',
-				data: JSON.stringify(data),
-				contentType: 'application/json',
-				success: function (response) {
-					console.log(response);
-				},
-				error: function (jqXHR, textStatus, errorThrown) {
-					console.log(textStatus, errorThrown);
-				}
-			});
+			postJSON(data);
 
-		});
+		}
 	</script>
 
 </body>
