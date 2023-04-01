@@ -2,371 +2,44 @@
 <html>
 
 <head>
-	<title>ComicCanvas</title>
-	<style>
-		body {
-			font-family: Arial, sans-serif;
-			margin: 0;
-			padding: 0;
-			background-color: #f5f5f5;
-		}
-
-		h1 {
-			text-align: center;
-			font-size: 36px;
-			color: #333;
-			margin-top: 50px;
-		}
-
-		.form {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			margin-top: 50px;
-		}
-
-		.form label {
-			font-size: 24px;
-			color: #333;
-			margin-bottom: 10px;
-			text-align: center;
-		}
-
-		.form input[type="text"] {
-			height: 100px;
-			font-size: 24px;
-			padding: 10px;
-			border: none;
-			border-radius: 5px;
-			box-shadow: 0px 0px 5px #ccc;
-			margin-bottom: 20px;
-			width: 80%;
-			max-width: 800px;
-		}
-
-		.form select {
-			font-size: 20px;
-			padding: 10px;
-			border: none;
-			border-radius: 5px;
-			box-shadow: 0px 0px 5px #ccc;
-			margin-bottom: 20px;
-			width: 40%;
-			max-width: 400px;
-			margin-right: 20px;
-		}
-
-		.form .genre label,
-		.form .style label {
-			color: #00ffff;
-			font-weight: bold;
-			margin-right: 10px;
-		}
-
-		.characters {
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: center;
-			align-items: center;
-			margin-top: 50px;
-		}
-
-		.characters img {
-			width: 200px;
-			height: auto;
-			margin: 10px;
-			border-radius: 5px;
-			box-shadow: 0px 0px 5px #ccc;
-		}
-
-		.characters p {
-			font-size: 18px;
-			color: #333;
-			text-align: center;
-			margin: 10px 0 50px 0;
-		}
-	</style>
+	<meta charset="UTF-8">
+	<title>Comic Canvas</title>
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-	<h1>ComicCanvas</h1>
-	<div class="form">
-		<label for="setting">Setting</label>
-		<input type="text" id="setting" name="setting">
-		<div class="genre">
-			<label for="genre">Genre:</label>
-			<select id="genre" name="genre">
-				<option value="action">Action</option>
-				<option value="adventure">Adventure</option>
-				<option value="comedy">Comedy</option>
-				<option value="drama">Drama</option>
-				<option value="fantasy">Fantasy</option>
-				<option value="horror">Horror</option>
-				<option value="mystery">Mystery</option>
-				<option value="romance">Romance</option>
-				<option value="sci-fi">Sci-Fi</option>
-				<option value="superhero">Superhero</option>
+	<div class="container">
+		<h1 class="headline">Comic Canvas</h1>
+		<textarea class="textbox" maxlength="200" placeholder="Enter your setting here..."></textarea>
+		<div class="dropdowns">
+			<select class="style-dropdown">
+				<option value="">Select style</option>
+				<option value="1">Style 1</option>
+				<option value="2">Style 2</option>
+				<option value="3">Style 3</option>
 			</select>
-			<label for="style">Style:</label>
-			<select id="style" name="style">
-				<option value="comic">Comic</ <!DOCTYPE html>
-					<html>
+			<select class="genre-dropdown">
+				<option value="">Select genre</option>
+				<option value="1">Genre 1</option>
+				<option value="2">Genre 2</option>
+				<option value="3">Genre 3</option>
+			</select>
+		</div>
+		<div class="images">
+			<div class="image">
+				<img src="images/Zara Nova.png">
+				<p>Zara Nova</p>
+			</div>
+			<div class="image">
+				<img src="images/Orion Black.png">
+				<p>Orion Black</p>
+			</div>
+			<div class="image">
+				<img src="images/Titan 3000.png">
+				<p>Titan 3000</p>
+			</div>
+		</div>
+	</div>
+</body>
 
-					<head>
-						<title>ComicCanvas</title>
-						<style>
-							body {
-								font-family: Arial, sans-serif;
-								margin: 0;
-								padding: 0;
-								background-color: #f5f5f5;
-							}
-
-							h1 {
-								text-align: center;
-								font-size: 36px;
-								color: #333;
-								margin-top: 50px;
-							}
-
-							.form {
-								display: flex;
-								flex-direction: column;
-								align-items: center;
-								margin-top: 50px;
-							}
-
-							.form label {
-								font-size: 24px;
-								color: #333;
-								margin-bottom: 10px;
-								text-align: center;
-							}
-
-							.form input[type="text"] {
-								height: 100px;
-								font-size: 24px;
-								padding: 10px;
-								border: none;
-								border-radius: 5px;
-								box-shadow: 0px 0px 5px #ccc;
-								margin-bottom: 20px;
-								width: 80%;
-								max-width: 800px;
-							}
-
-							.form select {
-								font-size: 20px;
-								padding: 10px;
-								border: none;
-								border-radius: 5px;
-								box-shadow: 0px 0px 5px #ccc;
-								margin-bottom: 20px;
-								width: 40%;
-								max-width: 400px;
-								margin-right: 20px;
-							}
-
-							.form .genre label,
-							.form .style label {
-								color: #00ffff;
-								font-weight: bold;
-								margin-right: 10px;
-							}
-
-							.characters {
-								display: flex;
-								flex-wrap: wrap;
-								justify-content: center;
-								align-items: center;
-								margin-top: 50px;
-							}
-
-							.characters img {
-								width: 200px;
-								height: auto;
-								margin: 10px;
-								border-radius: 5px;
-								box-shadow: 0px 0px 5px #ccc;
-							}
-
-							.characters p {
-								font-size: 18px;
-								color: #333;
-								text-align: center;
-								margin: 10px 0 50px 0;
-							}
-						</style>
-					</head>
-
-					<body>
-						<h1>ComicCanvas</h1>
-						<div class="form">
-							<label for="setting">Setting</label>
-							<input type="text" id="setting" name="setting">
-							<div class="genre">
-								<label for="genre">Genre:</label>
-								<select id="genre" name="genre">
-									<option value="action">Action</option>
-									<option value="adventure">Adventure</option>
-									<option value="comedy">Comedy</option>
-									<option value="drama">Drama</option>
-									<option value="fantasy">Fantasy</option>
-									<option value="horror">Horror</option>
-									<option value="mystery">Mystery</option>
-									<option value="romance">Romance</option>
-									<option value="sci-fi">Sci-Fi</option>
-									<option value="superhero">Superhero</option>
-								</select>
-								<label for="style">Style:</label>
-								<select id="style" name="style">
-									<option value <!DOCTYPE html>
-										<html>
-
-										<head>
-											<title>ComicCanvas</title>
-											<style>
-												body {
-													font-family: Arial, sans-serif;
-													margin: 0;
-													padding: 0;
-													background-color: #f5f5f5;
-												}
-
-												h1 {
-													text-align: center;
-													font-size: 36px;
-													color: #333;
-													margin-top: 50px;
-												}
-
-												.form {
-													display: flex;
-													flex-direction: column;
-													align-items: center;
-													margin-top: 50px;
-												}
-
-												.form label {
-													font-size: 24px;
-													color: #333;
-													margin-bottom: 10px;
-													text-align: center;
-												}
-
-												.form input[type="text"] {
-													height: 100px;
-													font-size: 24px;
-													padding: 10px;
-													border: none;
-													border-radius: 5px;
-													box-shadow: 0px 0px 5px #ccc;
-													margin-bottom: 20px;
-													width: 80%;
-													max-width: 800px;
-												}
-
-												.form select {
-													font-size: 20px;
-													padding: 10px;
-													border: none;
-													border-radius: 5px;
-													box-shadow: 0px 0px 5px #ccc;
-													margin-bottom: 20px;
-													width: 40%;
-													max-width: 400px;
-													margin-right: 20px;
-												}
-
-												.form .genre label,
-												.form .style label {
-													color: #00ffff;
-													font-weight: bold;
-													margin-right: 10px;
-												}
-
-												.characters {
-													display: flex;
-													flex-wrap: wrap;
-													justify-content: center;
-													align-items: center;
-													margin-top: 50px;
-												}
-
-												.characters img {
-													width: 200px;
-													height: auto;
-													margin: 10px;
-													border-radius: 5px;
-													box-shadow: 0px 0px 5px #ccc;
-												}
-
-												.characters p {
-													font-size: 18px;
-													color: #333;
-													text-align: center;
-													margin: 10px 0 50px 0;
-												}
-											</style>
-										</head>
-
-										<body>
-											<h1>ComicCanvas</h1>
-											<div class="form">
-												<label for="setting">Setting</label>
-												<input type="text" id="setting" name="setting">
-												<div class="genre">
-													<label for="genre">Genre:</label>
-													<select id="genre" name="genre">
-														<option value="action">Action</option>
-														<option value="adventure">Adventure</option>
-														<option value="comedy">Comedy</option>
-														<option value="drama">Drama</option>
-														<option value="fantasy">Fantasy</option>
-														<option value="horror">Horror</option>
-														<option value="mystery">Mystery</option>
-														<option value="romance">Romance</option>
-														<option value="sci-fi">Sci-Fi</option>
-														<option value="superhero">Superhero</option>
-													</select>
-													<label for="style">Style:</label>
-													<select id="style" name="style">
-														<option value="cartoon">Cartoon</option>
-														<option value="manga">M
-														<option value="realistic">Realistic</option>
-														<option value="surreal">Surreal</option>
-													</select>
-												</div>
-											</div>
-											<div class="characters">
-												<script>
-													const characters = [
-														{ name: "character1", image: "images/character1.png" },
-														{ name: "character2", image: "images/character2.png" },
-														{ name: "character3", image: "images/character3.png" },
-														{ name: "character4", image: "images/character4.png" },
-														{ name: "character5", image: "images/character5.png" },
-														{ name: "character6", image: "images/character6.png" },
-														{ name: "character7", image: "images/character7.png" },
-														{ name: "character8", image: "images/character8.png" },
-														{ name: "character9", image: "images/character9.png" },
-														{ name: "character10", image: "images/character10.png" }
-													];
-
-													characters.forEach(character => {
-														const img = document.createElement("img");
-														img.src = character.image;
-														img.alt = character.name;
-														const p = document.createElement("p");
-														p.textContent = character.name;
-														const div = document.createElement("div");
-														div.appendChild(img);
-														div.appendChild(p);
-														div.classList.add("character");
-														document.querySelector(".characters").appendChild(div);
-													});
-												</script>
-											</div>
-										</body>
-
-										</html>
+</html>
