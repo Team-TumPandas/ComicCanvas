@@ -106,12 +106,11 @@
 		</div>
 
 		<!--Next page-->
-		<form id="storyline_form" class="container">
-			<hr>
+		<div class="container">
 			<h2>Storyline</h2>
 			<textarea class="textbox" maxlength="500" placeholder="What happens next?" id="storyline"></textarea>
-			<button class="submit-button">Let your storyline unfold...</button>
-		</form>
+			<button class="submit-button" onClick="storyToPanels()">Let your storyline unfold...</button>
+		</div>
 
 		<!--Canvas-->
 		<div class="container">
@@ -207,7 +206,7 @@
 					</div>
 
 					<div>
-						<button class="submit-button" , onclick="generatePanel()">Generate Panel</button>
+						<button class="submit-button" , onClick="generatePanel()">Generate Panel</button>
 
 					</div>
 
@@ -235,9 +234,8 @@
 						</div>
 					</div>
 					<div class="panel">
-						<img class="result" src="images/comic layout 3.png" id="panel_img" , width=120%,></img>
+						<img class="result" src="images/Placeholder3.jpeg" id="panel_img" , width=120%,></img>
 					</div>
-
 				</div>
 			</div>
 		</div>
@@ -259,6 +257,7 @@
 		<button class="send-button" onClick="sendChatRequest()">Send!</button>
 		<!-- your additional content here -->
 	</div>
+
 	<script>
 
 		let current_image_variations = [];
@@ -292,34 +291,13 @@
 		// panels[panel1][panel1_image]
 		// dynamic list for panels
 		var panels = {
-			1: {
-				"scenario_description": "Spiderman and Joker are facing each other on a busy street. The sun is setting in the background, casting an orange glow over the scene. Spiderman is in a crouched position, ready to pounce. Joker is holding a knife, grinning maniacally.\n",
-				"dialogues": {
-					"Spiderman": "You're not getting away with this, Joker.",
-					"Joker": "Oh, but Spiderman, that's the fun part!"
-				}
-			},
-			2: {
-				"scenario_description": "Spiderman jumps over a car, narrowly avoiding a swipe from Joker's knife. Joker is now on top of the car, taunting Spiderman. The car is parked near a fruit stand, which Spiderman uses to his advantage.\n",
-				"dialogues": {
-					"Spiderman": "You're going to have to do better than that, Joker.",
-					"Joker": "I'm just getting started, Spiderman!"
-				}
-			},
-			3: {
-				"scenario_description": "Spiderman has used his web-slinging ability to wrap Joker up in a bundle of fruit. Joker is squirming and shouting, while Spiderman looks on triumphantly. The police are arriving on the scene to take Joker into custody.\n",
-				"dialogues": {
-					"Spiderman": "Looks like you're not so tough after all, Joker.",
-					"Joker": "This isn't over, Spiderman!",
-					"Police officer": "Thanks for your help, Spiderman. We'll take it from here."
-				}
-			},
-			4: {
-				"scenario_description": "lmao\n",
-				"dialogues": {
-					"Jay": "Lhahahfadskfjadslfadslkj.",
-				}
-			}
+			// 1: {
+			// 	"scenario_description": "Spiderman and Joker are facing each other on a busy street. The sun is setting in the background, casting an orange glow over the scene. Spiderman is in a crouched position, ready to pounce. Joker is holding a knife, grinning maniacally.\n",
+			// 	"dialogues": {
+			// 		"Spiderman": "You're not getting away with this, Joker.",
+			// 		"Joker": "Oh, but Spiderman, that's the fun part!"
+			// 	}
+			// }
 		}
 		// add to selector
 		var select = document.getElementById("panelselector");
@@ -421,66 +399,6 @@
 				});
 		}
 
-		const form = document.getElementById("settingForm");
-
-		function sendSetting() {
-
-			const data = {
-				title: document.getElementById("title").value,
-				setting: document.getElementById("setting").value,
-				style: document.getElementById("style").value,
-				genre: document.getElementById("genre").value,
-				character_1_name: document.getElementById("character_1_name").value,
-				character_1_gender: document.getElementById("character_1_gender").value,
-				character_1_look: document.getElementById("character_1_look").value,
-				character_1_personality: document.getElementById("character_1_personality").value,
-				character_2_name: document.getElementById("character_2_name").value,
-				character_2_gender: document.getElementById("character_2_gender").value,
-				character_2_look: document.getElementById("character_2_look").value,
-				character_2_personality: document.getElementById("character_2_personality").value,
-				character_3_name: document.getElementById("character_3_name").value,
-				character_3_gender: document.getElementById("character_3_gender").value,
-				character_3_look: document.getElementById("character_3_look").value,
-				character_3_personality: document.getElementById("character_3_personality").value,
-			};
-
-			document.getElementById("storyline").value = "Hold on, currently observing the storyline..."
-
-			// Make a POST request to the server with the JSON data
-			fetch((prefix + '/global'), {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(data)
-			})
-				.then(response => {
-					response.json().then(parsedValue => {
-						// code that can access both here
-						console.log(parsedValue)
-						document.getElementById("storyline").value = parsedValue
-						// Get the textarea element
-						const textarea = document.getElementById('storyline');
-
-						// Set the initial height of the textarea
-						textarea.style.height = 'auto';
-
-						// Set the minimum number of rows to 2
-						textarea.setAttribute('rows', '2');
-
-						// Calculate the scroll height of the textarea
-						const scrollHeight = textarea.scrollHeight;
-
-						// Set the height of the textarea to the scroll height
-						textarea.style.height = scrollHeight + 'px';
-					})
-				})
-				.catch(error => {
-					// Handle any errors that occurred during the request
-					console.error(error);
-				});
-
-		}
 
 		function sendChatRequest() {
 			document.getElementById("chat-speechbubble").textContent = "..."
@@ -565,16 +483,124 @@
 				});
 		}
 
+		const form = document.getElementById("settingForm");
+
+		function sendSetting() {
+
+			const data = {
+				title: document.getElementById("title").value,
+				setting: document.getElementById("setting").value,
+				style: document.getElementById("style").value,
+				genre: document.getElementById("genre").value,
+				character_1_name: document.getElementById("character_1_name").value,
+				character_1_gender: document.getElementById("character_1_gender").value,
+				character_1_look: document.getElementById("character_1_look").value,
+				character_1_personality: document.getElementById("character_1_personality").value,
+				character_2_name: document.getElementById("character_2_name").value,
+				character_2_gender: document.getElementById("character_2_gender").value,
+				character_2_look: document.getElementById("character_2_look").value,
+				character_2_personality: document.getElementById("character_2_personality").value,
+				character_3_name: document.getElementById("character_3_name").value,
+				character_3_gender: document.getElementById("character_3_gender").value,
+				character_3_look: document.getElementById("character_3_look").value,
+				character_3_personality: document.getElementById("character_3_personality").value,
+			};
+
+			document.getElementById("storyline").value = "Hold on, currently observing the storyline..."
+
+			// Make a POST request to the server with the JSON data
+			fetch((prefix + '/global'), {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+			})
+				.then(response => {
+					response.json().then(parsedValue => {
+						// code that can access both here
+						console.log(parsedValue)
+						document.getElementById("storyline").value = parsedValue
+						// Get the textarea element
+						const textarea = document.getElementById('storyline');
+
+						// Set the initial height of the textarea
+						textarea.style.height = 'auto';
+
+						// Set the minimum number of rows to 2
+						textarea.setAttribute('rows', '2');
+
+						// Calculate the scroll height of the textarea
+						const scrollHeight = textarea.scrollHeight;
+
+						// Set the height of the textarea to the scroll height
+						textarea.style.height = scrollHeight + 'px';
+					})
+				})
+				.catch(error => {
+					// Handle any errors that occurred during the request
+					console.error(error);
+				});
+
+		}
+
+
+		function storyToPanels() {
+			const data = {
+				title: document.getElementById("title").value,
+				storyline: document.getElementById("storyline").value,
+			};
+
+			// Make a POST request to the server with the JSON data
+			fetch((prefix + '/storyline'), {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+			})
+				.then(response => {
+					response.json().then(parsedValue => {
+						// code that can access both here
+						console.log(parsedValue)
+						panels = parsedValue
+
+						// add to selector
+						var select = document.getElementById("panelselector");
+						// clear the selector
+						while (select.firstChild) {
+							select.removeChild(select.firstChild);
+						}
+						for (var i = 1; i <= Object.keys(panels).length; i++) {
+							var opt = document.createElement("option");
+							opt.value = i;
+							opt.innerHTML = "Panel " + i;
+							select.appendChild(opt);
+						}
+						document.getElementById("panel_description").value = panels[1]["scenario_description"];
+					})
+				})
+				.catch(error => {
+					// Handle any errors that occurred during the request
+					console.error(error);
+				});
+		}
+
 		function generatePanel() {
 			desc = document.getElementById("panel_description").value;
 			dialog_list = []
-			const data = {
+			let data = {
+				title: document.getElementById("title").value,
 				panel_index: parseInt(document.getElementById("panelselector").value),
 				panel_info: {
 					scenario_description: desc,
 					dialogues: dialog_list
 				}
 			};
+			input_img = document.getElementById("previewImage").src
+			if (input_img != "") {
+				data["input_img"] = input_img
+			}
 
 			//also update the global panels variable
 			panels[data.panel_index] = data.panel_info
@@ -638,6 +664,17 @@
 			characterImage.src = imageSource
 		}
 
+		function encodebase64image(file) {
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = function () {
+				console.log(reader.result);
+				return reader.result
+			};
+			reader.onerror = function (error) {
+				console.log('Error: ', error);
+			};
+		}
 
 
 	</script>
