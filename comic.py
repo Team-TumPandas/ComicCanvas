@@ -4,6 +4,7 @@ from flask import Flask, url_for, request, jsonify
 from flask_cors import CORS
 import json 
 import requests
+import re
 
 # global variables
 artist_server = "https://tum-pandas-artist.loophole.site/"
@@ -132,21 +133,7 @@ def construct_first_draft_func(project_id, story_line):
 
     ### Step 4: generate for each frame in the layout 
     print("\n\nchatGPT_response::::" , chatGPT_response)
-    panels = {}
-    for panel_str in chatGPT_response.split("<Panel ")[1:]:
-
-        panel = {"scenario_description": "", "dialogues": {}}
-        panel_num, panel_str = panel_str.split(">", 1)
-        scenario_description = panel_str.split("SCENARIO DESCRIPTION: ", 1)[1]
-        scenario_description, dialogs = scenario_description.split("DIALOGUES:", 1)
-        panel["scenario_description"] = scenario_description
-
-        for line in dialogs.split("[")[1:]:
-            character_name, quote = line.split("]: \"", 1)
-            quote = quote.split("\"", 1)[0]
-            panel["dialogues"][character_name] = quote
-
-        panels[int(panel_num)] = panel
+    panels = parse(chatGPT_response)
 
     print("\n\nPARSED PANELS", panels)
     current_project.pannel_map = panels
@@ -250,7 +237,35 @@ def ask_GPT(input_prompt):
     return response
 
 
+def parse(input_string):
+    # Define a regular expression pattern to match the panels
+    panel_pattern = r'<Panel:? (\d+)>:?'
 
+    # Define a regular expression pattern to match the scenario description
+    description_pattern = r'SCENARIO DESCRIPTION:? (.+)'
+
+    # Define a regular expression pattern to match the dialogues
+    dialogue_pattern = r'\[(.+)\]:? (.+)'
+
+    # Initialize a dictionary to hold the panel objects
+    panel_objects = {}
+
+    # Split the input string into panels using the panel pattern
+    panels = re.split(panel_pattern, input_string)[1:]
+
+    # Iterate over the panels and create the panel objects
+    for i in range(0, len(panels), 2):
+        panel_num = int(panels[i])
+        panel_description = re.search(description_pattern, panels[i+1]).group(1)
+        dialogues = re.findall(dialogue_pattern, panels[i+1])
+        dialogue_objects = {}
+        for dialogue in dialogues:
+            speaker = dialogue[0]
+            text = dialogue[1]
+            dialogue_objects |= {speaker: text}
+        panel_objects[panel_num] = {'scenario_description': panel_description, 'dialogues': dialogue_objects}
+    
+    return panel_objects
 
 
 
