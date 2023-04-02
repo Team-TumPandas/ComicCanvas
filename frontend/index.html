@@ -448,7 +448,7 @@
 				prompt_text = `Act as the following character:
 								${character_descriptions[chatSelector.selectedIndex - 1]}
 
-								This is the setting of the world you live in: 
+								This is the setting of the world you live in: ${document.getElementById("setting").value}
 
 								These are the other characters who live in your world:
 								Character 1:
@@ -665,6 +665,11 @@
 			var imageSource = `https://tum-pandas-artist.loophole.site/draw?prompt=%22${encodedPrompt}%22`
 			characterImage = document.getElementById(character_id + '_image')
 			characterImage.src = imageSource
+
+			//trigger chat update
+			const element = document.getElementById('chat-select');
+			const event = new Event('change');
+			element.dispatchEvent(event);
 		}
 
 		function encodebase64image(file) {
