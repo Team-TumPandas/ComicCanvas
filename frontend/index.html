@@ -406,7 +406,7 @@
 				character_3_personality: document.getElementById("character_3_personality").value,
 			};
 
-			document.getElementById("page_description").value = "Hold on, currently observing the storyline..."
+			document.getElementById("storyline").value = "Hold on, currently observing the storyline..."
 
 			// Make a POST request to the server with the JSON data
 			fetch((prefix + '/global'), {
@@ -420,7 +420,7 @@
 					response.json().then(parsedValue => {
 						// code that can access both here
 						console.log(parsedValue)
-						document.getElementById("page_description").value = parsedValue
+						document.getElementById("storyline").value = parsedValue
 					})
 				})
 				.catch(error => {
@@ -454,7 +454,7 @@
 		}
 
 		// Get the textarea element
-		const textarea = document.getElementById('page_description');
+		const textarea = document.getElementById('storyline');
 
 		// Set the initial height of the textarea
 		textarea.style.height = 'auto';
