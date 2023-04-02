@@ -668,7 +668,7 @@
 
 		function regenerateCharacterImage(character_id) {
 			var gender = document.getElementById(character_id + "_gender").value == "female" ? "woman" : document.getElementById(character_id + "_gender").value == "male" ? "man" : "androgyne"
-			var prompt = `${document.getElementById('style').value} ${document.getElementById(character_id + "_gender").value} comic character avatar, highly detailed portrait, ${gender}, with description ${document.getElementById(character_id + "_look")}, neutral background, ${document.getElementById('genre').value} genre`
+			var prompt = `${document.getElementById('style').value}, ${gender} ${document.getElementById(character_id+"_name").value} comic character avatar, highly detailed portrait, ${document.getElementById(character_id + "_look").value}, neutral background, ${document.getElementById('genre').value} `
 			var encodedPrompt = encodeURIComponent(prompt)
 			var imageSource = `https://tum-pandas-artist.loophole.site/draw?prompt=%22${encodedPrompt}%22`
 			characterImage = document.getElementById(character_id + '_image')
