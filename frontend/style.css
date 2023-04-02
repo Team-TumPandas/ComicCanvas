@@ -30,18 +30,25 @@ body {
 
 .sidebar {
     width: 25%;
+    height: 100%;
     float: right;
     background-color: var(--accent-color-4);
     margin: 0 auto;
     padding: 20px;
     text-align: center;
     border-radius: 5px;
+    margin-top: 11.8%;
+    /* position: fixed;
+    top: 0;
+    right: 0; */
+
+
 }
 
 /* Style the container */
 .container {
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
 }
 
 
@@ -62,6 +69,7 @@ body {
     margin-bottom: 20px;
     border: rgb(0, 0, 0, 0);
     background-color: var(--accent-color-3);
+    color: #1d1748;
     padding: 6px;
 }
 
@@ -82,6 +90,34 @@ body {
     border-radius: 5px;
     margin-bottom: 20px;
     resize: vertical;
+    height: auto;
+}
+
+.textbox2 {
+    display: block;
+    width: 120%;
+    height: 200px;
+    padding: 10px;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    resize: vertical;
+    /* height: auto; */
+}
+
+.nonresizable-textbox {
+    display: block;
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    resize: none;
 }
 
 /* Style the dropdown menus */
@@ -125,7 +161,7 @@ body {
 
 .gender-dropdown {
     padding: 5px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     line-height: 0.7;
     border: transparent;
     border-radius: 5px;
@@ -135,7 +171,7 @@ body {
 
 /* Style the dropdown options */
 .gender-dropdown option {
-    font-size: 1rem;
+    font-size: 0.9rem;
     line-height: 0.7;
 }
 
@@ -172,7 +208,7 @@ h2 {
     margin: 0 auto;
     padding: 20px;
     max-width: 500px;
-    margin: 0 auto;
+    padding-bottom: 20%;
 }
 
 .input-sections {
@@ -238,10 +274,12 @@ hr {
 }
 
 .hiddenradio [type=radio] {
-    position: absolute;
+    /* position: absolute; */
     opacity: 0;
     width: 0;
     height: 0;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 
@@ -254,6 +292,7 @@ hr {
 
 .hiddenradio [type=radio]:checked+img {
     outline: 2px solid var(--accent-color-1);
+    padding: 5px;
 }
 
 .containerflex {
@@ -262,7 +301,7 @@ hr {
     margin-bottom: 20px;
     width: 100%;
     margin-bottom: 5px;
-    padding: 8px;
+    /* padding: 8px; */
     columns: 2;
 }
 
@@ -272,32 +311,34 @@ hr {
     margin-bottom: 20px;
     width: 100%;
     margin-bottom: 5px;
-    padding: 8px;
+    /* padding: 8px; */
     flex: 40 60%;
 }
 
 .box1 {
     background-color: #FFFFFF;
-    padding: 5px;
+    /* padding: 5px 0px; */
     height: 150px;
-    margin-top: 10px;
+    /* margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 10px;
-    margin-right: 10px;
+    margin-right: 10px; */
+    margin: 0 auto;
     width: 100%;
+    text-align: left;
 }
 
 .box2 {
-    margin: auto;
-    height: 200px;
+    margin: 0 auto;
+    /* height: 200px; */
     width: 100%;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
+    /* text-align: right; */
+    /* align-items: center;
+    justify-content: center; */
     /* bottom */
 
     display: flex;
-    padding: 10px;
+    padding: 5px;
 }
 
 .panels {
@@ -334,7 +375,7 @@ hr {
     padding: 10px;
     box-sizing: border-box;
     position: relative;
-    background-color: #f2f2f2;
+    background-color: white;
     border-radius: 20px;
     margin-top: 30px;
 }
@@ -347,7 +388,7 @@ hr {
     transform: translateX(-50%);
     border-style: solid;
     border-width: 20px 20px 0 0;
-    border-color: #f2f2f2 transparent transparent transparent;
+    border-color: white transparent transparent transparent;
 }
 
 .avatar {
@@ -360,7 +401,8 @@ hr {
     border-radius: 15px;
     border-color: transparent;
     background-color: #f2cfe1;
-    padding: 5px 20px;
+    padding: 10px 20px;
+    font-size: 16px;
 }
 
 .send-button:hover {
@@ -371,4 +413,46 @@ hr {
     padding-top: 10px;
     padding-bottom: 5px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.col-right {
+    float: left;
+    width: 70%;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.col-left {
+    float: left;
+    width: 30%;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.leftmargin {
+    margin-left: 50px;
+}
+
+.character_avatar {
+    position: relative;
+    display: inline-block;
+}
+
+.refreshButton {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100px;
+    /* set the width of the button here */
+    height: 50px;
+    /* set the height of the button here */
+}
+
+.toppadding {
+    padding-top: 10px;
+}
+
+.sizsebox {
+    width: 40px;
+    height: 40px;
 }

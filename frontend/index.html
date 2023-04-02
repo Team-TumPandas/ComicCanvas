@@ -9,20 +9,22 @@
 </head>
 
 <body>
-	<h1 class="headline">Comic Canvas</h1>
+
 	<div class="main-content">
 		<!--General Context	-->
 		<div id="settingForm" class="container">
-
+			<h1 class="headline">Comic Canvas</h1>
 			<input id="title" class="title" type="text" placeholder="Give your story a title..." maxlength="50">
 			<textarea class="textbox" maxlength="200" placeholder="Craft your own reality..." id="setting"></textarea>
 			<div class="dropdowns">
 				<select class="dropdown" id="style">
 					<option value="">Select style</option>
-					<option value="Superhero">Superhero</option>
-					<option value="Manga">Manga</option>
-					<option value="Cyberpunk">Cyberpunk</option>
-					<option value="Realistic">Realistic</option>
+					<option value="charliebo artstyle">Charliebo</option>
+					<option value="holliemengert artstyle">Holliemengert</option>
+					<option value="marioalberti artstyle">Marioalberti</option>
+					<option value="pepelarraz artstyle">Pepelarraz</option>
+					<option value="andreasrocha artstyle">Andreasrocha</option>
+					<option value="jamesdaly artstyle">Jamesdaly</option>
 				</select>
 				<select class="dropdown" id="genre">
 					<option value="">Select genre</option>
@@ -33,12 +35,12 @@
 				</select>
 			</div>
 			<div class="characters">
-
+				<hr>
 				<h2>Characters</h2>
 				<div class="character-images">
 					<div class="image">
 						<img src="images/character_1.png">
-						<div class="input-sections">
+						<div class="input-sections" id="character_1">
 							<input class="name" type="text" placeholder="Name" id="character_1_name">
 							<select class="gender-dropdown" id="character_1_gender">
 								<option value="">Select gender</option>
@@ -46,7 +48,7 @@
 								<option value="male">male</option>
 								<option value="other">other</option>
 							</select>
-							<div class="mini-heading">look</div>
+							<div class="mini-heading">appearance</div>
 							<textarea class="description" placeholder="How do I look like?"
 								id="character_1_look"></textarea>
 							<div class="mini-heading">personality</div>
@@ -57,7 +59,7 @@
 
 					<div class="image">
 						<img src="images/character_2.png">
-						<div class="input-sections">
+						<div class="input-sections" id="character_2">
 							<input class="name" type="text" placeholder="Name" id="character_2_name">
 							<select class="gender-dropdown" id="character_2_gender">
 								<option value="">Select gender</option>
@@ -65,7 +67,7 @@
 								<option value="male">male</option>
 								<option value="other">other</option>
 							</select>
-							<div class="mini-heading">look</div>
+							<div class="mini-heading">appearance</div>
 							<textarea class="description" placeholder="How do I look like?"
 								id="character_2_look"></textarea>
 							<div class="mini-heading">personality</div>
@@ -76,7 +78,7 @@
 
 					<div class="image">
 						<img src="images/character_3.png">
-						<div class="input-sections">
+						<div class="input-sections" id="character_3">
 							<input class="name" type="text" placeholder="Name" id="character_3_name">
 							<select class="gender-dropdown" id="character_3_gender">
 								<option value="">Select gender</option>
@@ -84,7 +86,7 @@
 								<option value="male">male</option>
 								<option value="other">other</option>
 							</select>
-							<div class="mini-heading">look</div>
+							<div class="mini-heading">appearance</div>
 							<textarea class="description" placeholder="How do I look like?"
 								id="character_3_look"></textarea>
 							<div class="mini-heading">personality</div>
@@ -95,67 +97,64 @@
 				</div>
 			</div>
 			<button onClick="sendSetting()" class="submit-button" id="submit-setting">Construct Universe</button>
-			<hr>
 		</div>
 
 		<!--Next page-->
-		<form id="pageForm" class="container">
-			<h2>Page</h2>
-			<textarea class="textbox" maxlength="500" placeholder="What happens next?" id="page_description"></textarea>
+		<form id="storyline_form" class="container">
+			<hr>
+			<h2>Storyline</h2>
+			<textarea class="textbox" maxlength="500" placeholder="What happens next?" id="storyline"></textarea>
 			<button class="submit-button">Let your storyline unfold...</button>
 		</form>
 
 		<!--Canvas-->
-		<div class="containerflex">
-			<div class="box1">
-				<h2>Layout</h2>
-				<div class="hiddenradio">
-					<title>Page</title>
-					<label>
-						<input type="radio" , name="test" value="big" checked>
-						<img src="images/comic layout.png" ,alt="Layout1" , width="80" , height="80">
-					</label>
-					<label>
-						<input type="radio" name="test" value="big">
-						<img src="images/comic layout 2.png" ,alt="Layout2" width="80" , height="80">
-					</label><label>
-						<input type="radio" name="test" value="big">
-						<img src="images/comic layout 3.png" ,alt="Layout3" width="80" , height="80">
-					</label>
-				</div>
-			</div>
-			<!--choose panels-->
-			<div class="box2">
-				<select class="panels" name="panels">
-					<option value="images/comic layout.png">Panel 1</option>
-					<option value="images/comic layout.png">Panel 2</option>
-					<option value="images/comic layout.png">Panel 3</option>
-					<option value="images/comic layout 3.png">Panel 4</option>
-				</select>
-
-			</div>
-
-		</div>
 		<div class="container">
-			<style>
-				/* Set the width of the columns */
-				.column1 {
-					width: 30%;
-					float: left;
-				}
+			<hr>
+			<h2>Layout</h2>
+			<div class="containerflex">
+				<div class="box1">
+					<div class="hiddenradio">
+						<label>
+							<input type="radio" , name="test" value="big" checked>
+							<img src="images/comic layout.png" ,alt="Layout1" , width="80" , height="80">
+						</label>
+						<label>
+							<input type="radio" name="test" value="big">
+							<img src="images/comic layout 2.png" ,alt="Layout2" width="80" , height="80">
+						</label>
+						<label>
+							<input type="radio" name="test" value="big">
+							<img src="images/comic layout 3.png" ,alt="Layout3" width="80" , height="80">
+						</label>
+					</div>
+				</div>
+				<!--choose panels-->
+				<div class="box2">
+					<select class="dropdown" id="panelselector">
+					</select>
 
-				.column2 {
-					width: 70%;
-					float: left;
-				}
-			</style>
-			<div>
-				<div class="column1">
-					<form id="pageForm">
+				</div>
+
+			</div>
+			<div class="container">
+				<!-- <style>
+					/* Set the width of the columns */
+					.column1 {
+						width: 30%;
+						float: left;
+					}
+
+					.column2 {
+						width: 70%;
+						float: left;
+					}
+				</style> -->
+				<div class="col-left">
+					<div id="panel_description_form">
+						<hr>
 						<h2>Description</h2>
-						<textarea class="textbox" maxlength="700" placeholder="Storyline"
-							id="page_description"></textarea>
-					</form>
+						<textarea class="textbox2" placeholder="Description" id="panel_description"></textarea>
+					</div>
 
 					<style>
 						/* Style for the dialogue boxes */
@@ -165,7 +164,7 @@
 							background-color: #fff;
 							border: 2px solid #67c0c86e;
 							border-radius: 15px;
-							margin: 10px;
+							margin: 5px;
 						}
 
 						/* Style for the character names */
@@ -174,33 +173,68 @@
 							margin-right: 10px;
 						}
 					</style>
-					</head>
+					<!-- </head> -->
 
-					<body>
-						<!-- First character dialogue -->
-						<div class="dialogue">
-							<span class="character-name" id="char1">[Char 1 placeholder]</span>
-							<span class="dialogue-text" id="dialogue1">[Insert dialogue here which is super long]</span>
+					<!-- <body> -->
+					<!-- First character dialogue -->
+					<div class="dialogue">
+						<span class="character-name" id="char1">[Character 1]:</span>
+						<span class="dialogue-text" id="dialogue1">dialogue</span>
+					</div>
+					<!-- Second character dialogue -->
+					<div class="dialogue">
+						<span class="character-name" id="char2">[Character 2]:</span>
+						<span class="dialogue-text" id="dialogue2">dialogue</span>
+					</div>
+					<!-- Third character dialogue -->
+					<div class="dialogue">
+						<span class="character-name" id="char3">[Character 3]:</span>
+						<span class="dialogue-text" id="dialogue3">dialogue</span>
+					</div>
+					<div class="toppadding">
+						<h2>Select an image</h2>
+						<input type="file" id="myFileInput">
+					</div>
+
+					<div class="toppadding">
+						<img id="previewImage" width="300">
+					</div>
+
+					<div>
+						<button class="submit-button" , onclick="generatePanel()">Generate Panel</button>
+
+					</div>
+
+					<script>
+						const fileInput = document.getElementById("myFileInput");
+						const previewImage = document.getElementById("previewImage");
+
+						fileInput.addEventListener("change", function () {
+							const file = fileInput.files[0];
+							const reader = new FileReader();
+
+							reader.addEventListener("load", function () {
+								previewImage.src = reader.result;
+							}, false);
+
+							if (file) {
+								reader.readAsDataURL(file);
+							}
+						});
+					</script>
+				</div>
+				<div class="col-right">
+					<div class="leftmargin">
+						<div class="hiddenradio" onChange="selectPreviewImage()" id="preview_selector">
 						</div>
-						<!-- Second character dialogue -->
-						<div class="dialogue">
-							<span class="character-name" id="char2">[Char 2 placeholder]</span>
-							<span class="dialogue-text" id="dialogue2">[Insert dialogue here which is super long]</span>
-						</div>
-						<!-- Third character dialogue -->
-						<div class="dialogue">
-							<span class="character-name" id="char3">[Char 3 placeholder]</span>
-							<span class="dialogue-text" id="dialogue3">[Insert dialogue here which is super long]</span>
-						</div>
+					</div>
+					<div class="panel">
+						<img class="result" src="images/Placeholder3.jpeg" id="panel_img" , width=120%,></img>
+					</div>
 				</div>
 			</div>
-			<div class="column2">
-				<div class="panel">
-					<img class="result" src="images/comic layout 3.png" id="panelID" , width=120%,></img>
-				</div>
-			</div>
-
 		</div>
+	</div>
 	</div>
 	<div class="sidebar">
 		<select class="character-dropdown" id="chat-select">
@@ -209,83 +243,105 @@
 			<option value="images/character_2.png">Character 2</option>
 			<option value="images/character_3.png">Character 3</option>
 		</select>
-		<div class="speech-bubble">
-			<p>This is a non-editable text field in the form of a speech bubble.</p>
+		<div class="speech-bubble" id="chat-speechbubble">
+			<p>Are there any specific ideas you have for the story or characters that you'd like me to help with? I'm
+				here to help you explore your creativity and bring your vision to life.</p>
 		</div>
 		<img src="images/panda.png" class="avatar" id="chat-image">
-		<textarea class="textbox" placeholder="Ask me anything!"></textarea>
-		<button class="send-button">Send!</button>
+		<textarea class="nonresizable-textbox" id="user-chat-input" placeholder="Ask me anything!"></textarea>
+		<button class="send-button" onClick="sendChatRequest()">Send!</button>
 		<!-- your additional content here -->
 	</div>
+
 	<script>
+
+		let current_image_variations = [];
+
+		//placeholders
+
 		//html stuff
-		const selectElement = document.querySelector(".panels");
+		const selectElement = document.getElementById("panelselector");
 		selectElement.addEventListener("change", (event) => {
-			const result = document.querySelector(".result");
-			result.src = event.target.value;
-			// print result
-			console.log(result);
-			console.log(result.src)
-			console.log(event.target.value)
-			console.log(result.id)
-			// TODO change dialogue box to match panel
-			if (result == "Panel 1") {
-				result.src == panels.panel1.panel1_image;
-				// e.g change char 1 name
-				var char1 = document.getElementById("char1");
-				char1.innerHTML = panels.panel1.panel1_character;
-			} else if (result == "Panel 2") {
-				result.src == panels.panel2.panel2_image;
-				// e.g change char 2 name
-				var char2 = document.getElementById("char2");
-				char2.innerHTML = panels.panel2.panel2_character;
-				result.src = event.target.value;
-			} else if (result == "Panel 3") {
-				result.src == panels.panel3.panel3_image;
-				var char3 = document.getElementById("char3");
-				char3.innerHTML = panels.panel3.panel3_character;
-			} else if (result == "Panel 4") {
-				result.src == panels.panel4.panel4_image;
-				var char4 = document.getElementById("char4");
-				char4.innerHTML = panels.panel4.panel4_character;
+			let selected = event.target.value;
+			document.getElementById("panel_description").value = panels[selected]["scenario_description"];
+			dialog_list = panels[selected]['dialogues'];
+
+			// first clear all dialogs
+			for (let i = 1; i <= 3; i++) {
+				document.getElementById("char" + i).innerHTML = "[Character " + i + "]:";
+				document.getElementById("dialogue" + i).innerHTML = "dialogue";
+			}
+
+			let i = 1;
+			for (var key in dialog_list) {
+				if (dialog_list.hasOwnProperty(key)) {
+					document.getElementById("char" + i).innerHTML = key;
+					document.getElementById("dialogue" + i).innerHTML = dialog_list[key];
+					i++;
+				}
 			}
 		});
+
 
 		// panels[panel1][panel1_image]
 		// dynamic list for panels
 		var panels = {
-			"panel1": {
-				"panel1_image": "images/Placeholder.png",
-				"panel1_dialogue": "This is a dialogue text",
-				"panel1_character": "Character 1 name"
+			1: {
+				"scenario_description": "Spiderman and Joker are facing each other on a busy street. The sun is setting in the background, casting an orange glow over the scene. Spiderman is in a crouched position, ready to pounce. Joker is holding a knife, grinning maniacally.\n",
+				"dialogues": {
+					"Spiderman": "You're not getting away with this, Joker.",
+					"Joker": "Oh, but Spiderman, that's the fun part!"
+				}
 			},
-			"panel2": {
-				"panel2_image": "images/Placeholder2.png",
-				"panel2_dialogue": "This is a dialogue text",
-				"panel2_character": "character 2 name"
+			2: {
+				"scenario_description": "Spiderman jumps over a car, narrowly avoiding a swipe from Joker's knife. Joker is now on top of the car, taunting Spiderman. The car is parked near a fruit stand, which Spiderman uses to his advantage.\n",
+				"dialogues": {
+					"Spiderman": "You're going to have to do better than that, Joker.",
+					"Joker": "I'm just getting started, Spiderman!"
+				}
 			},
-			"panel3": {
-				"panel3_image": "images/comic layout 3.png",
-				"panel3_dialogue": "This is a dialogue text",
-				"panel3_character": "character 3 name"
+			3: {
+				"scenario_description": "Spiderman has used his web-slinging ability to wrap Joker up in a bundle of fruit. Joker is squirming and shouting, while Spiderman looks on triumphantly. The police are arriving on the scene to take Joker into custody.\n",
+				"dialogues": {
+					"Spiderman": "Looks like you're not so tough after all, Joker.",
+					"Joker": "This isn't over, Spiderman!",
+					"Police officer": "Thanks for your help, Spiderman. We'll take it from here."
+				}
 			},
-			"panel4": {
-				"panel4_image": "images/comic layout 4.png",
-				"panel4_dialogue": "This is a dialogue text",
-				"panel4_character": "Character 4 name"
+			4: {
+				"scenario_description": "lmao\n",
+				"dialogues": {
+					"Jay": "Lhahahfadskfjadslfadslkj.",
+				}
 			}
 		}
+		// add to selector
+		var select = document.getElementById("panelselector");
+		for (var i = 1; i <= Object.keys(panels).length; i++) {
+			var opt = document.createElement("option");
+			opt.value = i;
+			opt.innerHTML = "Panel " + i;
+			select.appendChild(opt);
+		}
+		// document.getElementById("panel_description").value = panels[1]["scenario_description"];
+
+		const chatSelector = document.getElementById('chat-select');
 
 		const imageSelector = document.getElementById('chat-select');
 		const image = document.getElementById('chat-image');
+		const speechBubble = document.getElementById('chat-speechbubble');
+		const writingBuddyDefaultText = "Are there any specific ideas you have for the story or characters that you'd like me to help with? I'm here to help you explore your creativity and bring your vision to life."
+		const character1DefaultText = "Ask me anything!"
 
 		// add an event listener to the select element
-		imageSelector.addEventListener('change', function () {
+		chatSelector.addEventListener('change', function () {
 			// get the selected value
-			const selectedValue = imageSelector.value;
+			const selectedValue = chatSelector.value;
 
 			// set the src attribute of the image element to the selected value
 			image.src = selectedValue;
+			speechBubble.textContent = (chatSelector.selectedIndex == 0) ? writingBuddyDefaultText : character1DefaultText;
+
 		});
 
 		const char1name = document.getElementById("character_1_name")
@@ -352,6 +408,7 @@
 		function sendSetting() {
 
 			const data = {
+				title: document.getElementById("title").value,
 				setting: document.getElementById("setting").value,
 				style: document.getElementById("style").value,
 				genre: document.getElementById("genre").value,
@@ -369,9 +426,191 @@
 				character_3_personality: document.getElementById("character_3_personality").value,
 			};
 
-			postJSON(data);
+			document.getElementById("storyline").value = "Hold on, currently observing the storyline..."
+
+			// Make a POST request to the server with the JSON data
+			fetch((prefix + '/global'), {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+			})
+				.then(response => {
+					response.json().then(parsedValue => {
+						// code that can access both here
+						console.log(parsedValue)
+						document.getElementById("storyline").value = parsedValue
+						// Get the textarea element
+						const textarea = document.getElementById('storyline');
+
+						// Set the initial height of the textarea
+						textarea.style.height = 'auto';
+
+						// Set the minimum number of rows to 2
+						textarea.setAttribute('rows', '2');
+
+						// Calculate the scroll height of the textarea
+						const scrollHeight = textarea.scrollHeight;
+
+						// Set the height of the textarea to the scroll height
+						textarea.style.height = scrollHeight + 'px';
+					})
+				})
+				.catch(error => {
+					// Handle any errors that occurred during the request
+					console.error(error);
+				});
 
 		}
+
+		function sendChatRequest() {
+			document.getElementById("chat-speechbubble").textContent = "..."
+			const chatSelector = document.getElementById("chat-select");
+			var prompt_text = ""
+			var character_descriptions = [
+				`name: ${document.getElementById("character_1_name").value}
+				gender: ${document.getElementById("character_1_gender").value}")}
+				appearance: ${document.getElementById("character_1_look").value}
+				personality: ${document.getElementById("character_1_personality").value}`,
+				`name: ${document.getElementById("character_2_name").value}
+				gender: ${document.getElementById("character_2_gender").value}")}
+				appearance: ${document.getElementById("character_2_look").value}
+				personality: ${document.getElementById("character_2_personality").value}`,
+				`name: ${document.getElementById("character_3_name").value}
+				gender: ${document.getElementById("character_3_gender").value}")}
+				appearance: ${document.getElementById("character_3_look").value}
+				personality: ${document.getElementById("character_3_personality").value}`
+
+			];
+			//buddy
+			if (chatSelector.selectedIndex == 0) {
+				prompt_text = `Act as the following character: You are a cute, friendly and happy panda called scribbles, who is an expert on the topic of writing comics and always happy to help. You are focused on helping the user explore their creativity and create a comic from their ideas. This is the story you are trying to help with:
+
+				Setting of the story you are helping with: ${document.getElementById("setting").value}
+
+				Genre of the story you are helping with: ${document.getElementById("genre").value}
+
+				Characters in the story you are helping with: 
+
+				Character 1:
+				${character_descriptions[0]}
+
+				Character 2:
+				${character_descriptions[1]}
+
+				Character 3:
+				${character_descriptions[2]}
+
+				Always answer exactly what your assigned character would answer and never answer as ChatGPT. Answer the question and answer in the tone the character speaks in. You never greet introduce yourself, just answer the question."`;
+			}
+			else {
+				var selectedCharacter = (chatSelector.selectedIndex == 1) ? document.getElementById("character_1").value : (chatSelector.selectedIndex == 2) ? document.getElementById("character_2").value : document.getElementById("character_3").value
+				prompt_text = `Act as the following character:
+								${character_descriptions[chatSelector.selectedIndex - 1]}
+
+								This is the setting of the world you live in: 
+
+								These are the other characters who live in your world:
+								Character 1:
+								${character_descriptions[chatSelector.selectedIndex % 3]}
+
+								Character 2:
+								${character_descriptions[(chatSelector.selectedIndex + 1) % 3]}
+
+								Always answer exactly what your assigned chatracter would answer and never answer as chatgpt. Choose suitable details if necessary to answer the question and answer in the tone the character speaks in. You never greet or introduce yourself, just answer the question.`;
+			}
+
+
+			data = {
+				system_prompt: prompt_text,
+				user_prompt: document.getElementById("user-chat-input").value,
+			}
+			// Make a POST request to the server with the JSON data
+			fetch((prefix + '/chat'), {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+			})
+				.then(response => {
+					response.json().then(parsedValue => {
+						// Handle the response from the server
+						console.log(parsedValue)
+						document.getElementById("chat-speechbubble").textContent = parsedValue.content
+					})
+				})
+				.catch(error => {
+					// Handle any errors that occurred during the request
+					console.error(error);
+				});
+		}
+
+		function generatePanel() {
+			desc = document.getElementById("panel_description").value;
+			dialog_list = []
+			const data = {
+				panel_index: parseInt(document.getElementById("panelselector").value),
+				panel_info: {
+					scenario_description: desc,
+					dialogues: dialog_list
+				}
+			};
+
+			//also update the global panels variable
+			panels[data.panel_index] = data.panel_info
+
+			// Make a POST request to the server with the JSON data
+			fetch((prefix + '/generate_panel'), {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+			})
+				.then(response => {
+					// Handle the response from the server
+					console.log(response);
+
+					response.json().then(parsedValue => {
+						// code that can access both here
+						console.log(parsedValue)
+						//TODO: decode base64 images and display them (all variations)
+						document.getElementById("panel_img").src = "data:image/png;base64," + parsedValue[0]
+						current_image_variations = parsedValue
+						var previewSelect = document.getElementById("preview_selector");
+						previewSelect.innerHTML = "";
+						for (var i = 0; i < parsedValue.length; i++) {
+							console.log(i)
+							var label = document.createElement("label");
+							label.innerHTML = `<input type="radio" name="test" value="${i}">
+											<img src=${"data:image/png;base64," + parsedValue[i]} ,alt="Layout3" width="80" , height="80">`;
+							previewSelect.appendChild(label);
+						}
+					})
+				})
+				.catch(error => {
+					// Handle any errors that occurred during the request
+					console.error(error);
+				});
+		}
+
+		var select = document.getElementById("panelselector");
+		for (var i = 1; i <= Object.keys(panels).length; i++) {
+			var opt = document.createElement("option");
+			opt.value = i;
+			opt.innerHTML = "Panel " + i;
+			select.appendChild(opt);
+		}
+
+
+		function selectPreviewImage() {
+			var previewSelect = document.getElementById("preview_selector");
+			var selectedValue = previewSelect.querySelector('input[name="test"]:checked').value;
+			document.getElementById("panel_img").src = "data:image/png;base64," + current_image_variations[selectedValue]
+		}
+
 	</script>
 
 </body>
