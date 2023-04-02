@@ -464,6 +464,7 @@
 			data = {
 				system_prompt: prompt_text,
 				user_prompt: document.getElementById("user-chat-input").value,
+				convo_id: chatSelector.selectedIndex,
 			}
 			// Make a POST request to the server with the JSON data
 			fetch((prefix + '/chat'), {
@@ -477,7 +478,7 @@
 					response.json().then(parsedValue => {
 						// Handle the response from the server
 						console.log(parsedValue)
-						document.getElementById("chat-speechbubble").textContent = parsedValue.content
+						document.getElementById("chat-speechbubble").textContent = parsedValue;
 					})
 				})
 				.catch(error => {
