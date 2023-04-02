@@ -139,29 +139,33 @@ def generate_frame():
     panel_index = data.get('panel_index') 
     panel_info = data.get('panel_info')
 
+    ###
+    #index
+    #for charac_name in list(panel_info.get('dialogues').keys()):
+    ###
+
     current_project.panel_map[panel_index] = panel_info
-    prompt = f"{current_project.style}: {panel_info.get('scenario_description')}, {current_project.character_look_list}, {current_project.character_gender_list}"
+    prompt = f"{current_project.style}: {panel_info.get('scenario_description')}, {','.join(current_project.character_look_list)}, {','.join(current_project.character_gender_list)}"
     print("\n\nPROMPT: ", prompt)
-    output = generate_frame_func(prompt)
+    output = generate_frame_func(prompt, data.get('input_img'))
 
     # cache the generated image
     current_project.panel_map.get(panel_index)["image"] = output
     return output
 
-def generate_frame_func(scenario_description, withImage=False):
-
+def generate_frame_func(scenario_description, image=None):
     #TODO: send to chatGPT for improvement (I don't want to do this haha)
-    if withImage: 
+    if image != None: 
         req = {
-            "image" : "", #TODO: receive image from user
+            "image" : image,
             "prompt" : scenario_description
         }
-        response = requests.get(artist_server+"/img2img", params=req)
+        response = requests.post(artist_server+"/img2img", json=req)
     else:
         req = {
             "prompt": scenario_description
         }
-        response = requests.get(artist_server+"/txt2img", params=req)
+        response = requests.post(artist_server+"/txt2img", json=req)
         
     if response.status_code != 200:
         print("ERROR: could not generate image")
@@ -202,8 +206,6 @@ def ask_chat_GPT(user_prompt, system_prompt='You are a helpful assistant to a co
     return response
 
 def chat_with_history(user_prompt, system_prompt, SYSTEM="system", ASSISTANT="assistant", convo_id="default"):
-    # Generate a response using GPT-3
-    
     if conversation_history.get(convo_id) is None:
         conversation_history[convo_id] = []
     current_history = conversation_history[convo_id]
