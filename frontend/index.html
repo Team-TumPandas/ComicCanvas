@@ -39,7 +39,7 @@
 				<h2>Characters</h2>
 				<div class="character-images">
 					<div class="image">
-						<img src="images/character_1.png">
+						<img src="images/placeholder.png" id="character_1_image">
 						<div class="input-sections" id="character_1">
 							<input class="name" type="text" placeholder="Name" id="character_1_name">
 							<select class="gender-dropdown" id="character_1_gender">
@@ -49,16 +49,19 @@
 								<option value="other">other</option>
 							</select>
 							<div class="mini-heading">appearance</div>
-							<textarea class="description" placeholder="How do I look like?"
+							<textarea class="description" placeholder="What do I look like?"
 								id="character_1_look"></textarea>
 							<div class="mini-heading">personality</div>
 							<textarea class="description" placeholder="Bring me to life!"
 								id="character_1_personality"></textarea>
 						</div>
+						<button class="refresh" id="character_1_refresh"
+							onclick="regenerateCharacterImage('character_1')">Regenerate
+							Image</button>
 					</div>
 
 					<div class="image">
-						<img src="images/character_2.png">
+						<img src="images/placeholder.png" id="character_2_image">
 						<div class="input-sections" id="character_2">
 							<input class="name" type="text" placeholder="Name" id="character_2_name">
 							<select class="gender-dropdown" id="character_2_gender">
@@ -68,16 +71,19 @@
 								<option value="other">other</option>
 							</select>
 							<div class="mini-heading">appearance</div>
-							<textarea class="description" placeholder="How do I look like?"
+							<textarea class="description" placeholder="What do I look like?"
 								id="character_2_look"></textarea>
 							<div class="mini-heading">personality</div>
 							<textarea class="description" placeholder="Bring me to life!"
 								id="character_2_personality"></textarea>
 						</div>
+						<button class="refresh" id="character_2_refresh"
+							onclick="regenerateCharacterImage('character_2')">Regenerate
+							Image</button>
 					</div>
 
 					<div class="image">
-						<img src="images/character_3.png">
+						<img src="images/placeholder.png" id="character_3_image">
 						<div class="input-sections" id="character_3">
 							<input class="name" type="text" placeholder="Name" id="character_3_name">
 							<select class="gender-dropdown" id="character_3_gender">
@@ -87,12 +93,15 @@
 								<option value="other">other</option>
 							</select>
 							<div class="mini-heading">appearance</div>
-							<textarea class="description" placeholder="How do I look like?"
+							<textarea class="description" placeholder="What do I look like?"
 								id="character_3_look"></textarea>
 							<div class="mini-heading">personality</div>
 							<textarea class="description" placeholder="Bring me to life!"
 								id="character_3_personality"></textarea>
 						</div>
+						<button class="refresh" id="character_3_refresh"
+							onclick="regenerateCharacterImage('character_3')">Regenerate
+							Image</button>
 					</div>
 				</div>
 			</div>
@@ -100,12 +109,11 @@
 		</div>
 
 		<!--Next page-->
-		<form id="storyline_form" class="container">
-			<hr>
+		<div class="container">
 			<h2>Storyline</h2>
 			<textarea class="textbox" maxlength="500" placeholder="What happens next?" id="storyline"></textarea>
-			<button class="submit-button">Let your storyline unfold...</button>
-		</form>
+			<button class="submit-button" onClick="storyToPanels()">Let your storyline unfold...</button>
+		</div>
 
 		<!--Canvas-->
 		<div class="container">
@@ -201,7 +209,7 @@
 					</div>
 
 					<div>
-						<button class="submit-button" , onclick="generatePanel()">Generate Panel</button>
+						<button class="submit-button" , onClick="generatePanel()">Generate Panel</button>
 
 					</div>
 
@@ -286,34 +294,13 @@
 		// panels[panel1][panel1_image]
 		// dynamic list for panels
 		var panels = {
-			1: {
-				"scenario_description": "Spiderman and Joker are facing each other on a busy street. The sun is setting in the background, casting an orange glow over the scene. Spiderman is in a crouched position, ready to pounce. Joker is holding a knife, grinning maniacally.\n",
-				"dialogues": {
-					"Spiderman": "You're not getting away with this, Joker.",
-					"Joker": "Oh, but Spiderman, that's the fun part!"
-				}
-			},
-			2: {
-				"scenario_description": "Spiderman jumps over a car, narrowly avoiding a swipe from Joker's knife. Joker is now on top of the car, taunting Spiderman. The car is parked near a fruit stand, which Spiderman uses to his advantage.\n",
-				"dialogues": {
-					"Spiderman": "You're going to have to do better than that, Joker.",
-					"Joker": "I'm just getting started, Spiderman!"
-				}
-			},
-			3: {
-				"scenario_description": "Spiderman has used his web-slinging ability to wrap Joker up in a bundle of fruit. Joker is squirming and shouting, while Spiderman looks on triumphantly. The police are arriving on the scene to take Joker into custody.\n",
-				"dialogues": {
-					"Spiderman": "Looks like you're not so tough after all, Joker.",
-					"Joker": "This isn't over, Spiderman!",
-					"Police officer": "Thanks for your help, Spiderman. We'll take it from here."
-				}
-			},
-			4: {
-				"scenario_description": "lmao\n",
-				"dialogues": {
-					"Jay": "Lhahahfadskfjadslfadslkj.",
-				}
-			}
+			// 1: {
+			// 	"scenario_description": "Spiderman and Joker are facing each other on a busy street. The sun is setting in the background, casting an orange glow over the scene. Spiderman is in a crouched position, ready to pounce. Joker is holding a knife, grinning maniacally.\n",
+			// 	"dialogues": {
+			// 		"Spiderman": "You're not getting away with this, Joker.",
+			// 		"Joker": "Oh, but Spiderman, that's the fun part!"
+			// 	}
+			// }
 		}
 		// add to selector
 		var select = document.getElementById("panelselector");
@@ -337,9 +324,21 @@
 		chatSelector.addEventListener('change', function () {
 			// get the selected value
 			const selectedValue = chatSelector.value;
+			if (chatSelector.selectedIndex == 0) {
+				image.src = selectedValue;
+			}
+			else if (chatSelector.selectedIndex == 1) {
+				image.src = document.getElementById("character_1_image").src;
+			}
+			else if (chatSelector.selectedIndex == 2) {
+				image.src = document.getElementById("character_2_image").src;
+			}
+			else if (chatSelector.selectedIndex == 3) {
+				image.src = document.getElementById("character_3_image").src;
+			}
 
 			// set the src attribute of the image element to the selected value
-			image.src = selectedValue;
+			// image.src = selectedValue;
 			speechBubble.textContent = (chatSelector.selectedIndex == 0) ? writingBuddyDefaultText : character1DefaultText;
 
 		});
@@ -396,6 +395,91 @@
 				.then(response => {
 					// Handle the response from the server
 					console.log(response);
+				})
+				.catch(error => {
+					// Handle any errors that occurred during the request
+					console.error(error);
+				});
+		}
+
+
+		function sendChatRequest() {
+			document.getElementById("chat-speechbubble").textContent = "..."
+			const chatSelector = document.getElementById("chat-select");
+			var prompt_text = ""
+			var character_descriptions = [
+				`name: ${document.getElementById("character_1_name").value}
+				gender: ${document.getElementById("character_1_gender").value}")}
+				appearance: ${document.getElementById("character_1_look").value}
+				personality: ${document.getElementById("character_1_personality").value}`,
+				`name: ${document.getElementById("character_2_name").value}
+				gender: ${document.getElementById("character_2_gender").value}")}
+				appearance: ${document.getElementById("character_2_look").value}
+				personality: ${document.getElementById("character_2_personality").value}`,
+				`name: ${document.getElementById("character_3_name").value}
+				gender: ${document.getElementById("character_3_gender").value}")}
+				appearance: ${document.getElementById("character_3_look").value}
+				personality: ${document.getElementById("character_3_personality").value}`
+
+			];
+			//buddy
+			if (chatSelector.selectedIndex == 0) {
+				prompt_text = `Act as the following character: You are a cute, friendly and happy panda called scribbles, who is an expert on the topic of writing comics and always happy to help. You are focused on helping the user explore their creativity and create a comic from their ideas. This is the story you are trying to help with:
+
+				Setting of the story you are helping with: ${document.getElementById("setting").value}
+
+				Genre of the story you are helping with: ${document.getElementById("genre").value}
+
+				Characters in the story you are helping with: 
+
+				Character 1:
+				${character_descriptions[0]}
+
+				Character 2:
+				${character_descriptions[1]}
+
+				Character 3:
+				${character_descriptions[2]}
+
+				Always answer exactly what your assigned character would answer and never answer as ChatGPT. Answer the question and answer in the tone the character speaks in. You never greet introduce yourself, just answer the question."`;
+			}
+			else {
+				var selectedCharacter = (chatSelector.selectedIndex == 1) ? document.getElementById("character_1").value : (chatSelector.selectedIndex == 2) ? document.getElementById("character_2").value : document.getElementById("character_3").value
+				prompt_text = `Act as the following character:
+								${character_descriptions[chatSelector.selectedIndex - 1]}
+
+								This is the setting of the world you live in: ${document.getElementById("setting").value}
+
+								These are the other characters who live in your world:
+								Character 1:
+								${character_descriptions[chatSelector.selectedIndex % 3]}
+
+								Character 2:
+								${character_descriptions[(chatSelector.selectedIndex + 1) % 3]}
+
+								Always answer exactly what your assigned chatracter would answer and never answer as chatgpt. Choose suitable details if necessary to answer the question and answer in the tone the character speaks in. You never greet or introduce yourself, just answer the question.`;
+			}
+
+
+			data = {
+				system_prompt: prompt_text,
+				user_prompt: document.getElementById("user-chat-input").value,
+				convo_id: chatSelector.selectedIndex,
+			}
+			// Make a POST request to the server with the JSON data
+			fetch((prefix + '/chat'), {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+			})
+				.then(response => {
+					response.json().then(parsedValue => {
+						// Handle the response from the server
+						console.log(parsedValue)
+						document.getElementById("chat-speechbubble").textContent = parsedValue;
+					})
 				})
 				.catch(error => {
 					// Handle any errors that occurred during the request
@@ -464,70 +548,15 @@
 
 		}
 
-		function sendChatRequest() {
-			document.getElementById("chat-speechbubble").textContent = "..."
-			const chatSelector = document.getElementById("chat-select");
-			var prompt_text = ""
-			var character_descriptions = [
-				`name: ${document.getElementById("character_1_name").value}
-				gender: ${document.getElementById("character_1_gender").value}")}
-				appearance: ${document.getElementById("character_1_look").value}
-				personality: ${document.getElementById("character_1_personality").value}`,
-				`name: ${document.getElementById("character_2_name").value}
-				gender: ${document.getElementById("character_2_gender").value}")}
-				appearance: ${document.getElementById("character_2_look").value}
-				personality: ${document.getElementById("character_2_personality").value}`,
-				`name: ${document.getElementById("character_3_name").value}
-				gender: ${document.getElementById("character_3_gender").value}")}
-				appearance: ${document.getElementById("character_3_look").value}
-				personality: ${document.getElementById("character_3_personality").value}`
 
-			];
-			//buddy
-			if (chatSelector.selectedIndex == 0) {
-				prompt_text = `Act as the following character: You are a cute, friendly and happy panda called scribbles, who is an expert on the topic of writing comics and always happy to help. You are focused on helping the user explore their creativity and create a comic from their ideas. This is the story you are trying to help with:
+		function storyToPanels() {
+			const data = {
+				title: document.getElementById("title").value,
+				storyline: document.getElementById("storyline").value,
+			};
 
-				Setting of the story you are helping with: ${document.getElementById("setting").value}
-
-				Genre of the story you are helping with: ${document.getElementById("genre").value}
-
-				Characters in the story you are helping with: 
-
-				Character 1:
-				${character_descriptions[0]}
-
-				Character 2:
-				${character_descriptions[1]}
-
-				Character 3:
-				${character_descriptions[2]}
-
-				Always answer exactly what your assigned character would answer and never answer as ChatGPT. Answer the question and answer in the tone the character speaks in. You never greet introduce yourself, just answer the question."`;
-			}
-			else {
-				var selectedCharacter = (chatSelector.selectedIndex == 1) ? document.getElementById("character_1").value : (chatSelector.selectedIndex == 2) ? document.getElementById("character_2").value : document.getElementById("character_3").value
-				prompt_text = `Act as the following character:
-								${character_descriptions[chatSelector.selectedIndex - 1]}
-
-								This is the setting of the world you live in: 
-
-								These are the other characters who live in your world:
-								Character 1:
-								${character_descriptions[chatSelector.selectedIndex % 3]}
-
-								Character 2:
-								${character_descriptions[(chatSelector.selectedIndex + 1) % 3]}
-
-								Always answer exactly what your assigned chatracter would answer and never answer as chatgpt. Choose suitable details if necessary to answer the question and answer in the tone the character speaks in. You never greet or introduce yourself, just answer the question.`;
-			}
-
-
-			data = {
-				system_prompt: prompt_text,
-				user_prompt: document.getElementById("user-chat-input").value,
-			}
 			// Make a POST request to the server with the JSON data
-			fetch((prefix + '/chat'), {
+			fetch((prefix + '/storyline'), {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -536,9 +565,23 @@
 			})
 				.then(response => {
 					response.json().then(parsedValue => {
-						// Handle the response from the server
+						// code that can access both here
 						console.log(parsedValue)
-						document.getElementById("chat-speechbubble").textContent = parsedValue.content
+						panels = parsedValue
+
+						// add to selector
+						var select = document.getElementById("panelselector");
+						// clear the selector
+						while (select.firstChild) {
+							select.removeChild(select.firstChild);
+						}
+						for (var i = 1; i <= Object.keys(panels).length; i++) {
+							var opt = document.createElement("option");
+							opt.value = i;
+							opt.innerHTML = "Panel " + i;
+							select.appendChild(opt);
+						}
+						document.getElementById("panel_description").value = panels[1]["scenario_description"];
 					})
 				})
 				.catch(error => {
@@ -550,13 +593,18 @@
 		function generatePanel() {
 			desc = document.getElementById("panel_description").value;
 			dialog_list = []
-			const data = {
+			let data = {
+				title: document.getElementById("title").value,
 				panel_index: parseInt(document.getElementById("panelselector").value),
 				panel_info: {
 					scenario_description: desc,
 					dialogues: dialog_list
 				}
 			};
+			input_img = document.getElementById("previewImage").src
+			if (input_img != "") {
+				data["input_img"] = input_img
+			}
 
 			//also update the global panels variable
 			panels[data.panel_index] = data.panel_info
@@ -610,6 +658,33 @@
 			var selectedValue = previewSelect.querySelector('input[name="test"]:checked').value;
 			document.getElementById("panel_img").src = "data:image/png;base64," + current_image_variations[selectedValue]
 		}
+
+		function regenerateCharacterImage(character_id) {
+			var gender = document.getElementById(character_id + "_gender").value == "female" ? "woman" : document.getElementById(character_id + "_gender").value == "male" ? "man" : "androgyne"
+			var prompt = `${document.getElementById('style').value} ${document.getElementById(character_id + "_gender").value} comic character avatar, highly detailed portrait, ${gender}, with description ${document.getElementById(character_id + "_look")}, neutral background, ${document.getElementById('genre').value} genre`
+			var encodedPrompt = encodeURIComponent(prompt)
+			var imageSource = `https://tum-pandas-artist.loophole.site/draw?prompt=%22${encodedPrompt}%22`
+			characterImage = document.getElementById(character_id + '_image')
+			characterImage.src = imageSource
+
+			//trigger chat update
+			const element = document.getElementById('chat-select');
+			const event = new Event('change');
+			element.dispatchEvent(event);
+		}
+
+		function encodebase64image(file) {
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = function () {
+				console.log(reader.result);
+				return reader.result
+			};
+			reader.onerror = function (error) {
+				console.log('Error: ', error);
+			};
+		}
+
 
 	</script>
 
