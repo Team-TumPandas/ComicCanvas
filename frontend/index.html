@@ -194,8 +194,13 @@
 							<input type="file" id="myFileInput">
 						</div>
 
-						<div>
+						<div class="">
 							<img id="previewImage" width="300">
+						</div>
+
+						<div>
+							<button class="submit-button" , onclick="generatePanel()">Generate Panel</button>
+
 						</div>
 
 						<script>
@@ -219,7 +224,7 @@
 			</div>
 			<div class="column2">
 				<div class="panel">
-					<img class="result" src="images/comic layout 3.png" id="panelID" , width=120%,></img>
+					<img class="result" src="images/comic layout 3.png" id="panel_img" , width=120%,></img>
 				</div>
 			</div>
 
@@ -292,6 +297,12 @@
 					"Spiderman": "Looks like you're not so tough after all, Joker.",
 					"Joker": "This isn't over, Spiderman!",
 					"Police officer": "Thanks for your help, Spiderman. We'll take it from here."
+				}
+			},
+			4: {
+				"scenario_description": "lmao\n",
+				"dialogues": {
+					"Jay": "Lhahahfadskfjadslfadslkj.",
 				}
 			}
 		}
@@ -501,6 +512,7 @@
 								Always answer exactly what your assigned chatracter would answer and never answer as chatgpt. Choose suitable details if necessary to answer the question and answer in the tone the character speaks in. You never greet or introduce yourself, just answer the question.`;
 			}
 
+
 			data = {
 				system_prompt: prompt_text,
 				user_prompt: document.getElementById("user-chat-input").value,
@@ -518,6 +530,45 @@
 						// Handle the response from the server
 						console.log(parsedValue)
 						document.getElementById("chat-speechbubble").textContent = parsedValue.content
+					})
+				})
+				.catch(error => {
+					// Handle any errors that occurred during the request
+					console.error(error);
+				});
+		}
+
+		function generatePanel() {
+			desc = document.getElementById("panel_description").value;
+			dialog_list = []
+			const data = {
+				panel_index: parseInt(document.getElementById("panelselector").value),
+				panel_info: {
+					scenario_description: desc,
+					dialogues: dialog_list
+				}
+			};
+
+			//also update the global panels variable
+			panels[data.panel_index] = data.panel_info
+
+			// Make a POST request to the server with the JSON data
+			fetch((prefix + '/generate_panel'), {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+			})
+				.then(response => {
+					// Handle the response from the server
+					console.log(response);
+
+					response.json().then(parsedValue => {
+						// code that can access both here
+						console.log(parsedValue)
+						//TODO: decode base64 images and display them (all variations)
+						document.getElementById("panel_img").src = "data:image/png;base64," + parsedValue[0]
 					})
 				})
 				.catch(error => {
