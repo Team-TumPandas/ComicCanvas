@@ -433,6 +433,21 @@ hr {
     margin-left: 50px;
 }
 
+.character_avatar {
+    position: relative;
+    display: inline-block;
+}
+
+.refreshButton {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100px;
+    /* set the width of the button here */
+    height: 50px;
+    /* set the height of the button here */
+}
+
 .toppadding {
     padding-top: 10px;
 }
