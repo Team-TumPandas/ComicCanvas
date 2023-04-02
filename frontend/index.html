@@ -9,11 +9,11 @@
 </head>
 
 <body>
-	<h1 class="headline">Comic Canvas</h1>
+
 	<div class="main-content">
 		<!--General Context	-->
 		<div id="settingForm" class="container">
-
+			<h1 class="headline">Comic Canvas</h1>
 			<input id="title" class="title" type="text" placeholder="Give your story a title..." maxlength="50">
 			<textarea class="textbox" maxlength="200" placeholder="Craft your own reality..." id="setting"></textarea>
 			<div class="dropdowns">
@@ -46,7 +46,7 @@
 								<option value="male">male</option>
 								<option value="other">other</option>
 							</select>
-							<div class="mini-heading">look</div>
+							<div class="mini-heading">apearance</div>
 							<textarea class="description" placeholder="How do I look like?"
 								id="character_1_look"></textarea>
 							<div class="mini-heading">personality</div>
@@ -65,7 +65,7 @@
 								<option value="male">male</option>
 								<option value="other">other</option>
 							</select>
-							<div class="mini-heading">look</div>
+							<div class="mini-heading">appearance</div>
 							<textarea class="description" placeholder="How do I look like?"
 								id="character_2_look"></textarea>
 							<div class="mini-heading">personality</div>
@@ -84,7 +84,7 @@
 								<option value="male">male</option>
 								<option value="other">other</option>
 							</select>
-							<div class="mini-heading">look</div>
+							<div class="mini-heading">appearance</div>
 							<textarea class="description" placeholder="How do I look like?"
 								id="character_3_look"></textarea>
 							<div class="mini-heading">personality</div>
@@ -101,7 +101,7 @@
 		<!--Next page-->
 		<form id="pageForm" class="container">
 			<h2>Page</h2>
-			<textarea class="textbox" maxlength="500" placeholder="What happens next?" id="page_description"></textarea>
+			<textarea class="textbox" placeholder="What happens next?" id="page_description"></textarea>
 			<button class="submit-button">Let your storyline unfold...</button>
 		</form>
 
@@ -215,11 +215,16 @@
 			<p>This is a non-editable text field in the form of a speech bubble.</p>
 		</div>
 		<img src="images/panda.png" class="avatar" id="chat-image">
-		<textarea class="textbox" placeholder="Ask me anything!"></textarea>
+		<textarea class="nonresizable-textbox" placeholder="Ask me anything!"></textarea>
 		<button class="send-button">Send!</button>
 		<!-- your additional content here -->
 	</div>
 	<script>
+
+		//placeholders
+		const writingBuddyDefaultText = "Are there any specific ideas you have for the story or characters that you'd like me to help with? I'm here to help you explore your creativity and bring your vision to life."
+		const character1DefaultText = "Ask me anything!"
+
 		//html stuff
 		const selectElement = document.querySelector(".panels");
 		selectElement.addEventListener("change", (event) => {
@@ -227,16 +232,18 @@
 			result.src = event.target.value;
 		});
 
-		const imageSelector = document.getElementById('chat-select');
+		const chatSelector = document.getElementById('chat-select');
 		const image = document.getElementById('chat-image');
+		const speechBubble = document.getElementById('chat-speechbubble');
 
 		// add an event listener to the select element
-		imageSelector.addEventListener('change', function () {
+		chatSelector.addEventListener('change', function () {
 			// get the selected value
-			const selectedValue = imageSelector.value;
+			const selectedValue = chatSelector.value;
 
 			// set the src attribute of the image element to the selected value
 			image.src = selectedValue;
+
 		});
 
 		const char1name = document.getElementById("character_1_name")
@@ -293,6 +300,7 @@
 		function sendSetting() {
 
 			const data = {
+				title: document.getElementById("title").value,
 				setting: document.getElementById("setting").value,
 				style: document.getElementById("style").value,
 				genre: document.getElementById("genre").value,
@@ -310,9 +318,68 @@
 				character_3_personality: document.getElementById("character_3_personality").value,
 			};
 
-			postJSON(data);
+			document.getElementById("page_description").value = "Hold on, currently observing the storyline..."
+
+			// Make a POST request to the server with the JSON data
+			fetch((prefix + '/global'), {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+			})
+				.then(response => {
+					response.json().then(parsedValue => {
+						// code that can access both here
+						console.log(parsedValue)
+						document.getElementById("page_description").value = parsedValue
+					})
+				})
+				.catch(error => {
+					// Handle any errors that occurred during the request
+					console.error(error);
+				});
 
 		}
+
+		function sendCharacterRequest() {
+			data = {
+				setting: document.getElementById("setting").value,
+				genre: document.getElementById("genre").value,
+			}
+			// Make a POST request to the server with the JSON data
+			fetch((prefix + '/global'), {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+			})
+				.then(response => {
+					// Handle the response from the server
+					console.log(response);
+				})
+				.catch(error => {
+					// Handle any errors that occurred during the request
+					console.error(error);
+				});
+		}
+
+		// Get the textarea element
+		const textarea = document.getElementById('page_description');
+
+		// Set the initial height of the textarea
+		textarea.style.height = 'auto';
+
+		// Set the minimum number of rows to 2
+		textarea.setAttribute('rows', '2');
+
+		// Calculate the scroll height of the textarea
+		const scrollHeight = textarea.scrollHeight;
+
+		// Set the height of the textarea to the scroll height
+		textarea.style.height = scrollHeight + 'px';
+
 	</script>
 
 </body>
