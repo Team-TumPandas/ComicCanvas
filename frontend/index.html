@@ -272,6 +272,10 @@
 		selectElement.addEventListener("change", (event) => {
 			let selected = event.target.value;
 			document.getElementById("panel_description").value = panels[selected]["scenario_description"];
+			// check if img is set
+			if (panels[selected]["img"] != null) {
+				document.getElementById("panel_img").src = panels[selected]["img"];
+			}
 			dialog_list = panels[selected]['dialogues'];
 
 			// first clear all dialogs
@@ -626,6 +630,7 @@
 						console.log(parsedValue)
 						//TODO: decode base64 images and display them (all variations)
 						document.getElementById("panel_img").src = "data:image/png;base64," + parsedValue[0]
+						panels[data.panel_index]["img"] = "data:image/png;base64," + parsedValue[0]
 						current_image_variations = parsedValue
 						var previewSelect = document.getElementById("preview_selector");
 						previewSelect.innerHTML = "";
@@ -657,6 +662,7 @@
 			var previewSelect = document.getElementById("preview_selector");
 			var selectedValue = previewSelect.querySelector('input[name="test"]:checked').value;
 			document.getElementById("panel_img").src = "data:image/png;base64," + current_image_variations[selectedValue]
+			panels[selectedValue]['img'] = "data:image/png;base64," + current_image_variations[selectedValue]
 		}
 
 		function regenerateCharacterImage(character_id) {
