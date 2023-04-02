@@ -226,7 +226,7 @@
 			</div>
 			<div class="column2">
 				<div class="panel">
-					<img class="result" src="images/comic layout 3.png" id="panelID" , width=120%,></img>
+					<img class="result" src="images/comic layout 3.png" id="panel_img" , width=120%,></img>
 				</div>
 			</div>
 
@@ -471,6 +471,7 @@
 						// code that can access both here
 						console.log(parsedValue)
 						//TODO: decode base64 images and display them (all variations)
+						document.getElementById("panel_img").src = "data:image/png;base64," + parsedValue[0]
 					})
 				})
 				.catch(error => {
