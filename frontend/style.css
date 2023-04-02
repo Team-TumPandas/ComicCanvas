@@ -441,3 +441,16 @@ hr {
     width: 40px;
     height: 40px;
 }
+
+.refresh {
+    display: block;
+    margin: 5px auto;
+    padding: 5px;
+    background-color: var(--accent-color-2);
+    border-radius: 5px;
+    border-color: transparent;
+}
+
+.refresh:hover {
+    background-color: #57a1a7;
+}
