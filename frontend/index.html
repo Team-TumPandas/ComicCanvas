@@ -39,7 +39,7 @@
 				<h2>Characters</h2>
 				<div class="character-images">
 					<div class="image">
-						<img src="images/character_1.png">
+						<img src="images/placeholder.png" id="character_1_image">
 						<div class="input-sections" id="character_1">
 							<input class="name" type="text" placeholder="Name" id="character_1_name">
 							<select class="gender-dropdown" id="character_1_gender">
@@ -49,16 +49,18 @@
 								<option value="other">other</option>
 							</select>
 							<div class="mini-heading">appearance</div>
-							<textarea class="description" placeholder="How do I look like?"
+							<textarea class="description" placeholder="What do I look like?"
 								id="character_1_look"></textarea>
 							<div class="mini-heading">personality</div>
 							<textarea class="description" placeholder="Bring me to life!"
 								id="character_1_personality"></textarea>
 						</div>
+						<button class="refresh" onclick="regenerateCharacterImage('character_1')">Regenerte
+							Image</button>
 					</div>
 
 					<div class="image">
-						<img src="images/character_2.png">
+						<img src="images/placeholder.png" id="character_2_image">
 						<div class="input-sections" id="character_2">
 							<input class="name" type="text" placeholder="Name" id="character_2_name">
 							<select class="gender-dropdown" id="character_2_gender">
@@ -68,16 +70,18 @@
 								<option value="other">other</option>
 							</select>
 							<div class="mini-heading">appearance</div>
-							<textarea class="description" placeholder="How do I look like?"
+							<textarea class="description" placeholder="What do I look like?"
 								id="character_2_look"></textarea>
 							<div class="mini-heading">personality</div>
 							<textarea class="description" placeholder="Bring me to life!"
 								id="character_2_personality"></textarea>
 						</div>
+						<button class="refresh" onclick="regenerateCharacterImage('character_2')">Regenerate
+							Image</button>
 					</div>
 
 					<div class="image">
-						<img src="images/character_3.png">
+						<img src="images/placeholder.png" id="character_3_image">
 						<div class="input-sections" id="character_3">
 							<input class="name" type="text" placeholder="Name" id="character_3_name">
 							<select class="gender-dropdown" id="character_3_gender">
@@ -87,12 +91,14 @@
 								<option value="other">other</option>
 							</select>
 							<div class="mini-heading">appearance</div>
-							<textarea class="description" placeholder="How do I look like?"
+							<textarea class="description" placeholder="What do I look like?"
 								id="character_3_look"></textarea>
 							<div class="mini-heading">personality</div>
 							<textarea class="description" placeholder="Bring me to life!"
 								id="character_3_personality"></textarea>
 						</div>
+						<button class="refresh" onclick="regenerateCharacterImage('character_3')">Regenerate
+							Image</button>
 					</div>
 				</div>
 			</div>
@@ -337,9 +343,21 @@
 		chatSelector.addEventListener('change', function () {
 			// get the selected value
 			const selectedValue = chatSelector.value;
+			if (chatSelector.selectedIndex == 0) {
+				image.src = selectedValue;
+			}
+			else if (chatSelector.selectedIndex == 1) {
+				image.src = document.getElementById("character_1_image").src;
+			}
+			else if (chatSelector.selectedIndex == 2) {
+				image.src = document.getElementById("character_2_image").src;
+			}
+			else if (chatSelector.selectedIndex == 3) {
+				image.src = document.getElementById("character_3_image").src;
+			}
 
 			// set the src attribute of the image element to the selected value
-			image.src = selectedValue;
+			// image.src = selectedValue;
 			speechBubble.textContent = (chatSelector.selectedIndex == 0) ? writingBuddyDefaultText : character1DefaultText;
 
 		});
@@ -609,6 +627,15 @@
 			var previewSelect = document.getElementById("preview_selector");
 			var selectedValue = previewSelect.querySelector('input[name="test"]:checked').value;
 			document.getElementById("panel_img").src = "data:image/png;base64," + current_image_variations[selectedValue]
+		}
+
+		function regenerateCharacterImage(character_id) {
+			var gender = document.getElementById(character_id + "_gender").value == "female" ? "woman" : document.getElementById(character_id + "_gender").value == "male" ? "man" : "androgyne"
+			var prompt = `${document.getElementById('style').value} ${document.getElementById(character_id + "_gender").value} comic character avatar, highly detailed portrait, ${gender}, with description ${document.getElementById(character_id + "_look")}, neutral background, ${document.getElementById('genre').value} genre`
+			var encodedPrompt = encodeURIComponent(prompt)
+			var imageSource = `https://tum-pandas-artist.loophole.site/draw?prompt=%22${encodedPrompt}%22`
+			characterImage = document.getElementById(character_id + '_image')
+			characterImage.src = imageSource
 		}
 
 
