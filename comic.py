@@ -113,16 +113,17 @@ def construct_story_line_func(project_id):
         return jsonify("ERROR: non existent proj")
     
     chatGPT_purpose_intro = f"You're an AI that helps comic book artists write the storyline and dialogues for the characters of a comic book. Given the general scenario and a list of characters, you create detailed and descriptive storyboards and dialogues of the characters. "
-    chatGPT_characters_storyline_intro = "Given this storyline and this list of characters, please first create the a general script that summarizes the main content and twists of the short story. Please only provide the storyline."
+    chatGPT_characters_storyline_intro = "Given these information, please first create the a general script that summarizes the main content and twists of the short story. Please only provide the storyline."
     format = "Please start with: \n<Story Line>"
 
     output_to_chatGPT = chatGPT_purpose_intro
-    output_to_chatGPT += f"Storyline: {current_project.user_storyline}\n\n"
+    output_to_chatGPT += f"Storyline: {current_project.user_storyline}\n"
+    output_to_chatGPT += f"The style is: {current_project.style}\n"
+    output_to_chatGPT += f"The genre is: {current_project.genre}\n\n"
     output_to_chatGPT += "List of characters:\n"
     for index in range(len(current_project.character_name_list)): 
         output_to_chatGPT += f"{index}. {current_project.character_name_list[index]} : {current_project.character_personality_list[index]}\n"
     output_to_chatGPT += "\n{chatGPT_characters_storyline_intro}\n{format}"
-
 
     chatGPT_response = ask_chat_GPT(output_to_chatGPT)
     try:
