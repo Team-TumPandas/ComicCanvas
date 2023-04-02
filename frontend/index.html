@@ -33,7 +33,7 @@
 				</select>
 			</div>
 			<div class="characters">
-
+				<hr>
 				<h2>Characters</h2>
 				<div class="character-images">
 					<div class="image">
@@ -95,64 +95,65 @@
 				</div>
 			</div>
 			<button onClick="sendSetting()" class="submit-button" id="submit-setting">Construct Universe</button>
-			<hr>
 		</div>
 
 		<!--Next page-->
 		<form id="storyline_form" class="container">
+			<hr>
 			<h2>Storyline</h2>
 			<textarea class="textbox" maxlength="500" placeholder="What happens next?" id="storyline"></textarea>
 			<button class="submit-button">Let your storyline unfold...</button>
 		</form>
 
 		<!--Canvas-->
-		<div class="containerflex">
-			<div class="box1">
-				<h2>Layout</h2>
-				<div class="hiddenradio">
-					<title>Page</title>
-					<label>
-						<input type="radio" , name="test" value="big" checked>
-						<img src="images/comic layout.png" ,alt="Layout1" , width="80" , height="80">
-					</label>
-					<label>
-						<input type="radio" name="test" value="big">
-						<img src="images/comic layout 2.png" ,alt="Layout2" width="80" , height="80">
-					</label>
-					<label>
-						<input type="radio" name="test" value="big">
-						<img src="images/comic layout 3.png" ,alt="Layout3" width="80" , height="80">
-					</label>
-				</div>
-			</div>
-			<!--choose panels-->
-			<div class="box2">
-				<select class="panels" id="panelselector">
-				</select>
-
-			</div>
-
-		</div>
 		<div class="container">
-			<style>
-				/* Set the width of the columns */
-				.column1 {
-					width: 30%;
-					float: left;
-				}
+			<hr>
+			<h2>Layout</h2>
+			<div class="containerflex">
+				<div class="box1">
+					<div class="hiddenradio">
+						<label>
+							<input type="radio" , name="test" value="big" checked>
+							<img src="images/comic layout.png" ,alt="Layout1" , width="80" , height="80">
+						</label>
+						<label>
+							<input type="radio" name="test" value="big">
+							<img src="images/comic layout 2.png" ,alt="Layout2" width="80" , height="80">
+						</label>
+						<label>
+							<input type="radio" name="test" value="big">
+							<img src="images/comic layout 3.png" ,alt="Layout3" width="80" , height="80">
+						</label>
+					</div>
+				</div>
+				<!--choose panels-->
+				<div class="box2">
+					<select class="dropdown" id="panelselector">
+					</select>
 
-				.column2 {
-					width: 70%;
-					float: left;
-				}
-			</style>
-			<div>
-				<div class="column1">
-					<form id="panel_description_form">
+				</div>
+
+			</div>
+			<div class="container">
+				<!-- <style>
+					/* Set the width of the columns */
+					.column1 {
+						width: 30%;
+						float: left;
+					}
+
+					.column2 {
+						width: 70%;
+						float: left;
+					}
+				</style> -->
+				<div class="col-right">
+					<div id="panel_description_form">
+						<hr>
 						<h2>Description</h2>
 						<textarea class="textbox" maxlength="700" placeholder="Description"
 							id="panel_description"></textarea>
-					</form>
+					</div>
 
 					<style>
 						/* Style for the dialogue boxes */
@@ -171,64 +172,69 @@
 							margin-right: 10px;
 						}
 					</style>
-					</head>
+					<!-- </head> -->
 
-					<body>
-						<!-- First character dialogue -->
-						<div class="dialogue">
-							<span class="character-name" id="char1">[Character 1]:</span>
-							<span class="dialogue-text" id="dialogue1">dialogue</span>
+					<!-- <body> -->
+					<!-- First character dialogue -->
+					<div class="dialogue">
+						<span class="character-name" id="char1">[Character 1]:</span>
+						<span class="dialogue-text" id="dialogue1">dialogue</span>
+					</div>
+					<!-- Second character dialogue -->
+					<div class="dialogue">
+						<span class="character-name" id="char2">[Character 2]:</span>
+						<span class="dialogue-text" id="dialogue2">dialogue</span>
+					</div>
+					<!-- Third character dialogue -->
+					<div class="dialogue">
+						<span class="character-name" id="char3">[Character 3]:</span>
+						<span class="dialogue-text" id="dialogue3">dialogue</span>
+					</div>
+					<div>
+						<h2>Select an image</h2>
+						<input type="file" id="myFileInput">
+					</div>
+
+					<div class="">
+						<img id="previewImage" width="300">
+					</div>
+
+					<div>
+						<button class="submit-button" , onclick="generatePanel()">Generate Panel</button>
+
+					</div>
+
+					<script>
+						const fileInput = document.getElementById("myFileInput");
+						const previewImage = document.getElementById("previewImage");
+
+						fileInput.addEventListener("change", function () {
+							const file = fileInput.files[0];
+							const reader = new FileReader();
+
+							reader.addEventListener("load", function () {
+								previewImage.src = reader.result;
+							}, false);
+
+							if (file) {
+								reader.readAsDataURL(file);
+							}
+						});
+					</script>
+				</div>
+				<div class="col-left">
+					<div class="leftmargin">
+						<div class="hiddenradio" onChange="selectPreviewImage()" id="preview_selector">
 						</div>
-						<!-- Second character dialogue -->
-						<div class="dialogue">
-							<span class="character-name" id="char2">[Character 2]:</span>
-							<span class="dialogue-text" id="dialogue2">dialogue</span>
-						</div>
-						<!-- Third character dialogue -->
-						<div class="dialogue">
-							<span class="character-name" id="char3">[Character 3]:</span>
-							<span class="dialogue-text" id="dialogue3">dialogue</span>
-						</div>
-						<div>
-							<h2>Select an image</h2>
-							<input type="file" id="myFileInput">
-						</div>
+					</div>
+					<div class="panel">
+						<img class="result" src="images/comic layout 3.png" id="panel_img" , width=120%,></img>
+					</div>
 
-						<div class="">
-							<img id="previewImage" width="300">
-						</div>
-
-						<div>
-							<button class="submit-button" , onclick="generatePanel()">Generate Panel</button>
-
-						</div>
-
-						<script>
-							const fileInput = document.getElementById("myFileInput");
-							const previewImage = document.getElementById("previewImage");
-
-							fileInput.addEventListener("change", function () {
-								const file = fileInput.files[0];
-								const reader = new FileReader();
-
-								reader.addEventListener("load", function () {
-									previewImage.src = reader.result;
-								}, false);
-
-								if (file) {
-									reader.readAsDataURL(file);
-								}
-							});
-						</script>
 				</div>
 			</div>
-			<div class="column2">
-				<div class="panel">
-					<img class="result" src="images/comic layout 3.png" id="panel_img" , width=120%,></img>
-				</div>
-			</div>
-
 		</div>
+	</div>
 	</div>
 	<div class="sidebar">
 		<select class="character-dropdown" id="chat-select">
@@ -247,6 +253,8 @@
 		<!-- your additional content here -->
 	</div>
 	<script>
+
+		let current_image_variations = [];
 
 		//placeholders
 
@@ -569,6 +577,16 @@
 						console.log(parsedValue)
 						//TODO: decode base64 images and display them (all variations)
 						document.getElementById("panel_img").src = "data:image/png;base64," + parsedValue[0]
+						current_image_variations = parsedValue
+						var previewSelect = document.getElementById("preview_selector");
+						previewSelect.innerHTML = "";
+						for (var i = 0; i < parsedValue.length; i++) {
+							console.log(i)
+							var label = document.createElement("label");
+							label.innerHTML = `<input type="radio" name="test" value="${i}">
+											<img src=${"data:image/png;base64," + parsedValue[i]} ,alt="Layout3" width="80" , height="80">`;
+							previewSelect.appendChild(label);
+						}
 					})
 				})
 				.catch(error => {
@@ -576,6 +594,23 @@
 					console.error(error);
 				});
 		}
+
+		var select = document.getElementById("panelselector");
+		for (var i = 1; i <= Object.keys(panels).length; i++) {
+			var opt = document.createElement("option");
+			opt.value = i;
+			opt.innerHTML = "Panel " + i;
+			select.appendChild(opt);
+		}
+
+
+		function selectPreviewImage() {
+			var previewSelect = document.getElementById("preview_selector");
+			var selectedValue = previewSelect.querySelector('input[name="test"]:checked').value;
+			document.getElementById("panel_img").src = "data:image/png;base64," + current_image_variations[selectedValue]
+		}
+
+
 
 	</script>
 
