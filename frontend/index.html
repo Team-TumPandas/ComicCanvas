@@ -234,7 +234,7 @@
 			<option value="images/character_2.png">Character 2</option>
 			<option value="images/character_3.png">Character 3</option>
 		</select>
-		<div class="speech-bubble">
+		<div class="speech-bubble" id="chat-speechbubble">
 			<p>This is a non-editable text field in the form of a speech bubble.</p>
 		</div>
 		<img src="images/panda.png" class="avatar" id="chat-image">
@@ -245,8 +245,6 @@
 	<script>
 
 		//placeholders
-		const writingBuddyDefaultText = "Are there any specific ideas you have for the story or characters that you'd like me to help with? I'm here to help you explore your creativity and bring your vision to life."
-		const character1DefaultText = "Ask me anything!"
 
 		//html stuff
 		const selectElement = document.getElementById("panelselector");
@@ -257,15 +255,15 @@
 
 			// first clear all dialogs
 			for (let i = 1; i <= 3; i++) {
-				document.getElementById("char"+i).innerHTML = "[Character "+i+"]:";
-				document.getElementById("dialogue"+i).innerHTML = "dialogue";
+				document.getElementById("char" + i).innerHTML = "[Character " + i + "]:";
+				document.getElementById("dialogue" + i).innerHTML = "dialogue";
 			}
 
 			let i = 1;
 			for (var key in dialog_list) {
 				if (dialog_list.hasOwnProperty(key)) {
-					document.getElementById("char"+i).innerHTML = key;
-					document.getElementById("dialogue"+i).innerHTML = dialog_list[key];
+					document.getElementById("char" + i).innerHTML = key;
+					document.getElementById("dialogue" + i).innerHTML = dialog_list[key];
 					i++;
 				}
 			}
@@ -313,6 +311,8 @@
 		const imageSelector = document.getElementById('chat-select');
 		const image = document.getElementById('chat-image');
 		const speechBubble = document.getElementById('chat-speechbubble');
+		const writingBuddyDefaultText = "Are there any specific ideas you have for the story or characters that you'd like me to help with? I'm here to help you explore your creativity and bring your vision to life."
+		const character1DefaultText = "Ask me anything!"
 
 		// add an event listener to the select element
 		chatSelector.addEventListener('change', function () {
@@ -321,6 +321,7 @@
 
 			// set the src attribute of the image element to the selected value
 			image.src = selectedValue;
+			speechBubble.textContent = (chatSelector.selectedIndex == 0) ? writingBuddyDefaultText : character1DefaultText;
 
 		});
 
@@ -421,6 +422,20 @@
 						// code that can access both here
 						console.log(parsedValue)
 						document.getElementById("storyline").value = parsedValue
+						// Get the textarea element
+						const textarea = document.getElementById('page_description');
+
+						// Set the initial height of the textarea
+						textarea.style.height = 'auto';
+
+						// Set the minimum number of rows to 2
+						textarea.setAttribute('rows', '2');
+
+						// Calculate the scroll height of the textarea
+						const scrollHeight = textarea.scrollHeight;
+
+						// Set the height of the textarea to the scroll height
+						textarea.style.height = scrollHeight + 'px';
 					})
 				})
 				.catch(error => {
@@ -452,21 +467,6 @@
 					console.error(error);
 				});
 		}
-
-		// Get the textarea element
-		const textarea = document.getElementById('storyline');
-
-		// Set the initial height of the textarea
-		textarea.style.height = 'auto';
-
-		// Set the minimum number of rows to 2
-		textarea.setAttribute('rows', '2');
-
-		// Calculate the scroll height of the textarea
-		const scrollHeight = textarea.scrollHeight;
-
-		// Set the height of the textarea to the scroll height
-		textarea.style.height = scrollHeight + 'px';
 
 	</script>
 
