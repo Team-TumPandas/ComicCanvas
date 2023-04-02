@@ -101,7 +101,7 @@
 		<!--Next page-->
 		<form id="pageForm" class="container">
 			<h2>Page</h2>
-			<textarea class="textbox" maxlength="500" placeholder="What happens next?" id="page_description"></textarea>
+			<textarea class="textbox" placeholder="What happens next?" id="page_description"></textarea>
 			<button class="submit-button">Let your storyline unfold...</button>
 		</form>
 
@@ -177,6 +177,8 @@
 					</head>
 
 					<body>
+
+
 						<!-- First character dialogue -->
 						<div class="dialogue">
 							<span class="character-name" id="char1">[Char 1 placeholder]</span>
@@ -192,6 +194,32 @@
 							<span class="character-name" id="char3">[Char 3 placeholder]</span>
 							<span class="dialogue-text" id="dialogue3">[Insert dialogue here which is super long]</span>
 						</div>
+						<div>
+							<h2>Select an image</h2>
+							<input type="file" id="myFileInput">
+						</div>
+
+						<div>
+							<img id="previewImage" width="300">
+						</div>
+
+						<script>
+							const fileInput = document.getElementById("myFileInput");
+							const previewImage = document.getElementById("previewImage");
+
+							fileInput.addEventListener("change", function () {
+								const file = fileInput.files[0];
+								const reader = new FileReader();
+
+								reader.addEventListener("load", function () {
+									previewImage.src = reader.result;
+								}, false);
+
+								if (file) {
+									reader.readAsDataURL(file);
+								}
+							});
+						</script>
 				</div>
 			</div>
 			<div class="column2">
