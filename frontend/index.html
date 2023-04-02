@@ -99,10 +99,10 @@
 		</div>
 
 		<!--Next page-->
-		<form id="storyline_form" class="container">
+		<div class="container">
 			<h2>Storyline</h2>
 			<textarea class="textbox" maxlength="500" placeholder="What happens next?" id="storyline"></textarea>
-			<button class="submit-button">Let your storyline unfold...</button>
+			<button class="submit-button" onClick="storyToPanels()">Let your storyline unfold...</button>
 		</form>
 
 		<!--Canvas-->
@@ -201,7 +201,7 @@
 						</div>
 
 						<div>
-							<button class="submit-button", onclick="generatePanel()">Generate Panel</button>
+							<button class="submit-button", onClick="generatePanel()">Generate Panel</button>
 
 						</div>
 
@@ -280,34 +280,13 @@
 		// panels[panel1][panel1_image]
 		// dynamic list for panels
 		var panels = {
-			1: {
-				"scenario_description": "Spiderman and Joker are facing each other on a busy street. The sun is setting in the background, casting an orange glow over the scene. Spiderman is in a crouched position, ready to pounce. Joker is holding a knife, grinning maniacally.\n",
-				"dialogues": {
-					"Spiderman": "You're not getting away with this, Joker.",
-					"Joker": "Oh, but Spiderman, that's the fun part!"
-				}
-			},
-			2: {
-				"scenario_description": "Spiderman jumps over a car, narrowly avoiding a swipe from Joker's knife. Joker is now on top of the car, taunting Spiderman. The car is parked near a fruit stand, which Spiderman uses to his advantage.\n",
-				"dialogues": {
-					"Spiderman": "You're going to have to do better than that, Joker.",
-					"Joker": "I'm just getting started, Spiderman!"
-				}
-			},
-			3: {
-				"scenario_description": "Spiderman has used his web-slinging ability to wrap Joker up in a bundle of fruit. Joker is squirming and shouting, while Spiderman looks on triumphantly. The police are arriving on the scene to take Joker into custody.\n",
-				"dialogues": {
-					"Spiderman": "Looks like you're not so tough after all, Joker.",
-					"Joker": "This isn't over, Spiderman!",
-					"Police officer": "Thanks for your help, Spiderman. We'll take it from here."
-				}
-			},
-			4: {
-				"scenario_description": "lmao\n",
-				"dialogues": {
-					"Jay": "Lhahahfadskfjadslfadslkj.",
-				}
-			}
+			// 1: {
+			// 	"scenario_description": "Spiderman and Joker are facing each other on a busy street. The sun is setting in the background, casting an orange glow over the scene. Spiderman is in a crouched position, ready to pounce. Joker is holding a knife, grinning maniacally.\n",
+			// 	"dialogues": {
+			// 		"Spiderman": "You're not getting away with this, Joker.",
+			// 		"Joker": "Oh, but Spiderman, that's the fun part!"
+			// 	}
+			// }
 		}
 		// add to selector
 		var select = document.getElementById("panelselector");
@@ -441,10 +420,54 @@
 
 		}
 
+
+		function storyToPanels() {
+			const data = {
+				title: document.getElementById("title").value,
+				storyline: document.getElementById("storyline").value,
+			};
+
+			// Make a POST request to the server with the JSON data
+			fetch((prefix + '/storyline'), {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+			})
+				.then(response => {
+					response.json().then(parsedValue => {
+						// code that can access both here
+						console.log(parsedValue)
+						panels = parsedValue
+
+						// add to selector
+						var select = document.getElementById("panelselector");
+						// clear the selector
+						while (select.firstChild) {
+							select.removeChild(select.firstChild);
+						}
+						for (var i = 1; i <= Object.keys(panels).length; i++) {
+							var opt = document.createElement("option");
+							opt.value = i;
+							opt.innerHTML = "Panel " + i;
+							select.appendChild(opt);
+						}
+						document.getElementById("panel_description").value = panels[1]["scenario_description"];
+					})
+				})
+				.catch(error => {
+					// Handle any errors that occurred during the request
+					console.error(error);
+				});
+		}
+
+
 		function generatePanel() {
 			desc = document.getElementById("panel_description").value;
 			dialog_list = []
 			const data = {
+				title: document.getElementById("title").value,
 				panel_index: parseInt(document.getElementById("panelselector").value),
 				panel_info: {
 					scenario_description: desc,
