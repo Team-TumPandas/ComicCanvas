@@ -149,12 +149,11 @@
 						float: left;
 					}
 				</style> -->
-				<div class="col-right">
+				<div class="col-left">
 					<div id="panel_description_form">
 						<hr>
 						<h2>Description</h2>
-						<textarea class="textbox" maxlength="700" placeholder="Description"
-							id="panel_description"></textarea>
+						<textarea class="textbox2" placeholder="Description" id="panel_description"></textarea>
 					</div>
 
 					<style>
@@ -165,7 +164,7 @@
 							background-color: #fff;
 							border: 2px solid #67c0c86e;
 							border-radius: 15px;
-							margin: 10px;
+							margin: 5px;
 						}
 
 						/* Style for the character names */
@@ -192,12 +191,12 @@
 						<span class="character-name" id="char3">[Character 3]:</span>
 						<span class="dialogue-text" id="dialogue3">dialogue</span>
 					</div>
-					<div>
+					<div class="toppadding">
 						<h2>Select an image</h2>
 						<input type="file" id="myFileInput">
 					</div>
 
-					<div class="">
+					<div class="toppadding">
 						<img id="previewImage" width="300">
 					</div>
 
@@ -224,7 +223,7 @@
 						});
 					</script>
 				</div>
-				<div class="col-left">
+				<div class="col-right">
 					<div class="leftmargin">
 						<div class="hiddenradio" onChange="selectPreviewImage()" id="preview_selector">
 						</div>
