@@ -37,44 +37,59 @@
 				<h2>Characters</h2>
 				<div class="character-images">
 					<div class="image">
-						<img src="images/Zara Nova.png">
+						<img src="images/character_1.png">
 						<div class="input-sections">
 							<input class="name" type="text" placeholder="Name" id="character_1_name">
-							<!-- <div class="attributes">
-							<input class="attribute" type="text" placeholder="Attribute 1" id="character_1_attr_1">
-							<input class="attribute" type="text" placeholder="Attribute 2" id="character_1_attr_2">
-							<input class="attribute" type="text" placeholder="Attribute 3" id="character_1_attr_3">
-						</div> -->
-							<textarea class="description" placeholder="Enter a brief description here..."
-								id="character_1_description"></textarea>
+							<select class="gender-dropdown" id="character_1_gender">
+								<option value="">Select gender</option>
+								<option value="female">female</option>
+								<option value="male">male</option>
+								<option value="other">other</option>
+							</select>
+							<div class="mini-heading">look</div>
+							<textarea class="description" placeholder="How do I look like?"
+								id="character_1_look"></textarea>
+							<div class="mini-heading">personality</div>
+							<textarea class="description" placeholder="Bring me to life!"
+								id="character_1_personality"></textarea>
 						</div>
 					</div>
 
 					<div class="image">
-						<img src="images/Orion Black.png">
+						<img src="images/character_2.png">
 						<div class="input-sections">
 							<input class="name" type="text" placeholder="Name" id="character_2_name">
-							<!-- <div class="attributes">
-							<input class="attribute" type="text" placeholder="Attribute 1" id="character_2_attr_1">
-							<input class="attribute" type="text" placeholder="Attribute 2" id="character_2_attr_2">
-							<input class="attribute" type="text" placeholder="Attribute 3" id="character_2_attr_3">
-						</div> -->
-							<textarea class="description" placeholder="Enter a brief description here..."
-								id="character_2_description"></textarea>
+							<select class="gender-dropdown" id="character_2_gender">
+								<option value="">Select gender</option>
+								<option value="female">female</option>
+								<option value="male">male</option>
+								<option value="other">other</option>
+							</select>
+							<div class="mini-heading">look</div>
+							<textarea class="description" placeholder="How do I look like?"
+								id="character_2_look"></textarea>
+							<div class="mini-heading">personality</div>
+							<textarea class="description" placeholder="Bring me to life!"
+								id="character_2_personality"></textarea>
 						</div>
 					</div>
 
 					<div class="image">
-						<img src="images/Titan 3000.png">
+						<img src="images/character_3.png">
 						<div class="input-sections">
 							<input class="name" type="text" placeholder="Name" id="character_3_name">
-							<!-- <div class="attributes">
-							<input class="attribute" type="text" placeholder="Attribute 1" id="character_3_attr_1">
-							<input class="attribute" type="text" placeholder="Attribute 2" id="character_3_attr_2">
-							<input class="attribute" type="text" placeholder="Attribute 3" id="character_3_attr_3">
-						</div> -->
-							<textarea class="description" placeholder="Enter a brief description here..."
-								id="character_3_description"></textarea>
+							<select class="gender-dropdown" id="character_3_gender">
+								<option value="">Select gender</option>
+								<option value="female">female</option>
+								<option value="male">male</option>
+								<option value="other">other</option>
+							</select>
+							<div class="mini-heading">look</div>
+							<textarea class="description" placeholder="How do I look like?"
+								id="character_3_look"></textarea>
+							<div class="mini-heading">personality</div>
+							<textarea class="description" placeholder="Bring me to life!"
+								id="character_3_personality"></textarea>
 						</div>
 					</div>
 				</div>
@@ -188,21 +203,22 @@
 		</div>
 	</div>
 	<div class="sidebar">
-		<select class="dropdown" id="chat">
-			<option value="">Writing Buddy</option>
-			<option value=>Character 1</option>
-			<option value="Character 2">Character 2</option>
-			<option value="Character 3">Character 3</option>
+		<select class="character-dropdown" id="chat-select">
+			<option value="images/panda.png">Writing Buddy</option>
+			<option value="images/character_1.png">Character 1</option>
+			<option value="images/character_2.png">Character 2</option>
+			<option value="images/character_3.png">Character 3</option>
 		</select>
 		<div class="speech-bubble">
 			<p>This is a non-editable text field in the form of a speech bubble.</p>
 		</div>
-		<img src="images/panda.png" class="avatar">
+		<img src="images/panda.png" class="avatar" id="chat-image">
 		<textarea class="textbox" placeholder="Ask me anything!"></textarea>
 		<button class="send-button">Send!</button>
 		<!-- your additional content here -->
 	</div>
 	<script>
+		//html stuff
 		const selectElement = document.querySelector(".panels");
 		selectElement.addEventListener("change", (event) => {
 			const result = document.querySelector(".result");
@@ -260,6 +276,46 @@
 			}
 		}
 
+		const imageSelector = document.getElementById('chat-select');
+		const image = document.getElementById('chat-image');
+
+		// add an event listener to the select element
+		imageSelector.addEventListener('change', function () {
+			// get the selected value
+			const selectedValue = imageSelector.value;
+
+			// set the src attribute of the image element to the selected value
+			image.src = selectedValue;
+		});
+
+		const char1name = document.getElementById("character_1_name")
+		const char2name = document.getElementById("character_2_name")
+		const char3name = document.getElementById("character_3_name")
+		const chatselect = document.getElementById("chat-select")
+		char1name.addEventListener('input', function () {
+			// get the value of the input field
+			var name = char1name.value;
+			// update the text of the selected option
+			const selectedOption = chatselect.options[1];
+			selectedOption.textContent = name;
+		});
+		char2name.addEventListener('input', function () {
+			// get the value of the input field
+			var name = char2name.value;
+			// update the text of the selected option
+			const selectedOption = chatselect.options[2];
+			selectedOption.textContent = name;
+		});
+		char3name.addEventListener('input', function () {
+			// get the value of the input field
+			var name = char3name.value;
+			// update the text of the selected option
+			const selectedOption = chatselect.options[3];
+			selectedOption.textContent = name;
+		});
+
+
+		//Communicate with server
 		var prefix = 'http://192.168.2.2:6969'
 
 
@@ -300,20 +356,17 @@
 				style: document.getElementById("style").value,
 				genre: document.getElementById("genre").value,
 				character_1_name: document.getElementById("character_1_name").value,
-				character_1_attr_1: document.getElementById("character_1_attr_1").value,
-				character_1_attr_2: document.getElementById("character_1_attr_2").value,
-				character_1_attr_3: document.getElementById("character_1_attr_3").value,
-				character_1_description: document.getElementById("character_1_description").value,
+				character_1_gender: document.getElementById("character_1_gender").value,
+				character_1_look: document.getElementById("character_1_look").value,
+				character_1_personality: document.getElementById("character_1_personality").value,
 				character_2_name: document.getElementById("character_2_name").value,
-				character_2_attr_1: document.getElementById("character_2_attr_1").value,
-				character_2_attr_2: document.getElementById("character_2_attr_2").value,
-				character_2_attr_3: document.getElementById("character_2_attr_3").value,
-				character_2_description: document.getElementById("character_2_description").value,
+				character_2_gender: document.getElementById("character_2_gender").value,
+				character_2_look: document.getElementById("character_2_look").value,
+				character_2_personality: document.getElementById("character_2_personality").value,
 				character_3_name: document.getElementById("character_3_name").value,
-				character_3_attr_1: document.getElementById("character_3_attr_1").value,
-				character_3_attr_2: document.getElementById("character_3_attr_2").value,
-				character_3_attr_3: document.getElementById("character_3_attr_3").value,
-				character_3_description: document.getElementById("character_3_description").value,
+				character_3_gender: document.getElementById("character_3_gender").value,
+				character_3_look: document.getElementById("character_3_look").value,
+				character_3_personality: document.getElementById("character_3_personality").value,
 			};
 
 			postJSON(data);
