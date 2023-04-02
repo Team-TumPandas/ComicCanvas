@@ -199,8 +199,8 @@
 						<img id="previewImage" width="300">
 					</div>
 
-						<div>
-							<button class="submit-button", onClick="generatePanel()">Generate Panel</button>
+					<div>
+						<button class="submit-button" , onClick="generatePanel()">Generate Panel</button>
 
 					</div>
 
@@ -571,7 +571,7 @@
 		function generatePanel() {
 			desc = document.getElementById("panel_description").value;
 			dialog_list = []
-			const data = {
+			let data = {
 				title: document.getElementById("title").value,
 				panel_index: parseInt(document.getElementById("panelselector").value),
 				panel_info: {
@@ -579,6 +579,10 @@
 					dialogues: dialog_list
 				}
 			};
+			input_img = document.getElementById("previewImage").src
+			if (input_img != "") {
+				data["input_img"] = input_img
+			}
 
 			//also update the global panels variable
 			panels[data.panel_index] = data.panel_info
@@ -632,6 +636,19 @@
 			var selectedValue = previewSelect.querySelector('input[name="test"]:checked').value;
 			document.getElementById("panel_img").src = "data:image/png;base64," + current_image_variations[selectedValue]
 		}
+
+		function encodebase64image(file) {
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = function () {
+				console.log(reader.result);
+				return reader.result
+			};
+			reader.onerror = function (error) {
+				console.log('Error: ', error);
+			};
+		}
+
 
 	</script>
 
