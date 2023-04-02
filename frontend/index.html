@@ -38,7 +38,7 @@
 				<div class="character-images">
 					<div class="image">
 						<img src="images/character_1.png">
-						<div class="input-sections">
+						<div class="input-sections" id="character_1">
 							<input class="name" type="text" placeholder="Name" id="character_1_name">
 							<select class="gender-dropdown" id="character_1_gender">
 								<option value="">Select gender</option>
@@ -57,7 +57,7 @@
 
 					<div class="image">
 						<img src="images/character_2.png">
-						<div class="input-sections">
+						<div class="input-sections" id="character_2">
 							<input class="name" type="text" placeholder="Name" id="character_2_name">
 							<select class="gender-dropdown" id="character_2_gender">
 								<option value="">Select gender</option>
@@ -76,7 +76,7 @@
 
 					<div class="image">
 						<img src="images/character_3.png">
-						<div class="input-sections">
+						<div class="input-sections" id="character_3">
 							<input class="name" type="text" placeholder="Name" id="character_3_name">
 							<select class="gender-dropdown" id="character_3_gender">
 								<option value="">Select gender</option>
@@ -174,8 +174,6 @@
 					</head>
 
 					<body>
-
-
 						<!-- First character dialogue -->
 						<div class="dialogue">
 							<span class="character-name" id="char1">[Character 1]:</span>
@@ -235,11 +233,12 @@
 			<option value="images/character_3.png">Character 3</option>
 		</select>
 		<div class="speech-bubble" id="chat-speechbubble">
-			<p>This is a non-editable text field in the form of a speech bubble.</p>
+			<p>Are there any specific ideas you have for the story or characters that you'd like me to help with? I'm
+				here to help you explore your creativity and bring your vision to life.</p>
 		</div>
 		<img src="images/panda.png" class="avatar" id="chat-image">
-		<textarea class="nonresizable-textbox" placeholder="Ask me anything!"></textarea>
-		<button class="send-button">Send!</button>
+		<textarea class="nonresizable-textbox" id="user-chat-input" placeholder="Ask me anything!"></textarea>
+		<button class="send-button" onClick="sendChatRequest()">Send!</button>
 		<!-- your additional content here -->
 	</div>
 	<script>
@@ -423,7 +422,7 @@
 						console.log(parsedValue)
 						document.getElementById("storyline").value = parsedValue
 						// Get the textarea element
-						const textarea = document.getElementById('page_description');
+						const textarea = document.getElementById('storyline');
 
 						// Set the initial height of the textarea
 						textarea.style.height = 'auto';
@@ -445,13 +444,69 @@
 
 		}
 
-		function sendCharacterRequest() {
+		function sendChatRequest() {
+			document.getElementById("chat-speechbubble").textContent = "..."
+			const chatSelector = document.getElementById("chat-select");
+			var prompt_text = ""
+			var character_descriptions = [
+				`name: ${document.getElementById("character_1_name").value}
+				gender: ${document.getElementById("character_1_gender").value}")}
+				appearance: ${document.getElementById("character_1_look").value}
+				personality: ${document.getElementById("character_1_personality").value}`,
+				`name: ${document.getElementById("character_2_name").value}
+				gender: ${document.getElementById("character_2_gender").value}")}
+				appearance: ${document.getElementById("character_2_look").value}
+				personality: ${document.getElementById("character_2_personality").value}`,
+				`name: ${document.getElementById("character_3_name").value}
+				gender: ${document.getElementById("character_3_gender").value}")}
+				appearance: ${document.getElementById("character_3_look").value}
+				personality: ${document.getElementById("character_3_personality").value}`
+
+			];
+			//buddy
+			if (chatSelector.selectedIndex == 0) {
+				prompt_text = `Act as the following character: You are a cute, friendly and happy panda called scribbles, who is an expert on the topic of writing comics and always happy to help. You are focused on helping the user explore their creativity and create a comic from their ideas. This is the story you are trying to help with:
+
+				Setting of the story you are helping with: ${document.getElementById("setting").value}
+
+				Genre of the story you are helping with: ${document.getElementById("genre").value}
+
+				Characters in the story you are helping with: 
+
+				Character 1:
+				${character_descriptions[0]}
+
+				Character 2:
+				${character_descriptions[1]}
+
+				Character 3:
+				${character_descriptions[2]}
+
+				Always answer exactly what your assigned character would answer and never answer as ChatGPT. Answer the question and answer in the tone the character speaks in. You never greet introduce yourself, just answer the question."`;
+			}
+			else {
+				var selectedCharacter = (chatSelector.selectedIndex == 1) ? document.getElementById("character_1").value : (chatSelector.selectedIndex == 2) ? document.getElementById("character_2").value : document.getElementById("character_3").value
+				prompt_text = `Act as the following character:
+								${character_descriptions[chatSelector.selectedIndex - 1]}
+
+								This is the setting of the world you live in: 
+
+								These are the other characters who live in your world:
+								Character 1:
+								${character_descriptions[chatSelector.selectedIndex % 3]}
+
+								Character 2:
+								${character_descriptions[(chatSelector.selectedIndex + 1) % 3]}
+
+								Always answer exactly what your assigned chatracter would answer and never answer as chatgpt. Choose suitable details if necessary to answer the question and answer in the tone the character speaks in. You never greet or introduce yourself, just answer the question.`;
+			}
+
 			data = {
-				setting: document.getElementById("setting").value,
-				genre: document.getElementById("genre").value,
+				system_prompt: prompt_text,
+				user_prompt: document.getElementById("user-chat-input").value,
 			}
 			// Make a POST request to the server with the JSON data
-			fetch((prefix + '/global'), {
+			fetch((prefix + '/chat'), {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -459,8 +514,11 @@
 				body: JSON.stringify(data)
 			})
 				.then(response => {
-					// Handle the response from the server
-					console.log(response);
+					response.json().then(parsedValue => {
+						// Handle the response from the server
+						console.log(parsedValue)
+						document.getElementById("chat-speechbubble").textContent = parsedValue.content
+					})
 				})
 				.catch(error => {
 					// Handle any errors that occurred during the request
