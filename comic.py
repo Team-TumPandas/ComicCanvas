@@ -4,15 +4,43 @@ from flask import Flask, url_for, request, jsonify
 from flask_cors import CORS
 import json 
 import requests
+import re
 
 # global variables
 artist_server = "https://tum-pandas-artist.loophole.site/"
+openai.api_key = os.getenv("OPENAI_API_KEY")
+model_engine = "text-davinci-003"
+conversation_history = {}
+
+
+
+def general_comic_info(project_id): 
+    current_project = project_dict.get(project_id)
+    if current_project is None:
+        return jsonify("ERROR: non existent proj")
+    system_prompt = "You're an AI that helps comic book artists write the storyline and dialogues for the characters of a comic book."
+    user_prompt = ""
+    user_prompt += f"The style is: {current_project.style}\n"
+    user_prompt += f"The genre is: {current_project.genre}\n\n"
+    user_prompt += f"Storyline: {current_project.user_storyline}\n"
+    user_prompt += "List of characters:\n"
+    for index in range(len(current_project.character_name_list)): 
+        user_prompt += f"{index}. {current_project.character_name_list[index]} : {current_project.character_personality_list[index]}\n"
+    user_prompt += "\n"
+    return system_prompt, user_prompt
+
+chatGPT_intro_1 = "Given these information, please first create the a general script that summarizes the main content and twists of the short story. Please only provide the storyline. Please start with: \n<Story Line>"
+chatGPT_intro_2 = "Given the general storyline and a list of characters and all the information, please create detailed and descriptive storyboards and dialogues of the characters. Your output must be formatted like the following example:\n<Panel 1>\nSCENARIO DESCRIPTION: A comic book panel of a 25 year old female hacker in a darkly-lit room illuminated by the monitor, with code on the monitor. The female hacker is very focused on the monitor. In comic book style.\nDIALOGUES:\n[Dyla] \"I'm hacking into the main framework.\"\n[Anna] \"I agree with you.\”\n<Panel 2:> ..."
+chatGPT_intro_3 = ""
+
+
+
+
 
 app = Flask(__name__, static_folder='frontend', static_url_path='/')
 CORS(app)
 
 class Project:
-    #character_list = ["Batman: superhero", "joker: bad guy", "harley quinn: nurse"]
     def __init__(self):
         user_storyline = None
         style = None
@@ -21,8 +49,16 @@ class Project:
         character_gender_list = None
         character_look_list = None
         character_personality_list = None
-        pannel_map = None
+        panel_map = None
 
+    def beauty_print(self):
+        print(f"user_storyline: {self.user_storyline}") 
+        print(f"style: {self.style}")
+        print(f"genre: {self.genre}")
+        print(f"character_name_list: {self.character_name_list}")
+        print(f"character_gender_list: {self.character_gender_list}")
+        print(f"character_look_list: {self.character_look_list}")
+        print(f"character_personality_list: {self.character_personality_list}")
 
 project_dict = {}
 
@@ -36,6 +72,7 @@ def test():
     data = json.loads(request.data)
     title = data.get('title')
     return "fake storyline"
+
 
 @app.route("/global", methods=['POST'])
 def construct_storyline():
@@ -56,44 +93,136 @@ def construct_storyline():
     current_project.character_personality_list = [data.get('character_' + str(i) + '_personality') for i in range(1,4)]
     
     print(data)
-    print(f"server received request from: {title}") 
-    print(f"user_storyline: {current_project.user_storyline}") 
-    print(f"style: {current_project.style}")
-    print(f"genre: {current_project.genre}")
-    print(f"character_name_list: {current_project.character_name_list}")
-    print(f"character_gender_list: {current_project.character_gender_list}")
-    print(f"character_look_list: {current_project.character_look_list}")
-    print(f"character_personality_list: {current_project.character_personality_list}")
-    
+    print(f"BEAUTY_PRINT PROJECT {title} \n{current_project.beauty_print()}")
     output = jsonify(construct_story_line_func(title))
     return output
 
-@app.route("/storyLine", methods=['POST'])
+def construct_story_line_func(project_id):
+    current_project = project_dict.get(project_id)
+    if current_project is None:
+        return jsonify("ERROR: non existent proj")
+    
+    system_prompt, user_prompt = general_comic_info(project_id)
+    chatGPT_response = ask_chat_GPT(system_prompt=system_prompt, user_prompt= user_prompt+chatGPT_intro_1)
+    try:
+        chatGPT_response = chatGPT_response.split("<Story Line>")[1]
+    except:
+        pass
+    print(chatGPT_response.strip())
+    return chatGPT_response.strip()
+
+@app.route("/storyline", methods=['POST'])
 def construct_first_draft():
     data = json.loads(request.data)
+    #print(data)
+    
     title = data.get('title')
-    output = jsonify(construct_first_draft_func(title))
+    story_line = data.get('storyline')
+    output = jsonify(construct_first_draft_func(title, story_line))
     return output
 
-@app.route("/frameGenerator", methods=['POST'])
+def construct_first_draft_func(project_id, story_line):
+    current_project = project_dict.get(project_id)
+    if current_project is None:
+        return jsonify("ERROR: non existent proj")
+    
+    current_project.user_storyline = story_line
+    
+    system_prompt, user_prompt = general_comic_info(project_id)
+    chatGPT_response = ask_chat_GPT(system_prompt=system_prompt, user_prompt= user_prompt+chatGPT_intro_2)
+
+    ### Step 4: generate for each frame in the layout 
+    print("\n\nchatGPT_response::::" , chatGPT_response)
+    panels = parse(chatGPT_response)
+
+    print("\n\nPARSED PANELS", panels)
+    current_project.pannel_map = panels
+
+    print(f"\n\nBEAUTY_PRINT PROJECT {project_id} : ") #without panel for now 
+    current_project.beauty_print()
+    return panels
+
+@app.route("/generate_panel", methods=['POST'])
 def generate_frame():
     data = json.loads(request.data)
-    title = data.get('title')
-    planetIndex = data.get('planetIndex')
-    output = generate_frame_func(title, planetIndex)
+    #print(data)
+    current_project = project_dict.get(data.get('title'))
+    #if current_project is None:
+    #    return jsonify("ERROR: non existent proj")
+
+    panel_index = data.get('panel_index') #TODO
+    panel_info = data.get('panel_info')
+
+    #chatGPT_response = ask_GPT(general_comic_info(project_id) + chatGPT_intro_3)
+    #TODO: bauen panel_index und panel_info in chatGPT_response ein
+
+    #current_project.panel_map[panel_index] = panel_info
+    output = generate_frame_func(panel_info.get('scenario_description'))
+
+    # cache the generated image
+    #current_project.panel_map.get(panel_index)["image"] = output
     return output
 
+def generate_frame_func(scenario_description, withImage=False):
 
-@app.route("/fake_global", methods=['POST'])
-def fake_global():
-    return "output"
+    #TODO: send to chatGPT for improvement (I don't want to do this haha)
+    #print("THE SCENARIO DISCRIPTION!!!!!!", scenario_description)
+    if withImage: 
+        req = {
+            "image" : "", #TODO: receive from ???
+            "prompt" : scenario_description
+        }
+        response = requests.get(artist_server+"/img2img", params=req)
+    else:
+        req = {
+            "prompt": scenario_description
+        }
+        response = requests.get(artist_server+"/txt2img", params=req)
+        
+    if response.status_code != 200:
+        print("ERROR: could not generate image")
+        return None
+    data = response.json() # should be a list of base64 encoded images
+    #print(data)
+    
+    return data
 
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
-model_engine = "text-davinci-003"
+
+@app.route("/chat", methods=['POST'])
+def role_acting():
+    data = json.loads(request.data)
+    #output = ask_chat_GPT(data.get('user_prompt'), system_prompt=data.get('system_prompt'))
+    output = chat_with_history(data.get('user_prompt'), data.get('system_prompt'), convo_id=data.get('convo_id'))
+    return output
+
+def ask_chat_GPT(user_prompt, system_prompt='You are a helpful assistant to a comic book writer.'): 
+    completion = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt}
+        ]
+    )
+    response = completion.choices[0].message.content
+    return response
+
+def chat_with_history(user_prompt, system_prompt, USERNAME="user", SYSTEM="system", ASSISTANT="assistant", convo_id="default"):
+    # Generate a response using GPT-3
+    
+    if conversation_history.get(convo_id) is None:
+        conversation_history[convo_id] = ""
+
+    current_history = conversation_history[convo_id]
+    message = ask_chat_GPT(user_prompt, system_prompt + current_history)
+    # Update the conversation history
+    current_history += f"{USERNAME}: {user_prompt}\n"
+    current_history += f"{ASSISTANT}: {message}\n"
+    conversation_history[convo_id] = current_history
+    return message
 
 
-def ask_chat_GPT(input_prompt): 
+def ask_GPT(input_prompt): 
     completion = openai.Completion.create(
        engine=model_engine,
        prompt=input_prompt,
@@ -107,64 +236,36 @@ def ask_chat_GPT(input_prompt):
     #response_story_line = "<Story Line>\nAs the city of Gotham fell into chaos, Spiderman arrived on the scene to confront the notorious Joker. The two clashed in a brutal battle of wits and strength, with the unpredictable nature of the Joker making him a difficult opponent for Spiderman to take down.\nDespite the odds, Spiderman's quick thinking and agility allowed him to stay one step ahead of the Joker, dodging his attacks and launching his own counterattacks. The Joker's devious schemes and cunning traps only served to increase Spiderman's determination to bring him to justice.\nIn the end, Spiderman outsmarted the Joker by using his own tricks against him, leading to the villain's capture and imprisonment. With the city safe once again, Spiderman swung off into the night, ready to face whatever new challenges awaited him.\n<Dialogues>"
     return response
 
-def construct_story_line_func(project_id):
-    current_project = project_dict.get(project_id)
-    if current_project is None:
-        return jsonify("ERROR: non existent proj")
+
+def parse(input_string):
+    # Define a regular expression pattern to match the panels
+    panel_pattern = r'<Panel:? (\d+)>:?'
+
+    # Define a regular expression pattern to match the scenario description
+    description_pattern = r'SCENARIO DESCRIPTION:? (.+)'
+
+    # Define a regular expression pattern to match the dialogues
+    dialogue_pattern = r'\[(.+)\]:? (.+)'
+
+    # Initialize a dictionary to hold the panel objects
+    panel_objects = {}
+
+    # Split the input string into panels using the panel pattern
+    panels = re.split(panel_pattern, input_string)[1:]
+
+    # Iterate over the panels and create the panel objects
+    for i in range(0, len(panels), 2):
+        panel_num = int(panels[i])
+        panel_description = re.search(description_pattern, panels[i+1]).group(1)
+        dialogues = re.findall(dialogue_pattern, panels[i+1])
+        dialogue_objects = {}
+        for dialogue in dialogues:
+            speaker = dialogue[0]
+            text = dialogue[1]
+            dialogue_objects |= {speaker: text}
+        panel_objects[panel_num] = {'scenario_description': panel_description, 'dialogues': dialogue_objects}
     
-    chatGPT_purpose_intro = f"You're an AI that helps comic book artists write the storyline and dialogues for the characters of a comic book. Given the general scenario and a list of characters, you create detailed and descriptive storyboards and dialogues of the characters. "
-    chatGPT_characters_storyline_intro = "Given these information, please first create the a general script that summarizes the main content and twists of the short story. Please only provide the storyline."
-    format = "Please start with: \n<Story Line>"
-
-    output_to_chatGPT = chatGPT_purpose_intro
-    output_to_chatGPT += f"Storyline: {current_project.user_storyline}\n"
-    output_to_chatGPT += f"The style is: {current_project.style}\n"
-    output_to_chatGPT += f"The genre is: {current_project.genre}\n\n"
-    output_to_chatGPT += "List of characters:\n"
-    for index in range(len(current_project.character_name_list)): 
-        output_to_chatGPT += f"{index}. {current_project.character_name_list[index]} : {current_project.character_personality_list[index]}\n"
-    output_to_chatGPT += "\n{chatGPT_characters_storyline_intro}\n{format}"
-
-    chatGPT_response = ask_chat_GPT(output_to_chatGPT)
-    try:
-        chatGPT_response = chatGPT_response.split("<Story Line>")[1]
-    except:
-        pass
-    
-    print(chatGPT_response.strip())
-    return chatGPT_response.strip()
-
-def construct_first_draft_func(project_id):
-    current_project = project_dict.get(project_id)
-    if current_project is None:
-        return jsonify("ERROR: non existent proj")
-    
-    chatGPT_characters_storyline_intro = f"Now please create detailed and descriptive storyboards and dialogues of the characters. Your output must be formatted like the following example:"
-    format = "<Panel 1>\nSCENARIO DESCRIPTION: A comic book panel of a 25 year old female hacker in a darkly-lit room illuminated by the monitor, with code on the monitor. The female hacker is very focused on the monitor. In comic book style.\nDIALOGUES:\n[Dyla] \"I'm hacking into the main framework.\"\n[Anna] \"I agree with you.\”\n<Panel 2:> ..."
-
-    output_to_chatGPT = "\n{chatGPT_characters_storyline_intro}\n{format}"
-    chatGPT_response = ask_chat_GPT(output_to_chatGPT)
-
-    ### Step 4: generate for each frame in the layout 
-    panels = {}
-    for panel_str in chatGPT_response.split("<Panel ")[1:]:
-
-        panel = {"scenario_description": "", "dialogues": {}}
-        panel_num, panel_str = panel_str.split(">", 1)
-        scenario_description = panel_str.split("SCENARIO DESCRIPTION: ", 1)[1]
-        scenario_description, dialogs = scenario_description.split("DIALOGUES:", 1)
-        panel["scenario_description"] = scenario_description
-
-        for line in dialogs.split("[")[1:]:
-            character, quote = line.split("] \"", 1)
-            quote = quote.split("\"")[0]
-            panel["dialogues"][character] = quote
-
-        panels[int(panel_num)] = panel
-
-    print(panels)
-    current_project.pannel_map = panels
-    return panels
+    return panel_objects
 
 
 
@@ -172,43 +273,8 @@ def edit_story_func(title):
     #TODO if needed 
     return 
     
-
-def generate_frame_func(title, frameIndex, withImage=False):
-    current_project = project_dict.get(title)
     
-    if current_project is None:
-        return jsonify("ERROR: non existent proj")
     
-    scenario_description = current_project.pannel_map.get(frameIndex).get("scenario_description")
-
-    #TODO: send to chatGPT for improvement 
-    #print("THE SCENARIO DISCRIPTION!!!!!!", scenario_description)
-    
-    if withImage: 
-        req = {
-            #place holders for later
-            "image" : "", #TODO: receive from ???
-            "prompt" : scenario_description
-        }
-        response = requests.get(artist_server+"/img2img", params=req)
-    else:
-        # create a json request to a server that will generate the image
-        req = {
-            #place holders for later
-            "prompt": scenario_description
-        }
-        response = requests.get(artist_server+"/txt2img", params=req)
-        
-    if response.status_code != 200:
-        print("ERROR: could not generate image")
-        return None
-    data = response.json() # should be a list of base64 encoded images
-    print(data)
-    
-    # cache the generated image
-    current_project.pannel_map.get(frameIndex)["image"] = data
-    return data
-        
         
 
 
