@@ -131,8 +131,6 @@
 					<option value="images/comic layout.png">Panel 2</option>
 					<option value="images/comic layout.png">Panel 3</option>
 					<option value="images/comic layout 3.png">Panel 4</option>
-					<option value="images/comic layout 3.png">Panel 5</option>
-					<option value="images/comic layout.png">Panel 6</option>
 				</select>
 
 			</div>
@@ -165,8 +163,8 @@
 							display: inline-block;
 							padding: 10px;
 							background-color: #fff;
-							border: 2px solid #000;
-							border-radius: 5px;
+							border: 2px solid #67c0c86e;
+							border-radius: 15px;
 							margin: 10px;
 						}
 
@@ -179,26 +177,54 @@
 					</head>
 
 					<body>
+
+
 						<!-- First character dialogue -->
 						<div class="dialogue">
-							<span class="character-name">Character 1:</span>
-							<span class="dialogue-text">[Insert dialogue here which is super long]</span>
+							<span class="character-name" id="char1">[Char 1 placeholder]</span>
+							<span class="dialogue-text" id="dialogue1">[Insert dialogue here which is super long]</span>
 						</div>
 						<!-- Second character dialogue -->
 						<div class="dialogue">
-							<span class="character-name">Character 2:</span>
-							<span class="dialogue-text">[Insert dialogue here which is super long]</span>
+							<span class="character-name" id="char2">[Char 2 placeholder]</span>
+							<span class="dialogue-text" id="dialogue2">[Insert dialogue here which is super long]</span>
 						</div>
 						<!-- Third character dialogue -->
 						<div class="dialogue">
-							<span class="character-name">Character 3:</span>
-							<span class="dialogue-text">[Insert dialogue here which is super long]</span>
+							<span class="character-name" id="char3">[Char 3 placeholder]</span>
+							<span class="dialogue-text" id="dialogue3">[Insert dialogue here which is super long]</span>
 						</div>
+						<div>
+							<h2>Select an image</h2>
+							<input type="file" id="myFileInput">
+						</div>
+
+						<div>
+							<img id="previewImage" width="300">
+						</div>
+
+						<script>
+							const fileInput = document.getElementById("myFileInput");
+							const previewImage = document.getElementById("previewImage");
+
+							fileInput.addEventListener("change", function () {
+								const file = fileInput.files[0];
+								const reader = new FileReader();
+
+								reader.addEventListener("load", function () {
+									previewImage.src = reader.result;
+								}, false);
+
+								if (file) {
+									reader.readAsDataURL(file);
+								}
+							});
+						</script>
 				</div>
 			</div>
 			<div class="column2">
 				<div class="panel">
-					<img class="result" src="images/comic layout 3.png" , width=120%,></img>
+					<img class="result" src="images/comic layout 3.png" id="panelID" , width=120%,></img>
 				</div>
 			</div>
 
@@ -230,9 +256,62 @@
 		selectElement.addEventListener("change", (event) => {
 			const result = document.querySelector(".result");
 			result.src = event.target.value;
+			// print result
+			console.log(result);
+			console.log(result.src)
+			console.log(event.target.value)
+			console.log(result.id)
+			// TODO change dialogue box to match panel
+			if (result == "Panel 1") {
+				result.src == panels.panel1.panel1_image;
+				// e.g change char 1 name
+				var char1 = document.getElementById("char1");
+				char1.innerHTML = panels.panel1.panel1_character;
+			} else if (result == "Panel 2") {
+				result.src == panels.panel2.panel2_image;
+				// e.g change char 2 name
+				var char2 = document.getElementById("char2");
+				char2.innerHTML = panels.panel2.panel2_character;
+				result.src = event.target.value;
+			} else if (result == "Panel 3") {
+				result.src == panels.panel3.panel3_image;
+				var char3 = document.getElementById("char3");
+				char3.innerHTML = panels.panel3.panel3_character;
+			} else if (result == "Panel 4") {
+				result.src == panels.panel4.panel4_image;
+				var char4 = document.getElementById("char4");
+				char4.innerHTML = panels.panel4.panel4_character;
+			}
 		});
 
+
+		// panels[panel1][panel1_image]
+		// dynamic list for panels
+		var panels = {
+			"panel1": {
+				"panel1_image": "images/Placeholder.png",
+				"panel1_dialogue": "This is a dialogue text",
+				"panel1_character": "Character 1 name"
+			},
+			"panel2": {
+				"panel2_image": "images/Placeholder2.png",
+				"panel2_dialogue": "This is a dialogue text",
+				"panel2_character": "character 2 name"
+			},
+			"panel3": {
+				"panel3_image": "images/comic layout 3.png",
+				"panel3_dialogue": "This is a dialogue text",
+				"panel3_character": "character 3 name"
+			},
+			"panel4": {
+				"panel4_image": "images/comic layout 4.png",
+				"panel4_dialogue": "This is a dialogue text",
+				"panel4_character": "Character 4 name"
+			}
+		}
 		const chatSelector = document.getElementById('chat-select');
+
+		const imageSelector = document.getElementById('chat-select');
 		const image = document.getElementById('chat-image');
 		const speechBubble = document.getElementById('chat-speechbubble');
 
@@ -275,6 +354,16 @@
 
 		//Communicate with server
 		var prefix = 'http://192.168.2.2:6969'
+
+
+		function parseJSON(response) {
+			// Check if the response is valid
+			if (!response.ok) {
+				throw Error(response.statusText);
+			}
+			// Parse the JSON from the response
+			return response.json();
+		}
 
 		function postJSON(data) {
 			// Make a POST request to the server with the JSON data
