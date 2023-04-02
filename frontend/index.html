@@ -99,9 +99,9 @@
 		</div>
 
 		<!--Next page-->
-		<form id="pageForm" class="container">
-			<h2>Page</h2>
-			<textarea class="textbox" maxlength="500" placeholder="What happens next?" id="page_description"></textarea>
+		<form id="storyline_form" class="container">
+			<h2>Storyline</h2>
+			<textarea class="textbox" maxlength="500" placeholder="What happens next?" id="storyline"></textarea>
 			<button class="submit-button">Let your storyline unfold...</button>
 		</form>
 
@@ -118,7 +118,8 @@
 					<label>
 						<input type="radio" name="test" value="big">
 						<img src="images/comic layout 2.png" ,alt="Layout2" width="80" , height="80">
-					</label><label>
+					</label>
+					<label>
 						<input type="radio" name="test" value="big">
 						<img src="images/comic layout 3.png" ,alt="Layout3" width="80" , height="80">
 					</label>
@@ -126,11 +127,7 @@
 			</div>
 			<!--choose panels-->
 			<div class="box2">
-				<select class="panels" name="panels">
-					<option value="images/comic layout.png">Panel 1</option>
-					<option value="images/comic layout.png">Panel 2</option>
-					<option value="images/comic layout.png">Panel 3</option>
-					<option value="images/comic layout 3.png">Panel 4</option>
+				<select class="panels" id="panelselector">
 				</select>
 
 			</div>
@@ -151,10 +148,10 @@
 			</style>
 			<div>
 				<div class="column1">
-					<form id="pageForm">
+					<form id="panel_description_form">
 						<h2>Description</h2>
-						<textarea class="textbox" maxlength="700" placeholder="Storyline"
-							id="page_description"></textarea>
+						<textarea class="textbox" maxlength="700" placeholder="Description"
+							id="panel_description"></textarea>
 					</form>
 
 					<style>
@@ -179,18 +176,18 @@
 					<body>
 						<!-- First character dialogue -->
 						<div class="dialogue">
-							<span class="character-name" id="char1">[Char 1 placeholder]</span>
-							<span class="dialogue-text" id="dialogue1">[Insert dialogue here which is super long]</span>
+							<span class="character-name" id="char1">[Character 1]:</span>
+							<span class="dialogue-text" id="dialogue1">dialogue</span>
 						</div>
 						<!-- Second character dialogue -->
 						<div class="dialogue">
-							<span class="character-name" id="char2">[Char 2 placeholder]</span>
-							<span class="dialogue-text" id="dialogue2">[Insert dialogue here which is super long]</span>
+							<span class="character-name" id="char2">[Character 2]:</span>
+							<span class="dialogue-text" id="dialogue2">dialogue</span>
 						</div>
 						<!-- Third character dialogue -->
 						<div class="dialogue">
-							<span class="character-name" id="char3">[Char 3 placeholder]</span>
-							<span class="dialogue-text" id="dialogue3">[Insert dialogue here which is super long]</span>
+							<span class="character-name" id="char3">[Character 3]:</span>
+							<span class="dialogue-text" id="dialogue3">dialogue</span>
 						</div>
 				</div>
 			</div>
@@ -219,62 +216,64 @@
 	</div>
 	<script>
 		//html stuff
-		const selectElement = document.querySelector(".panels");
+		const selectElement = document.getElementById("panelselector");
 		selectElement.addEventListener("change", (event) => {
-			const result = document.querySelector(".result");
-			result.src = event.target.value;
-			// print result
-			console.log(result);
-			console.log(result.src)
-			console.log(event.target.value)
-			console.log(result.id)
-			// TODO change dialogue box to match panel
-			if (result == "Panel 1") {
-				result.src == panels.panel1.panel1_image;
-				// e.g change char 1 name
-				var char1 = document.getElementById("char1");
-				char1.innerHTML = panels.panel1.panel1_character;
-			} else if (result == "Panel 2") {
-				result.src == panels.panel2.panel2_image;
-				// e.g change char 2 name
-				var char2 = document.getElementById("char2");
-				char2.innerHTML = panels.panel2.panel2_character;
-				result.src = event.target.value;
-			} else if (result == "Panel 3") {
-				result.src == panels.panel3.panel3_image;
-				var char3 = document.getElementById("char3");
-				char3.innerHTML = panels.panel3.panel3_character;
-			} else if (result == "Panel 4") {
-				result.src == panels.panel4.panel4_image;
-				var char4 = document.getElementById("char4");
-				char4.innerHTML = panels.panel4.panel4_character;
+			let selected = event.target.value;
+			document.getElementById("panel_description").value = panels[selected]["scenario_description"];
+			dialog_list = panels[selected]['dialogues'];
+
+			// first clear all dialogs
+			for (let i = 1; i <= 3; i++) {
+				document.getElementById("char"+i).innerHTML = "[Character "+i+"]:";
+				document.getElementById("dialogue"+i).innerHTML = "dialogue";
+			}
+
+			let i = 1;
+			for (var key in dialog_list) {
+				if (dialog_list.hasOwnProperty(key)) {
+					document.getElementById("char"+i).innerHTML = key;
+					document.getElementById("dialogue"+i).innerHTML = dialog_list[key];
+					i++;
+				}
 			}
 		});
 
 		// panels[panel1][panel1_image]
 		// dynamic list for panels
 		var panels = {
-			"panel1": {
-				"panel1_image": "images/Placeholder.png",
-				"panel1_dialogue": "This is a dialogue text",
-				"panel1_character": "Character 1 name"
+			1: {
+				"scenario_description": "Spiderman and Joker are facing each other on a busy street. The sun is setting in the background, casting an orange glow over the scene. Spiderman is in a crouched position, ready to pounce. Joker is holding a knife, grinning maniacally.\n",
+				"dialogues": {
+					"Spiderman": "You're not getting away with this, Joker.",
+					"Joker": "Oh, but Spiderman, that's the fun part!"
+				}
 			},
-			"panel2": {
-				"panel2_image": "images/Placeholder2.png",
-				"panel2_dialogue": "This is a dialogue text",
-				"panel2_character": "character 2 name"
+			2: {
+				"scenario_description": "Spiderman jumps over a car, narrowly avoiding a swipe from Joker's knife. Joker is now on top of the car, taunting Spiderman. The car is parked near a fruit stand, which Spiderman uses to his advantage.\n",
+				"dialogues": {
+					"Spiderman": "You're going to have to do better than that, Joker.",
+					"Joker": "I'm just getting started, Spiderman!"
+				}
 			},
-			"panel3": {
-				"panel3_image": "images/comic layout 3.png",
-				"panel3_dialogue": "This is a dialogue text",
-				"panel3_character": "character 3 name"
-			},
-			"panel4": {
-				"panel4_image": "images/comic layout 4.png",
-				"panel4_dialogue": "This is a dialogue text",
-				"panel4_character": "Character 4 name"
+			3: {
+				"scenario_description": "Spiderman has used his web-slinging ability to wrap Joker up in a bundle of fruit. Joker is squirming and shouting, while Spiderman looks on triumphantly. The police are arriving on the scene to take Joker into custody.\n",
+				"dialogues": {
+					"Spiderman": "Looks like you're not so tough after all, Joker.",
+					"Joker": "This isn't over, Spiderman!",
+					"Police officer": "Thanks for your help, Spiderman. We'll take it from here."
+				}
 			}
 		}
+		// add to selector
+		var select = document.getElementById("panelselector");
+		for (var i = 1; i <= Object.keys(panels).length; i++) {
+			var opt = document.createElement("option");
+			opt.value = i;
+			opt.innerHTML = "Panel " + i;
+			select.appendChild(opt);
+		}
+		// document.getElementById("panel_description").value = panels[1]["scenario_description"];
+
 
 		const imageSelector = document.getElementById('chat-select');
 		const image = document.getElementById('chat-image');
